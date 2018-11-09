@@ -1,0 +1,214 @@
+<div *ngIf="monster.name" class="card">
+    <div class="card-header bg-primary">
+        <div class="row">
+            <div class="col-8">
+                    <h4>{{ monster.name }}</h4>
+            </div>
+            <div class="col-4 text-right">
+                <h4>
+                    Cost
+                    <span class="cost badge badge-danger badge-pill">
+                        {{ monster.cost }}
+                    </span>
+                </h4>
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <div class="row">
+            <div class="col-12">
+                <span class="size">{{ monster.size }} </span> 
+                <span class="type">{{ monster.type }}</span> 
+                <span class="subtype" *ngIf="monster.subtype">, {{ monster.subtype }}</span>
+                <span class="alignment">, {{ monster.alignment }}</span>
+            </div>
+        </div>     
+      <hr/>
+      <div class="row">
+            <div class="col-4">
+                    Armor Class:
+                 </div>
+                 <div class="col-8">
+             <span class="armor_class">{{ monster.armor_class }}</span>
+          </div>
+      </div>
+      <div class="row">
+            <div class="col-4">
+                    Hit Points:
+                 </div>
+                 <div class="col-8">
+                <span class="hit_points">{{ monster.hit_points }}</span> (<span class="hit_dice">{{ monster.hit_dice }}</span>)
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-4">
+             Speed:
+          </div>
+          <div class="col-8">
+             <span>{{ monster.speed.base }} ft.</span>
+             <span *ngIf="monster.speed.fly>0">, {{ monster.speed.fly }} ft.</span>
+             <span *ngIf="monster.speed.hover===true">(Hover)</span>
+             <span *ngIf="monster.speed.climb>0">, {{ monster.speed.climb }} ft.</span>
+             <span *ngIf="monster.speed.swim>0">, {{ monster.speed.swim }} ft.</span>
+             <span *ngIf="monster.speed.burrow>0">, {{ monster.speed.burrow }} ft.</span>
+
+          </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-2">STR</div>
+        <div class="col-2">DEX</div>
+        <div class="col-2">CON</div>
+        <div class="col-2">INT</div>
+        <div class="col-2">WIS</div>
+        <div class="col-2">CHA</div>        
+      </div>
+      <div class="row">
+          <div class="col-2"><span class="strength">{{ monster.strength }}</span></div>
+          <div class="col-2"><span class="dexterity">{{ monster.dexterity }}</span></div>
+          <div class="col-2"><span class="constitution">{{ monster.constitution }}</span></div>
+          <div class="col-2"><span class="intelligence">{{ monster.intelligence }}</span></div>
+          <div class="col-2"><span class="wisdom">{{ monster.wisdom }}</span></div>
+          <div class="col-2"><span class="charisma">{{ monster.charisma }}</span></div>
+      </div>
+      <div class="row">
+          <div class="col-2">({{modifier(monster.strength)}})</div>
+          <div class="col-2">({{modifier(monster.dexterity)}})</div>
+          <div class="col-2">({{modifier(monster.constitution)}})</div>
+          <div class="col-2">({{modifier(monster.intelligence)}})</div>
+          <div class="col-2">({{modifier(monster.wisdom)}})</div>
+          <div class="col-2">({{modifier(monster.charisma)}})</div>
+      </div>
+      <hr />
+      <div class="row" *ngIf="monster.saves">
+          <div class="col-4">Saving Throws</div>
+          <div class="col-8">
+              <span *ngIf="monster.saves.strength">Str +{{monster.saves.strength}}, </span>
+              <span *ngIf="monster.saves.dexterity">Dex +{{monster.saves.dexterity}}, </span>
+              <span *ngIf="monster.saves.constitution">Con +{{monster.saves.constitution}}, </span>
+              <span *ngIf="monster.saves.intelligence">Int +{{monster.saves.intelligence}}, </span>
+              <span *ngIf="monster.saves.wisdom">Wis +{{monster.saves.wisdom}}, </span>
+              <span *ngIf="monster.saves.charisma">Cha +{{monster.saves.charisma}}, </span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.skills">
+          <div class="col-4">Skills</div>
+          <div class="col-8">
+            <span *ngIf="monster.skills.acrobatics">Acrobatics +{{ monster.skills.acrobatics }}, </span>  
+            <span *ngIf="monster.skills.athletics">Athletics +{{ monster.skills.athletics }}, </span>
+            <span *ngIf="monster.skills.animal_handling">Animal Handling +{{ monster.skills.animal_handling }}, </span>
+            <span *ngIf="monster.skills.arcana">Arcana +{{ monster.skills.arcana }}, </span>
+            <span *ngIf="monster.skills.deception">Deception +{{ monster.skills.deception }}, </span>
+            <span *ngIf="monster.skills.history">History +{{ monster.skills.history }}, </span>
+            <span *ngIf="monster.skills.insight">Insight +{{ monster.skills.insight }}, </span>
+            <span *ngIf="monster.skills.intimidation">Intimidation +{{ monster.skills.intimidation }}, </span>
+            <span *ngIf="monster.skills.investigation">Investigation +{{ monster.skills.investigation }}, </span>
+            <span *ngIf="monster.skills.medicine">Medicine +{{ monster.skills.medicine }}, </span>
+            <span *ngIf="monster.skills.nature">Nature +{{ monster.skills.nature }}, </span>
+            <span *ngIf="monster.skills.perception">Perception +{{ monster.skills.perception }}, </span>
+            <span *ngIf="monster.skills.performance">Performance +{{ monster.skills.performance }}, </span>
+            <span *ngIf="monster.skills.persuasion">Persuasion +{{ monster.skills.persuasion }}, </span>
+            <span *ngIf="monster.skills.religion">Religion +{{ monster.skills.religion }}, </span>
+            <span *ngIf="monster.skills.sleight_of_hand">Sleight of Hand +{{ monster.skills.sleight_of_hand }}, </span>
+            <span *ngIf="monster.skills.stealth">Stealth +{{ monster.skills.stealth }}, </span>
+            <span *ngIf="monster.skills.survival">Survival +{{ monster.skills.survival }}</span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.damage_immunities">
+          <div class="col-4">Dmg. Imm.</div>
+          <div class="col-8">
+                <span class="damage_immunities" *ngFor="let dmi of monster.damage_immunities; let isLast=last">
+                    {{dmi}}{{isLast ? '' : ', '}}
+                </span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.damage_resistances">
+          <div class="col-4">Dmg. Res.</div>
+          <div class="col-8">
+                <span class="damage_resistances" *ngFor="let dmr of monster.damage_resistances; let isLast=last">
+                    {{dmr}}{{isLast ? '' : ', '}}
+                </span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.condition_immunities">
+          <div class="col-4">Cnd. Imm.</div>
+          <div class="col-8">
+                <span class="condition_immunities" *ngFor="let cdi of monster.condition_immunities; let isLast=last">
+                    {{cdi}}{{isLast ? '' : ', '}}
+                </span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.senses">
+          <div class="col-4">Senses</div>
+          <div class="col-8">
+                <span class="senses" *ngFor="let sense of monster.senses; let isLast=last">
+                    {{ sense }}{{isLast ? '' : ', '}}
+                </span>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.languages">
+          <div class="col-4">Languages</div>
+          <div class="col-8">
+                <span class="languages" *ngFor="let lang of monster.languages; let isLast=last">
+                    {{ lang }}{{isLast ? '' : ', '}}
+                </span>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-4">Challenge</div>
+          <div class="col-8">
+            <span class="challenge_rating">{{ monster.challenge_rating }}</span>
+          </div>
+      </div>
+      
+      <div class="row" *ngIf="monster.special_abilities">
+          <div class="col-12">
+            <hr/>
+            <h5>Special Abilities</h5>
+            <div class="row" *ngFor="let spec of monster.special_abilities; let isLast=last">
+                    <div class="col-12"><b>{{spec.name}}:</b> {{ spec.desc }}</div>
+            </div>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.actions">
+          <div class="col-12">
+            <hr/>
+            <h5>Actions</h5>
+            <div class="row" *ngFor="let action of monster.actions; let isLast=last">
+                    <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+            </div>
+          </div>
+      </div>
+      <div class="row" *ngIf="monster.legendary_actions">
+          <div class="col-12">
+            <hr/>
+            <h5>Legendary Actions</h5>
+            <div class="row" *ngFor="let action of monster.legendary_actions; let isLast=last">
+                    <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+            </div>
+          </div>
+      </div>
+      
+      
+      
+      <span class="active">{{ monster.active }}</span>
+      
+      
+      
+    </div>
+    <!-- <div *ngIf="showActions && shoppingCart" class="card-footer"> -->
+    <div class="card-footer">
+        <!-- <button 
+            *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+            (click)="addToCart()"
+            class="btn btn-primary btn-block" >
+            Add to Cart
+        </button> -->
+        <!-- <ng-template #updateQuantity>
+            <product-quantity [product]="product" [shoppingCart]="shoppingCart"></product-quantity>
+        </ng-template> -->
+    </div>
+</div>    

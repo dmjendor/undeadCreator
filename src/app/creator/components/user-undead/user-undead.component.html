@@ -1,0 +1,26 @@
+<div class="row" *ngIf="monsters">
+    <div class="col-6">
+      <ngx-datatable
+      class="bootstrap"
+      [rows]="monsters"
+      [columns]="columns"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'>
+      >
+      
+      <ngx-datatable-column name="Name"></ngx-datatable-column>
+      <ngx-datatable-column name="Cost"></ngx-datatable-column>
+      <ngx-datatable-column name="Active" [width]="60" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected">
+            <input type="checkbox" [checked]="value" disabled="disabled" />
+          </ng-template>
+      </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+    <div class="col-6">
+        <monster-card [monster]="selectedMonster"></monster-card>   
+    </div>
+  </div>
+  

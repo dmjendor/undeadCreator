@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12">
+            <label for="baseMonster">Select Base Monster</label>
+            <select id="baseMonster" name="baseMonster" (change)="setBase()" [(ngModel)]="selectedMonster" class="form-control">
+                <option  *ngFor="let monster of filteredMonsters" [ngValue]="monster">{{monster.name}}</option>
+              </select>
+        </div>
+      </div>
+      <div class="row" *ngIf="selectedMonster && modifiers">
+        <div class="col-12">
+          <h5>Modifiers</h5>
+          <div class="row top-margin" *ngFor="let mod of modifiers">
+            <ng-container *ngIf="mod.type==='boolean'">
+              <div class="col-3 offset-1">
+                <input type="checkbox" class="checkbox" (change)="updateMonster(mod)">
+              </div>
+              <div class="col-8">
+                {{mod.name}}
+              </div>
+            </ng-container>
+            <ng-container *ngIf="mod.type==='counter'">
+                <div class="col-3 offset-1">{{mod.name}}</div>
+                <div class="col-8">
+                  <option-quantity 
+                    [costval]="mod.cost" 
+                    [baseval]="baseMonster[mod.location]" 
+                    [(totalcost)]="selectedMonster.cost" 
+                    [(optval)]="selectedMonster[mod.location]"
+                  ></option-quantity>
+                </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <monster-card *ngIf="selectedMonster" [monster]="selectedMonster"></monster-card>
+    </div>
+  </div>
+</div>
