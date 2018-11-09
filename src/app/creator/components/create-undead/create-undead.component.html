@@ -12,27 +12,65 @@
       <div class="row" *ngIf="selectedMonster && modifiers">
         <div class="col-12">
           <h5>Modifiers</h5>
-          <div class="row top-margin" *ngFor="let mod of modifiers">
-            <ng-container *ngIf="mod.type==='boolean'">
-              <div class="col-3 offset-1">
-                <input type="checkbox" class="checkbox" (change)="updateMonster(mod)">
-              </div>
-              <div class="col-8">
-                {{mod.name}}
-              </div>
-            </ng-container>
-            <ng-container *ngIf="mod.type==='counter'">
-                <div class="col-3 offset-1">{{mod.name}}</div>
-                <div class="col-8">
-                  <option-quantity 
-                    [costval]="mod.cost" 
-                    [baseval]="baseMonster[mod.location]" 
-                    [(totalcost)]="selectedMonster.cost" 
-                    [(optval)]="selectedMonster[mod.location]"
-                  ></option-quantity>
-                </div>
-            </ng-container>
-          </div>
+          <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion" activeIds="ngb-panel-0">
+              <ngb-panel title="Stats">
+                <ng-template ngbPanelContent>
+                    <div class="row top-margin" [class.hidden]="mod.type!=='ability'" *ngFor="let mod of modifiers">
+                            <div class="col-4"><b>{{mod.name}}</b></div>
+                            <div class="col-8">
+                              <option-quantity 
+                                [costval]="mod.cost" 
+                                [baseval]="baseMonster[mod.location]" 
+                                [(totalcost)]="selectedMonster.cost" 
+                                [(optval)]="selectedMonster[mod.location]"
+                              ></option-quantity>
+                            </div>
+                      </div>
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel>
+                  <ng-template ngbPanelTitle>
+                    <span>Combat</span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                      <div class="row top-margin" [class.hidden]="mod.type!=='combat'" *ngFor="let mod of modifiers">
+                          <div class="col-4"><b>{{mod.name}}</b></div>
+                          <div class="col-8">
+                            <option-quantity 
+                              [costval]="mod.cost" 
+                              [baseval]="baseMonster[mod.location]" 
+                              [(totalcost)]="selectedMonster.cost" 
+                              [(optval)]="selectedMonster[mod.location]"
+                            ></option-quantity>
+                          </div>  
+                      </div>
+                  </ng-template>
+                </ngb-panel>
+              <ngb-panel>
+                <ng-template ngbPanelTitle>
+                  <span>Special Abilities</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="row" [class.hidden]="mod.type!=='special'" *ngFor="let mod of modifiers">
+                        <ng-container>
+                          <div class="col-2 text-right">
+                            <input type="checkbox" class="checkbox" [(ngModel)]="mod.added" (change)="updateMonster(mod)">
+                          </div>
+                          <div class="col-8">
+                              <b>{{mod.name}}</b>
+                          </div>
+                          <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                          </div>
+                        </ng-container>
+                      </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+
+
+
+          
         </div>
       </div>
     </div>

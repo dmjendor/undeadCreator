@@ -50,8 +50,15 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   }
 
 
-  updateMonster(mod) {
-    console.log(mod);
+  updateMonster(mod: Modifier) {
+    if (mod.added) {
+      this.selectedMonster.cost += mod.cost;
+      this.selectedMonster[mod.location].push({name: mod.name, desc: mod.description});
+    } else {
+      this.selectedMonster.cost -= mod.cost;
+      const index = this.selectedMonster[mod.location].map(function(x) {return x.name; }).indexOf(mod.name);
+      this.selectedMonster[mod.location].splice(index, 1);
+    }
   }
 
   setBase() {

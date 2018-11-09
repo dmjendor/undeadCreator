@@ -63,6 +63,20 @@ h1, h2, h3 {
   color: #FFF;
 }
 
+.card-header {
+  background-color: $primary-color;
+}
+
+.card-header > h5 > .btn {
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
 .top-margin {
   margin-top: 10px;
 }

@@ -40,7 +40,10 @@
                     Hit Points:
                  </div>
                  <div class="col-8">
-                <span class="hit_points">{{ monster.hit_points }}</span> (<span class="hit_dice">{{ monster.hit_dice }}</span>)
+                <span class="hit_points">
+                    {{ calculated_hit_points() }}
+                </span> 
+                (<span class="hit_dice">{{monster.hit_dice_qty}}d{{ monster.hit_dice_size }}+{{ bonusHitPoints() }}</span>)
           </div>
       </div>
       <div class="row">

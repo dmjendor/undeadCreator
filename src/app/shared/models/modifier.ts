@@ -4,4 +4,5 @@ export interface Modifier {
     type: string;
     location: string;
     description: string;
+    added: boolean;
 }
