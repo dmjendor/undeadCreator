@@ -1,21 +1,19 @@
-export interface Monster {
+
+export interface Undead {
+    user: string;
     name: string;
-    active: boolean;
     cost: number;
     actions: any[];
     alignment: string;
     armor_class: string;
-    challenge_rating: string;
     strength: number;
     dexterity: number;
     constitution: number;
     intelligence: number;
     wisdom: number;
     charisma: number;
-    hit_dice: string;
     hit_dice_size: number;
     hit_dice_qty: number;
-    hit_points: number;
     condition_immunities: any[];
     damage_immunities: any[];
     damage_resistances: any[];

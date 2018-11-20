@@ -11,7 +11,7 @@ export class LoginComponent  {
   constructor(private auth: AuthService) { }
 
   login() {
-    console.log('login pressed');
     this.auth.login();
   }
+
 }

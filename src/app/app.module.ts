@@ -26,8 +26,7 @@ import { SharedModule } from './shared/shared.module';
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
        { path: '', redirectTo: 'home', pathMatch: 'full'},
-       { path: 'home', component: HomeComponent},
-       { path: 'login', component: LoginComponent }
+       { path: 'home', component: HomeComponent}
     ])
   ],
   providers: [],

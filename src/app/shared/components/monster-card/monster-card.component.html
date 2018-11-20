@@ -1,10 +1,10 @@
 <div *ngIf="monster.name" class="card">
     <div class="card-header bg-primary">
         <div class="row">
-            <div class="col-8">
+            <div class="col-7">
                     <h4>{{ monster.name }}</h4>
             </div>
-            <div class="col-4 text-right">
+            <div class="col-5 text-right">
                 <h4>
                     Cost
                     <span class="cost badge badge-danger badge-pill">
@@ -17,7 +17,6 @@
         
     </div>
     <div class="card-body">
-        <h5 class="card-title"></h5>
         <div class="row">
             <div class="col-12">
                 <span class="size">{{ monster.size }} </span> 
@@ -28,7 +27,7 @@
         </div>     
       <hr/>
       <div class="row">
-            <div class="col-4">
+            <div class="col-4 bold">
                     Armor Class:
                  </div>
                  <div class="col-8">
@@ -36,7 +35,7 @@
           </div>
       </div>
       <div class="row">
-            <div class="col-4">
+            <div class="col-4 bold">
                     Hit Points:
                  </div>
                  <div class="col-8">
@@ -47,7 +46,7 @@
           </div>
       </div>
       <div class="row">
-          <div class="col-4">
+          <div class="col-4 bold">
              Speed:
           </div>
           <div class="col-8">
@@ -62,32 +61,38 @@
       </div>
       <hr />
       <div class="row">
-        <div class="col-2">STR</div>
-        <div class="col-2">DEX</div>
-        <div class="col-2">CON</div>
-        <div class="col-2">INT</div>
-        <div class="col-2">WIS</div>
-        <div class="col-2">CHA</div>        
+        <div class="col-2 bold">STR</div>
+        <div class="col-2 bold">DEX</div>
+        <div class="col-2 bold">CON</div>
+        <div class="col-2 bold">INT</div>
+        <div class="col-2 bold">WIS</div>
+        <div class="col-2 bold">CHA</div>        
       </div>
       <div class="row">
-          <div class="col-2"><span class="strength">{{ monster.strength }}</span></div>
-          <div class="col-2"><span class="dexterity">{{ monster.dexterity }}</span></div>
-          <div class="col-2"><span class="constitution">{{ monster.constitution }}</span></div>
-          <div class="col-2"><span class="intelligence">{{ monster.intelligence }}</span></div>
-          <div class="col-2"><span class="wisdom">{{ monster.wisdom }}</span></div>
-          <div class="col-2"><span class="charisma">{{ monster.charisma }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.strength)">{{ monster.strength }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.dexterity)">{{ monster.dexterity }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.constitution)">{{ monster.constitution }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.intelligence)">{{ monster.intelligence }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.wisdom)">{{ monster.wisdom }}</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.charisma)">{{ monster.charisma }}</span></div>
       </div>
       <div class="row">
-          <div class="col-2">({{modifier(monster.strength)}})</div>
-          <div class="col-2">({{modifier(monster.dexterity)}})</div>
-          <div class="col-2">({{modifier(monster.constitution)}})</div>
-          <div class="col-2">({{modifier(monster.intelligence)}})</div>
-          <div class="col-2">({{modifier(monster.wisdom)}})</div>
-          <div class="col-2">({{modifier(monster.charisma)}})</div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.strength)">({{modifier(monster.strength)}})</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.dexterity)">({{modifier(monster.dexterity)}})</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.constitution)">({{modifier(monster.constitution)}})</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.intelligence)">({{modifier(monster.intelligence)}})</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.wisdom)">({{modifier(monster.wisdom)}})</span></div>
+          <div class="col-2"><span [class.danger]="invalidModifier(monster.charisma)">({{modifier(monster.charisma)}}</span>)</div>
       </div>
       <hr />
+      <div class="row">
+          <div class="col-3"><strong>Prof:</strong> +{{ monster.proficiency }}</div>
+          <div class="col-4"><strong>Melee:</strong> {{ calculated_attack(monster.strength) }}</div>
+          <div class="col-4"><strong>Ranged:</strong> {{ calculated_attack(monster.dexterity) }}</div>
+      </div>
+      
       <div class="row" *ngIf="monster.saves">
-          <div class="col-4">Saving Throws</div>
+          <div class="col-4 bold">Saving Throws</div>
           <div class="col-8">
               <span *ngIf="monster.saves.strength">Str +{{monster.saves.strength}}, </span>
               <span *ngIf="monster.saves.dexterity">Dex +{{monster.saves.dexterity}}, </span>
@@ -98,7 +103,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.skills">
-          <div class="col-4">Skills</div>
+          <div class="col-4 bold">Skills</div>
           <div class="col-8">
             <span *ngIf="monster.skills.acrobatics">Acrobatics +{{ monster.skills.acrobatics }}, </span>  
             <span *ngIf="monster.skills.athletics">Athletics +{{ monster.skills.athletics }}, </span>
@@ -121,7 +126,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.damage_immunities">
-          <div class="col-4">Dmg. Imm.</div>
+          <div class="col-4 bold">Dmg. Imm.</div>
           <div class="col-8">
                 <span class="damage_immunities" *ngFor="let dmi of monster.damage_immunities; let isLast=last">
                     {{dmi}}{{isLast ? '' : ', '}}
@@ -129,7 +134,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.damage_resistances">
-          <div class="col-4">Dmg. Res.</div>
+          <div class="col-4 bold">Dmg. Res.</div>
           <div class="col-8">
                 <span class="damage_resistances" *ngFor="let dmr of monster.damage_resistances; let isLast=last">
                     {{dmr}}{{isLast ? '' : ', '}}
@@ -137,7 +142,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.condition_immunities">
-          <div class="col-4">Cnd. Imm.</div>
+          <div class="col-4 bold">Cnd. Imm.</div>
           <div class="col-8">
                 <span class="condition_immunities" *ngFor="let cdi of monster.condition_immunities; let isLast=last">
                     {{cdi}}{{isLast ? '' : ', '}}
@@ -145,7 +150,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.senses">
-          <div class="col-4">Senses</div>
+          <div class="col-4 bold">Senses</div>
           <div class="col-8">
                 <span class="senses" *ngFor="let sense of monster.senses; let isLast=last">
                     {{ sense }}{{isLast ? '' : ', '}}
@@ -153,7 +158,7 @@
           </div>
       </div>
       <div class="row" *ngIf="monster.languages">
-          <div class="col-4">Languages</div>
+          <div class="col-4 bold">Languages</div>
           <div class="col-8">
                 <span class="languages" *ngFor="let lang of monster.languages; let isLast=last">
                     {{ lang }}{{isLast ? '' : ', '}}
@@ -161,13 +166,13 @@
           </div>
       </div>
       <div class="row">
-          <div class="col-4">Challenge</div>
+          <div class="col-4 bold">Challenge</div>
           <div class="col-8">
             <span class="challenge_rating">{{ monster.challenge_rating }}</span>
           </div>
       </div>
       
-      <div class="row" *ngIf="monster.special_abilities">
+      <div class="row" *ngIf="monster.special_abilities && monster.special_abilities.length>0">
           <div class="col-12">
             <hr/>
             <h5>Special Abilities</h5>
@@ -176,7 +181,7 @@
             </div>
           </div>
       </div>
-      <div class="row" *ngIf="monster.actions">
+      <div class="row" *ngIf="monster.actions && monster.actions.length>0">
           <div class="col-12">
             <hr/>
             <h5>Actions</h5>
@@ -185,7 +190,7 @@
             </div>
           </div>
       </div>
-      <div class="row" *ngIf="monster.legendary_actions">
+      <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
           <div class="col-12">
             <hr/>
             <h5>Legendary Actions</h5>

@@ -11,7 +11,7 @@ import { CreateUndeadComponent } from './components/create-undead/create-undead.
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'createUndead', component: CreateUndeadComponent, canActivate: [AuthGuard] },
+      { path: 'create-undead', component: CreateUndeadComponent, canActivate: [AuthGuard] },
       { path: 'undead', component: UserUndeadComponent, canActivate: [AuthGuard] },
     ])
   ],

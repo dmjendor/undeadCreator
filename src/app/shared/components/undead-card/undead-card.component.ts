@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Monster } from 'shared/models/monster';
+import { Undead } from 'shared/models/undead';
 import { AppUser } from 'shared/models/app-user';
 import { AuthService } from 'shared/services/auth.service';
 import { CardService } from 'shared/services/card.service';
 
 
 @Component({
-  selector: 'monster-card',
-  templateUrl: './monster-card.component.html',
-  styleUrls: ['./monster-card.component.css']
+  selector: 'undead-card',
+  templateUrl: './undead-card.component.html',
+  styleUrls: ['./undead-card.component.css']
 })
-export class MonsterCardComponent implements OnInit {
-  @Input() monster: Monster;
+export class UndeadCardComponent implements OnInit {
+  @Input() undead: Undead;
   appUser: AppUser;
 
   constructor(
@@ -19,17 +19,12 @@ export class MonsterCardComponent implements OnInit {
     private card: CardService
     ) {}
 
-    async ngOnInit() {
-      console.log(this.calculated_hit_points());
-      this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    }
-
   calculated_hit_points = function() {
-    return this.card.calculated_hit_points(this.monster);
+    return this.card.calculated_hit_points(this.undead);
   };
 
   calculated_attack = function(stat: number) {
-    return this.card.calculated_attack(stat, this.monster);
+    return this.card.calculated_attack(stat);
   };
 
   modifier = function(stat: number) {
@@ -41,8 +36,12 @@ export class MonsterCardComponent implements OnInit {
   };
 
   bonusHitPoints = function() {
-    return this.card.bonusHitPoints(this.monster);
+    return this.card.bonusHitPoints(this.undead);
   };
+
+  async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+  }
 
 }
 

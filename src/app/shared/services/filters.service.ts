@@ -10,7 +10,6 @@ export class FiltersService {
   constructor() { }
 
   private applyFilters(source) {
-    console.log(source, this.filters);
     return _.filter(source, _.conforms(this.filters) );
 
     // this.filteredMonsters = _.filter(this.monsters, _.conforms(this.filters) );

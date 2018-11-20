@@ -15,6 +15,8 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { OptionQuantityComponent } from './components/option-quantity/option-quantity.component';
 import { FiltersService } from './services/filters.service';
+import { SpellQuantityComponent } from './components/spell-quantity/spell-quantity.component';
+import { UndeadCardComponent } from './components/undead-card/undead-card.component';
 
 
 @NgModule({
@@ -29,11 +31,15 @@ import { FiltersService } from './services/filters.service';
   ],
   declarations: [
     MonsterCardComponent,
-    OptionQuantityComponent
+    OptionQuantityComponent,
+    SpellQuantityComponent,
+    UndeadCardComponent
   ],
   exports: [
     MonsterCardComponent,
+    UndeadCardComponent,
     OptionQuantityComponent,
+    SpellQuantityComponent,
     CommonModule,
     FormsModule,
     CustomFormsModule,

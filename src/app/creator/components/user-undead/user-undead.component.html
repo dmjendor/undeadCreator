@@ -1,8 +1,17 @@
-<div class="row" *ngIf="monsters">
+<div class="row">
+  <div class="col-12">
+    <a class="btn btn-lg btn-primary btn-block"
+      routerLink="/create-undead"  
+    >
+      <span>Create Undead</span>
+  </a>
+  </div>
+</div>
+<div class="row" *ngIf="undead">
     <div class="col-6">
       <ngx-datatable
       class="bootstrap"
-      [rows]="monsters"
+      [rows]="undead"
       [columns]="columns"
       [selected]="selected"
       [selectionType]="'single'"
@@ -18,9 +27,35 @@
           </ng-template>
       </ngx-datatable-column>
       </ngx-datatable>
+      <div class="row">
+        <div class="col-12">
+            <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">
+                <ngb-panel>
+                  <ng-template ngbPanelTitle>
+                    <span>Spells/Cost</span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                      <div class="row top-margin" [class.hidden]="spell.level>appUser.level" *ngFor="let spell of spells">
+                          <div class="col-7"><b>{{spell.name}}</b></div>
+                          <div class="col-5">
+                            <spell-quantity 
+                              [baseval]="0" 
+                              [(totalcost)]="selectedUndead.cost" 
+                              [necromancer]="appUser.necromancer"                          
+                              [pointval]="spell.points" 
+                              [npointval]="spell.npoints"
+                              [(optval)]="selectedSpells[spell.key].count"
+                            ></spell-quantity>
+                          </div>
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+        </div>
+      </div>
     </div>
     <div class="col-6">
-        <monster-card [monster]="selectedMonster"></monster-card>   
+        <undead-card [undead]="selectedUndead"></undead-card>   
     </div>
   </div>
   
