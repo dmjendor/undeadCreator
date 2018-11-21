@@ -1,4 +1,5 @@
 export interface Monster {
+    user: string; // placeholder for undead
     name: string;
     active: boolean;
     cost: number;

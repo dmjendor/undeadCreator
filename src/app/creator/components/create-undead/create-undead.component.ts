@@ -8,10 +8,10 @@ import { ModifierService } from 'shared/services/modifier.service';
 import { FiltersService } from 'shared/services/filters.service';
 import { SizeService } from 'shared/services/size.service';
 import { Size } from 'shared/models/size';
-import { SpellService } from 'shared/services/spell.service';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
 import { UndeadService } from 'shared/services/undead.service';
+import { Monster } from 'shared/models/monster';
 
 @Component({
   selector: 'create-undead',
@@ -20,10 +20,10 @@ import { UndeadService } from 'shared/services/undead.service';
 })
 
 export class CreateUndeadComponent  implements OnInit, OnDestroy {
-  monsters: Undead[];
-  selectedMonster: Undead;
-  baseMonster: Undead;
-  filteredMonsters: Undead[];
+  monsters: Monster[];
+  selectedMonster: Monster;
+  baseMonster: Monster;
+  filteredMonsters: Monster[];
   modifiers: Modifier[];
   monsterSub: Subscription;
   modifierSub: Subscription;
@@ -135,6 +135,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
 
   createUndead() {
     const newDead = this.selectedMonster as Undead;
+
     newDead.user = localStorage.getItem('userId');
     this.undeadService.create(newDead);
   }

@@ -21,17 +21,24 @@ export class OptionQuantityComponent {
   @Input('totalcost') set setTotalCostValue(value) {
     this.totalcost = value;
   }
+  @Input('step') set setStepValue(value) {
+    this.step = value;
+  }
+  @Input('max') set setMaxValue(value) {
+    this.max = value;
+  }
 
+  step = 1;
+  max = 10;
   base = 0;
   count = 0;
   cost = 0;
-  max = 25;
   totalcost = 0;
 
   increment() {
     if (this.count < this.max) {
-      this.count++;
-      this.totalcost += this.cost;
+      this.count += this.step;
+      this.totalcost += this.cost * this.step;
       this.emitter1.emit(this.count);
       this.emitter2.emit(this.totalcost);
     }
@@ -39,8 +46,8 @@ export class OptionQuantityComponent {
 
   decrement() {
     if (this.count > this.base) {
-      this.count--;
-      this.totalcost -= this.cost;
+      this.count -= this.step;
+      this.totalcost -= this.cost * this.step;
       this.emitter1.emit(this.count);
       this.emitter2.emit(this.totalcost);
     }

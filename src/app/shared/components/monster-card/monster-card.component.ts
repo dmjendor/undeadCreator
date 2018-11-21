@@ -12,6 +12,7 @@ import { CardService } from 'shared/services/card.service';
 })
 export class MonsterCardComponent implements OnInit {
   @Input() monster: Monster;
+  @Input() edit: boolean;
   appUser: AppUser;
 
   constructor(
