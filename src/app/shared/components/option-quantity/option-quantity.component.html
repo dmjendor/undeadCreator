@@ -5,14 +5,18 @@
                     class="btn btn-outline-secondary btn-primary" 
                     type="button" 
                     id="button-addon1"
-                    [disabled]="count===base"
+                    [disabled]="count<=base"
                     >
                     <i class="fas fa-minus"></i>    
                 </button>
             </div>
             <input type="text" class="form-control" [(ngModel)]="count" (input)="onChange();">
             <div class="input-group-append">
-                <button (click)="increment()" class="btn btn-outline-secondary btn-primary" type="button" id="button-addon2">
+                <button (click)="increment()" 
+                    class="btn btn-outline-secondary btn-primary" 
+                    type="button" 
+                    id="button-addon2"
+                    [disabled]="count>=max">
                     <i class="fas fa-plus"></i>	
                 </button>
             </div>

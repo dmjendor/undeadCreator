@@ -152,11 +152,11 @@
                 </span>
           </div>
       </div>
-      <div class="row" *ngIf="monster.senses">
+      <div class="row">
           <div class="col-4 bold">Senses</div>
           <div class="col-8">
-                <span class="senses" *ngFor="let sense of monster.senses; let isLast=last">
-                    {{ sense }}{{isLast ? '' : ', '}}
+                <span class="senses" *ngFor="let sense of monsterKeys(monster.senses); let isLast=last">
+                    <span *ngIf="monster.senses[sense]>0">{{toTitleCase(sense)}} {{monster.senses[sense]}}ft{{isLast ? '' : ', '}}</span>
                 </span>
           </div>
       </div>

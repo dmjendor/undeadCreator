@@ -17,7 +17,7 @@
                     <span>Stats</span>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <div class="row top-margin" [class.hidden]="mod.type!=='ability'" *ngFor="let mod of modifiers">
+                    <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
                             <div class="col-7"><b>{{mod.name}}</b></div>
                             <div class="col-5">
                               <option-quantity
@@ -57,10 +57,10 @@
                       <span>Movement</span>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                        <div class="row top-margin" [class.hidden]="mod.type!=='speed'" *ngFor="let mod of modifiers">
+                        <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
                             <div class="col-4"><b>{{mod.name}}</b></div>
                             <div class="col-8" *ngIf="mod.type==='speed'">
-                              <option-quantity *ngIf="mod.location === 'base'"
+                              <option-quantity
                                 [max]="90"
                                 [step]="5"
                                 [costval]="mod.cost" 
@@ -77,11 +77,21 @@
                     <span>Combat</span>
                   </ng-template>
                   <ng-template ngbPanelContent>
-                      <div class="row top-margin" [class.hidden]="mod.type!=='combat'" *ngFor="let mod of modifiers">
+                      <div class="row top-margin" *ngFor="let mod of  filterModsOfType('combat')">
                           <div class="col-4"><b>{{mod.name}}</b></div>
                           <div class="col-8">
                             <option-quantity 
-                              [max]="9"
+                              *ngIf="mod.location!=='proficiency'"
+                              [max]="25"
+                              [step]="1"
+                              [costval]="mod.cost" 
+                              [baseval]="baseMonster[mod.location]" 
+                              [(totalcost)]="selectedMonster.cost" 
+                              [(optval)]="selectedMonster[mod.location]"
+                            ></option-quantity>
+                            <option-quantity 
+                              *ngIf="mod.location==='proficiency'"
+                              [max]="6"
                               [step]="1"
                               [costval]="mod.cost" 
                               [baseval]="baseMonster[mod.location]" 

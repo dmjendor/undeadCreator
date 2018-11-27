@@ -33,24 +33,34 @@ export interface Undead {
     };
     size: string;
     skills: {
-        acrobatics: number,
-        athletics: number,
-        animal_handling: number,
-        arcana: number,
-        deception: number,
-        history: number,
-        insight: number,
-        intimidation: number,
-        investigation: number,
-        medicine: number,
-        nature: number,
-        perception: number,
-        performance: number,
-        persuasion: number,
-        religion: number,
-        sleight_of_hand: number,
-        stealth: number,
-        survival: number
+        strength: {
+            athletics: number
+        },
+        dexterity: {
+            acrobatics: number,
+            sleight_of_hand: number,
+            stealth: number
+        },
+        intelligence: {
+            arcana: number,
+            history: number,
+            investigation: number,
+            nature: number,
+            religion: number
+        },
+        wisdom: {
+            animal_handling: number,
+            insight: number,
+            medicine: number,
+            perception: number,
+            survival: number
+        },
+        charisma: {
+            deception: number,
+            intimidation: number,
+            performance: number,
+            persuasion: number,
+        }
     };
     special_abilities: any[];
     speed: {

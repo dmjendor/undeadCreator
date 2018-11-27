@@ -128,7 +128,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   }
 
   setBase() {
-    this.baseMonster = Object.assign({}, this.selectedMonster);
+    this.baseMonster = JSON.parse(JSON.stringify(this.selectedMonster));
     this.currentSize = this.baseMonster.size;
     this.previousSize = this.baseMonster.size;
   }
@@ -139,6 +139,10 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
     newDead.user = localStorage.getItem('userId');
     this.undeadService.create(newDead);
   }
+
+  filterModsOfType(type) {
+    return this.modifiers.filter(x => x.type === type);
+}
 
 }
 
