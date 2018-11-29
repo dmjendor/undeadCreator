@@ -104,5 +104,6 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
       this.spellSub.unsubscribe();
     }
 
+
   }
 

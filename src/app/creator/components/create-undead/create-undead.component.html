@@ -18,7 +18,7 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
-                            <div class="col-7"><b>{{mod.name}}</b></div>
+                            <div class="col-5"><b>{{mod.name}}</b></div>
                             <div class="col-5">
                               <option-quantity
                                 [max]="25"
@@ -29,6 +29,9 @@
                                 [(optval)]="selectedMonster[mod.location]"
                               ></option-quantity>
                             </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                            </div>  
                       </div>
                 </ng-template>
               </ngb-panel>
@@ -58,8 +61,8 @@
                     </ng-template>
                     <ng-template ngbPanelContent>
                         <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
-                            <div class="col-4"><b>{{mod.name}}</b></div>
-                            <div class="col-8" *ngIf="mod.type==='speed'">
+                            <div class="col-5"><b>{{mod.name}}</b></div>
+                            <div class="col-5" *ngIf="mod.type==='speed'">
                               <option-quantity
                                 [max]="90"
                                 [step]="5"
@@ -68,6 +71,9 @@
                                 [(totalcost)]="selectedMonster.cost" 
                                 [(optval)]="selectedMonster[mod.type][mod.location]"
                               ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
                             </div>  
                         </div>
                     </ng-template>
@@ -78,8 +84,8 @@
                   </ng-template>
                   <ng-template ngbPanelContent>
                       <div class="row top-margin" *ngFor="let mod of  filterModsOfType('combat')">
-                          <div class="col-4"><b>{{mod.name}}</b></div>
-                          <div class="col-8">
+                          <div class="col-5"><b>{{mod.name}}</b></div>
+                          <div class="col-5">
                             <option-quantity 
                               *ngIf="mod.location!=='proficiency'"
                               [max]="25"
@@ -98,22 +104,81 @@
                               [(totalcost)]="selectedMonster.cost" 
                               [(optval)]="selectedMonster[mod.location]"
                             ></option-quantity>
+                          </div>
+                          <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
                           </div>  
                       </div>
                   </ng-template>
                 </ngb-panel>
+                <ngb-panel>
+                  <ng-template ngbPanelTitle>Senses</ng-template>
+                  <ng-template ngbPanelContent>
+                      
+                    <div class="row top-margin" *ngFor="let mod of filterModsOfType('senses')">
+                      <div class="col-5"><b>{{mod.name}}</b></div>
+                      <div class="col-5">
+                          <option-quantity
+                          [max]="90"
+                          [step]="5"
+                          [costval]="mod.cost" 
+                          [baseval]="baseMonster[mod.type][mod.location]" 
+                          [(totalcost)]="selectedMonster.cost" 
+                          [(optval)]="selectedMonster[mod.type][mod.location]"
+                        ></option-quantity>
+                      </div>
+                      <div class="col-2">
+                          <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                      </div>
+                        
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>Skills</ng-template>
+                    <ng-template ngbPanelContent>
+                        
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('skills')">
+                        <div class="col-5"><b>{{mod.name}}</b></div>
+                        <div class="col-5">
+                            <option-quantity
+                            [max]="10"
+                            [step]="1"
+                            [costval]="mod.cost" 
+                            [baseval]="baseMonster[mod.type][mod.location]" 
+                            [(totalcost)]="selectedMonster.cost" 
+                            [(optval)]="selectedMonster[mod.type][mod.location]"
+                          ></option-quantity>
+                        </div>
+                        <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                        </div>
+                          
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
               <ngb-panel>
                 <ng-template ngbPanelTitle>
                   <span>Special Abilities</span>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <div class="row" [class.hidden]="mod.type!=='special'" *ngFor="let mod of modifiers">
+                    <div class="row top-margin" *ngFor="let mod of filterModsOfType('elemental')">
                         <ng-container>
-                          <div class="col-2 text-right">
+                          <!-- <div class="col-2 text-right">
                             <input type="checkbox" class="checkbox" [(ngModel)]="mod.added" (change)="updateMonster(mod)">
-                          </div>
-                          <div class="col-8">
+                          </div> -->
+                          <div class="col-5">
                               <b>{{mod.name}}</b>
+                          </div>
+                          <div class="col-5">
+                            <option-quantity
+                            [max]="10"
+                            [step]="1"
+                            [costval]="mod.cost" 
+                            [baseval]="baseMonster[mod.type][mod.location]" 
+                            [(totalcost)]="selectedMonster.cost" 
+                            [(optval)]="selectedMonster[mod.type][mod.location]"
+                          ></option-quantity>
                           </div>
                           <div class="col-2">
                               <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>

@@ -1,0 +1,22 @@
+.card-header {
+    color: white;
+}
+
+.card-body {
+    padding: 0.5rm;
+}
+hr {
+    margin-top: 0; 
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 1);
+}
+
+span.danger {
+    color: red;
+    font-weight: bold;
+}
+
+.bold { 
+    font-weight: bold;
+}

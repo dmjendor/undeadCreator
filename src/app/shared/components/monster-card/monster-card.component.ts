@@ -53,6 +53,17 @@ export class MonsterCardComponent implements OnInit {
     return this.card.bonusHitPoints(this.monster);
   };
 
+  checkSpecials = function() {
+    const elements = Object.values(this.monster.elemental);
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i] > 0) {
+        console.log(elements[i]);
+        return true;
+      }
+    }
+    return false;
+  };
+
 }
 
 

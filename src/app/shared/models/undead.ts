@@ -1,5 +1,6 @@
 
 export interface Undead {
+    key: string;
     user: string;
     name: string;
     cost: number;
@@ -18,11 +19,24 @@ export interface Undead {
     damage_immunities: any[];
     damage_resistances: any[];
     damage_vulnerabilities: any[];
+    elemental: {
+        acidic: number,
+        electric: number,
+        flaming: number,
+        freezing: number,
+        necrotic: number,
+        venomous: number
+    };
     languages: any[];
     legendary_actions: any[];
     perception: number;
     proficiency: number;
-    senses: any[];
+    senses: {
+        darkvision: number,
+        blindsight: number,
+        tremorsense: number,
+        truesight: number
+    };
     saves: {
         strength: number,
         dexterity: number,
@@ -33,34 +47,24 @@ export interface Undead {
     };
     size: string;
     skills: {
-        strength: {
-            athletics: number
-        },
-        dexterity: {
-            acrobatics: number,
-            sleight_of_hand: number,
-            stealth: number
-        },
-        intelligence: {
-            arcana: number,
-            history: number,
-            investigation: number,
-            nature: number,
-            religion: number
-        },
-        wisdom: {
-            animal_handling: number,
-            insight: number,
-            medicine: number,
-            perception: number,
-            survival: number
-        },
-        charisma: {
-            deception: number,
-            intimidation: number,
-            performance: number,
-            persuasion: number,
-        }
+        athletics: number,
+        acrobatics: number,
+        sleight_of_hand: number,
+        stealth: number,
+        arcana: number,
+        history: number,
+        investigation: number,
+        nature: number,
+        religion: number,
+        animal_handling: number,
+        insight: number,
+        medicine: number,
+        perception: number,
+        survival: number,
+        deception: number,
+        intimidation: number,
+        performance: number,
+        persuasion: number
     };
     special_abilities: any[];
     speed: {

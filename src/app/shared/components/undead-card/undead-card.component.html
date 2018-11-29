@@ -1,3 +1,234 @@
-<p>
-  undead-card works!
-</p>
+<div *ngIf="undead.name" class="card">
+  <div class="card-header bg-primary">
+      <div class="row">
+          <div class="col-7"> 
+                  <h4>
+                      <span *ngIf="!edit">{{ undead.name }}</span> 
+                      <input *ngIf="edit" class="form-control" [(ngModel)]="undead.name" id="undeadname" name="undeadname" />
+                  </h4>
+          </div>
+          <div class="col-5 text-right">
+              <h4>
+                  Cost
+                  <span class="cost badge badge-danger badge-pill">
+                      {{ undead.cost | number:'1.0-2' }}
+                  </span>
+              </h4>
+          </div>
+      </div>
+      
+      
+  </div>
+  <div class="card-body">
+      <div class="row">
+          <div class="col-12">
+              <span class="size">{{ undead.size }} </span> 
+              <span class="type">{{ undead.type }}</span> 
+              <span class="subtype" *ngIf="undead.subtype">, {{ undead.subtype }}</span>
+              <span class="alignment">, {{ undead.alignment }}</span>
+          </div>
+      </div>     
+    <hr/>
+    <div class="row">
+          <div class="col-4 bold">
+                  Armor Class:
+               </div>
+               <div class="col-8">
+           <span class="armor_class">{{ undead.armor_class }}</span>
+        </div>
+    </div>
+    <div class="row">
+          <div class="col-4 bold">
+                  Hit Points:
+               </div>
+               <div class="col-8">
+              <span class="hit_points">
+                  {{ calculated_hit_points() }}
+              </span> 
+              (<span class="hit_dice">{{undead.hit_dice_qty}}d{{ undead.hit_dice_size }}+{{ bonusHitPoints() }}</span>)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 bold">
+           Speed:
+        </div>
+        <div class="col-8">
+           <span>{{ undead.speed.base }} ft.</span>
+           <span *ngIf="undead.speed.fly>0">, Fly {{ undead.speed.fly }} ft.</span>
+           <span *ngIf="undead.speed.hover===true">(Hover)</span>
+           <span *ngIf="undead.speed.climb>0">, Climb {{ undead.speed.climb }} ft.</span>
+           <span *ngIf="undead.speed.swim>0">, Swim {{ undead.speed.swim }} ft.</span>
+           <span *ngIf="undead.speed.burrow>0">, Burrow {{ undead.speed.burrow }} ft.</span>
+
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-2 bold">STR</div>
+      <div class="col-2 bold">DEX</div>
+      <div class="col-2 bold">CON</div>
+      <div class="col-2 bold">INT</div>
+      <div class="col-2 bold">WIS</div>
+      <div class="col-2 bold">CHA</div>        
+    </div>
+    <div class="row">
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.strength)">{{ undead.strength }}</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.dexterity)">{{ undead.dexterity }}</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.constitution)">{{ undead.constitution }}</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.intelligence)">{{ undead.intelligence }}</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.wisdom)">{{ undead.wisdom }}</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.charisma)">{{ undead.charisma }}</span></div>
+    </div>
+    <div class="row">
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.strength)">({{modifier(undead.strength)}})</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.dexterity)">({{modifier(undead.dexterity)}})</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.constitution)">({{modifier(undead.constitution)}})</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.intelligence)">({{modifier(undead.intelligence)}})</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.wisdom)">({{modifier(undead.wisdom)}})</span></div>
+        <div class="col-2"><span [class.danger]="invalidModifier(undead.charisma)">({{modifier(undead.charisma)}}</span>)</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-3"><strong>Prof:</strong> +{{ undead.proficiency }}</div>
+        <div class="col-4"><strong>Melee:</strong> {{ calculated_attack(undead.strength) }}</div>
+        <div class="col-4"><strong>Ranged:</strong> {{ calculated_attack(undead.dexterity) }}</div>
+    </div>
+    
+    <div class="row" *ngIf="undead.saves">
+        <div class="col-4 bold">Saving Throws</div>
+        <div class="col-8">
+            <span *ngIf="undead.saves.strength">Str +{{undead.saves.strength}}, </span>
+            <span *ngIf="undead.saves.dexterity">Dex +{{undead.saves.dexterity}}, </span>
+            <span *ngIf="undead.saves.constitution">Con +{{undead.saves.constitution}}, </span>
+            <span *ngIf="undead.saves.intelligence">Int +{{undead.saves.intelligence}}, </span>
+            <span *ngIf="undead.saves.wisdom">Wis +{{undead.saves.wisdom}}, </span>
+            <span *ngIf="undead.saves.charisma">Cha +{{undead.saves.charisma}}, </span>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.skills">
+        <div class="col-3 bold">Skills</div>
+        <div class="col-9">
+            <span *ngIf="undead.skills.acrobatics">Acrobatics +{{ undead.skills.acrobatics+modifier(undead.dexterity) }}, </span>  
+            <span *ngIf="undead.skills.athletics">Athletics +{{ undead.skills.athletics+modifier(undead.strength) }}, </span>
+            <span *ngIf="undead.skills.animal_handling">Animal Handling +{{ undead.skills.animal_handling+modifier(undead.wisdom) }}, </span>
+            <span *ngIf="undead.skills.arcana">Arcana +{{ undead.skills.arcana+modifier(undead.intelligence) }}, </span>
+            <span *ngIf="undead.skills.deception">Deception +{{ undead.skills.deception+modifier(undead.charisma) }}, </span>
+            <span *ngIf="undead.skills.history">History +{{ undead.skills.history+modifier(undead.intelligence) }}, </span>
+            <span *ngIf="undead.skills.insight">Insight +{{ undead.skills.insight+modifier(undead.wisdom) }}, </span>
+            <span *ngIf="undead.skills.intimidation">Intimidation +{{ undead.skills.intimidation+modifier(undead.charisma) }}, </span>
+            <span *ngIf="undead.skills.investigation">Investigation +{{ undead.skills.investigation+modifier(undead.intelligence) }}, </span>
+            <span *ngIf="undead.skills.medicine">Medicine +{{ undead.skills.medicine+modifier(undead.wisdom) }}, </span>
+            <span *ngIf="undead.skills.nature">Nature +{{ undead.skills.nature+modifier(undead.intelligence) }}, </span>
+            <span *ngIf="undead.skills.perception">Perception +{{ undead.skills.perception+modifier(undead.wisdom) }}, </span>
+            <span *ngIf="undead.skills.performance">Performance +{{ undead.skills.performance+modifier(undead.charisma) }}, </span>
+            <span *ngIf="undead.skills.persuasion">Persuasion +{{ undead.skills.persuasion+modifier(undead.charisma) }}, </span>
+            <span *ngIf="undead.skills.religion">Religion +{{ undead.skills.religion+modifier(undead.intelligence) }}, </span>
+            <span *ngIf="undead.skills.sleight_of_hand">Sleight of Hand +{{ undead.skills.sleight_of_hand+modifier(undead.dexterity) }}, </span>
+            <span *ngIf="undead.skills.stealth">Stealth +{{ undead.skills.stealth+modifier(undead.dexterity) }}, </span>
+            <span *ngIf="undead.skills.survival">Survival +{{ undead.skills.survival+modifier(undead.wisdom) }}</span>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.damage_immunities">
+        <div class="col-4 bold">Dmg. Imm.</div>
+        <div class="col-8">
+              <span class="damage_immunities" *ngFor="let dmi of undead.damage_immunities; let isLast=last">
+                  {{dmi}}{{isLast ? '' : ', '}}
+              </span>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.damage_resistances">
+        <div class="col-4 bold">Dmg. Res.</div>
+        <div class="col-8">
+              <span class="damage_resistances" *ngFor="let dmr of undead.damage_resistances; let isLast=last">
+                  {{dmr}}{{isLast ? '' : ', '}}
+              </span>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.condition_immunities">
+        <div class="col-4 bold">Cnd. Imm.</div>
+        <div class="col-8">
+              <span class="condition_immunities" *ngFor="let cdi of undead.condition_immunities; let isLast=last">
+                  {{cdi}}{{isLast ? '' : ', '}}
+              </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 bold">Senses</div>
+        <div class="col-8">
+              <span class="senses" *ngFor="let sense of undeadKeys(undead.senses); let isLast=last">
+                  <span *ngIf="undead.senses[sense]>0">{{toTitleCase(sense)}} {{undead.senses[sense]}}ft{{isLast ? '' : ', '}}</span>
+              </span>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.languages">
+        <div class="col-4 bold">Languages</div>
+        <div class="col-8">
+              <span class="languages" *ngFor="let lang of undead.languages; let isLast=last">
+                  {{ lang }}{{isLast ? '' : ', '}}
+              </span>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-12">
+                    <hr/>
+                    <h5>Special Abilities</h5>
+            </div>  
+    </div>
+
+    <div class="row" *ngIf="undead.elemental.acidic>0">
+            <div class="col-12"><b>Acidic</b> {{ undead.elemental.acidic }}d6 acid damage (melee attack bonus)</div>
+    </div>
+    <div class="row" *ngIf="undead.elemental.electric>0">
+        <div class="col-12"><b>Electric</b> {{ undead.elemental.electric }}d6 lightning damage (melee attack bonus)</div>
+    </div>
+    <div class="row" *ngIf="undead.elemental.flaming>0">
+            <div class="col-12"><b>Flaming</b> {{ undead.elemental.flaming }}d6 fire damage (melee attack bonus)</div>
+    </div>
+    <div class="row" *ngIf="undead.elemental.freezing>0">
+            <div class="col-12"><b>Freezing</b> {{ undead.elemental.freezing }}d6 cold damage (melee attack bonus)</div>
+    </div>
+    <div class="row" *ngIf="undead.elemental.necrotic>0">
+            <div class="col-12"><b>Necrotic</b> {{ undead.elemental.necrotic }}d6 necrotic damage (melee attack bonus)</div>
+    </div>
+    <div class="row" *ngIf="undead.elemental.venomous>0">
+            <div class="col-12"><b>Venomous</b> {{ undead.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
+    </div>
+        
+    <div class="row" *ngIf="undead.actions && undead.actions.length>0">
+        <div class="col-12">
+          <hr/>
+          <h5>Actions</h5>
+          <div class="row" *ngFor="let action of undead.actions; let isLast=last">
+                  <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+          </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="undead.legendary_actions && undead.legendary_actions.length>0">
+        <div class="col-12">
+          <hr/>
+          <h5>Legendary Actions</h5>
+          <div class="row" *ngFor="let action of undead.legendary_actions; let isLast=last">
+                  <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+          </div>
+        </div>
+    </div>
+    
+    
+  </div>
+  <!-- <div *ngIf="showActions && shoppingCart" class="card-footer"> -->
+  <div class="card-footer">
+      <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+          <button type="button" class="btn btn-secondary btn-info w-100" (click)="editUndead()">Edit</button>
+          <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteUndead()">Delete</button>
+      </div>
+      <!-- <button 
+          *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+          (click)="addToCart()"
+          class="btn btn-primary btn-block" >
+          Add to Cart
+      </button> -->
+      <!-- <ng-template #updateQuantity>
+          <product-quantity [product]="product" [shoppingCart]="shoppingCart"></product-quantity>
+      </ng-template> -->
+  </div>
+</div>    
