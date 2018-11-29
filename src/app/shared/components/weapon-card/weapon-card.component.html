@@ -1,0 +1,18 @@
+<div *ngIf="weapon.name" class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ weapon.name }}</h5>
+    <div class="card-text">
+      Light: {{weapon.light}}<br />
+      Weapon Type: {{weapon.type}}<br />
+      Damage Type: {{weapon.damage}}<br />
+      Tiny: {{weapon.tiny}}<br />
+      Small: {{weapon.small}}<br />
+      Medium: {{weapon.medium}}<br />
+      Large: {{weapon.large}}<br />
+      Huge: {{weapon.huge}}
+    </div>
+  </div>
+  <div *ngIf="showActions" class="card-footer">
+      
+  </div>
+</div>    

@@ -163,11 +163,11 @@
       </div>
       
       
-      <div class="row" *ngIf="checkSpecials()">
-            <div class="col-12">
-                    <hr/>
-                    <h5>Special Abilities</h5>
-            </div>  
+    <div class="row" *ngIf="checkSpecials()">
+        <div class="col-12">
+            <hr/>
+            <h5>Special Abilities</h5>
+        </div>  
     </div>
 
     <div class="row" *ngIf="monster.elemental.acidic>0">
@@ -188,24 +188,24 @@
     <div class="row" *ngIf="monster.elemental.venomous>0">
             <div class="col-12"><b>Venomous:</b> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
     </div>
-      <div class="row" *ngIf="monster.actions && monster.actions.length>0">
-          <div class="col-12">
-            <hr/>
-            <h5>Actions</h5>
-            <div class="row" *ngFor="let action of monster.actions; let isLast=last">
-                    <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
-            </div>
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
-          <div class="col-12">
-            <hr/>
-            <h5>Legendary Actions</h5>
-            <div class="row" *ngFor="let action of monster.legendary_actions; let isLast=last">
-                    <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
-            </div>
-          </div>
-      </div>
+    <div class="row" *ngIf="monster.actions && monster.actions.length>0">
+        <div class="col-12">
+        <hr/>
+        <h5>Actions</h5>
+        <div class="row" *ngFor="let action of monster.actions; let isLast=last">
+                <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+        </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
+        <div class="col-12">
+        <hr/>
+        <h5>Legendary Actions</h5>
+        <div class="row" *ngFor="let action of monster.legendary_actions; let isLast=last">
+                <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+        </div>
+        </div>
+    </div>
       
     </div>
     <!-- <div *ngIf="showActions && shoppingCart" class="card-footer"> -->

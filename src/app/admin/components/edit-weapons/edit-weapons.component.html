@@ -1,0 +1,23 @@
+<div class="row" *ngIf="weapons">
+    <div class="col-6">
+      <ngx-datatable
+        class="bootstrap"
+        [rows]="weapons"
+        [columns]="columns"
+        [selected]="selected"
+        [selectionType]="'single'"
+        (activate)="onActivate($event)"
+        (select)='onSelect($event)'>
+        >
+        
+        <ngx-datatable-column name="Name"></ngx-datatable-column>
+        <ngx-datatable-column name="Type"></ngx-datatable-column>
+        <ngx-datatable-column name="Damage"></ngx-datatable-column>
+    
+      </ngx-datatable>
+    </div>
+    <div class="col-6">
+        
+    </div>
+  </div>
+  

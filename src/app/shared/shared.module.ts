@@ -17,6 +17,8 @@ import { OptionQuantityComponent } from './components/option-quantity/option-qua
 import { FiltersService } from './services/filters.service';
 import { SpellQuantityComponent } from './components/spell-quantity/spell-quantity.component';
 import { UndeadCardComponent } from './components/undead-card/undead-card.component';
+import { WeaponService } from './services/weapons.service';
+import { WeaponCardComponent } from './components/weapon-card/weapon-card.component';
 
 
 @NgModule({
@@ -33,11 +35,13 @@ import { UndeadCardComponent } from './components/undead-card/undead-card.compon
     MonsterCardComponent,
     OptionQuantityComponent,
     SpellQuantityComponent,
-    UndeadCardComponent
+    UndeadCardComponent,
+    WeaponCardComponent
   ],
   exports: [
     MonsterCardComponent,
     UndeadCardComponent,
+    WeaponCardComponent,
     OptionQuantityComponent,
     SpellQuantityComponent,
     CommonModule,
@@ -49,6 +53,7 @@ import { UndeadCardComponent } from './components/undead-card/undead-card.compon
     NgbModule.forRoot().ngModule
   ],
   providers: [
+    WeaponService,
     MonsterService,
     FiltersService,
     UserService,

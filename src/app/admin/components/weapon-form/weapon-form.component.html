@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+      <div class="col-6">
+          <form #weaponForm="ngForm" (ngSubmit)="save(weaponForm.value)">
+              <div class="form-group">
+                <label for="type">Name</label>
+                <input required #name="ngModel" [(ngModel)]="weapon.name" id="name" name="name" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                  name is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="damage">Damage Type</label>
+                <input required #damage="ngModel" [(ngModel)]="weapon.damage" id="damage" name="damage" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf="damage.touched && damage.invalid">
+                  Weapon Damage Type is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="type">Weapon Type</label>
+                <input required #type="ngModel" [(ngModel)]="weapon.type" id="type" name="type" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf="type.touched && type.invalid">
+                  type is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="light">Is Weapon Light?</label>
+                <input required #light="ngModel" [(ngModel)]="weapon.light" id="light" name="light" type="checkbox" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="tiny">Tiny Damage</label>
+                <input required #tiny="ngModel" [(ngModel)]="weapon.tiny" id="tiny" name="tiny" type="text" class="form-control" placeholder="1d2">
+                <div class="alert alert-danger" *ngIf="tiny.touched && tiny.invalid">
+                  Size Tiny damage information is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="small">Small Damage</label>
+                <input required #small="ngModel" [(ngModel)]="weapon.small" id="small" name="small" type="text" class="form-control" placeholder="1d4">
+                <div class="alert alert-danger" *ngIf="small.touched && small.invalid">
+                  Size Small damage information is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="medium">Medium Damage</label>
+                <input required #medium="ngModel" [(ngModel)]="weapon.medium" id="medium" name="medium" type="text" class="form-control" placeholder="1d6">
+                <div class="alert alert-danger" *ngIf="medium.touched && medium.invalid">
+                  Size Medium damage information is required.
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <label for="large">Large Damage</label>
+                <input required #large="ngModel" [(ngModel)]="weapon.large" id="large" name="large" type="text" class="form-control" placeholder="2d6">
+                <div class="alert alert-danger" *ngIf="large.touched && large.invalid">
+                  Size Large damage information is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="huge">Huge Damage</label>
+                <input required #huge="ngModel" [(ngModel)]="weapon.huge" id="huge" name="huge" type="text" class="form-control" placeholder="3d6">
+                <div class="alert alert-danger" *ngIf="huge.touched && huge.invalid">
+                  Size Huge damage information is required.
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4"><button class="btn btn-primary">Save</button></div>
+                <div class="col-4"><button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button></div>
+                <div class="col-4"><button type="button" class="btn btn-danger" (click)="delete()">Delete</button></div>
+              </div>
+              
+              
+              
+            
+            </form>
+      </div>
+      <div class="col-6">
+        <weapon-card [weapon]="weapon" [showActions]="false"></weapon-card>
+      </div>
+    </div>
+  </div>

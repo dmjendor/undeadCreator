@@ -76,7 +76,19 @@
                                 <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
                             </div>  
                         </div>
+                        <div class="row">
+                            <div class="col-2 text-right">
+                                <input [disabled]="selectedMonster.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="selectedMonster.speed.hover" (change)="applyHover()">
+                              </div>
+                              <div class="col-8">
+                                  <b>Hover</b>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> 1 </span>
+                              </div>
+                        </div>
                     </ng-template>
+                    
                   </ngb-panel>
               <ngb-panel>
                   <ng-template ngbPanelTitle>

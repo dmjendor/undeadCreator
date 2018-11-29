@@ -142,7 +142,15 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
 
   filterModsOfType(type) {
     return this.modifiers.filter(x => x.type === type);
-}
+  }
+
+  applyHover() {
+    if (this.selectedMonster.speed.hover) {
+      this.selectedMonster.cost++;
+    } else {
+      this.selectedMonster.cost--;
+    }
+  }
 
 }
 

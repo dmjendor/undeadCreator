@@ -8,6 +8,8 @@ import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { MonsterFormComponent } from './components/monster-form/monster-form.component';
 import { ManageUndeadComponent } from './components/manage-undead/manage-undead.component';
 import { AuthGuard } from 'shared/services/auth-guard.service';
+import { EditWeaponsComponent } from './components/edit-weapons/edit-weapons.component';
+import { WeaponFormComponent } from './components/weapon-form/weapon-form.component';
 
 
 @NgModule({
@@ -33,6 +35,21 @@ import { AuthGuard } from 'shared/services/auth-guard.service';
       path: 'admin/undead',
       component: ManageUndeadComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/weapons/new',
+      component: WeaponFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+        path: 'admin/weapons/:id',
+        component: WeaponFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/weapons',
+      component: EditWeaponsComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
     }
     ])
   ],
@@ -40,6 +57,8 @@ import { AuthGuard } from 'shared/services/auth-guard.service';
     ManageMonstersComponent,
     ManageUndeadComponent,
     MonsterFormComponent,
+    EditWeaponsComponent,
+    WeaponFormComponent,
   ],
   providers: [
     AdminAuthGuard
