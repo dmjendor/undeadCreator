@@ -13,11 +13,20 @@
         <ngx-datatable-column name="Name"></ngx-datatable-column>
         <ngx-datatable-column name="Type"></ngx-datatable-column>
         <ngx-datatable-column name="Damage"></ngx-datatable-column>
-    
+        
       </ngx-datatable>
+      <div class="row">
+        <div class="col-12">
+          <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+            <button type="button" class="btn btn-secondary btn-primary w-100" (click)="createWeapon()">Create</button>
+            <button type="button" class="btn btn-secondary btn-info w-100" (click)="editWeapon()">Edit</button>
+            <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteWeapon()">Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-6">
-        
+        <weapon-card [weapon]="selectedWeapon"></weapon-card>
     </div>
   </div>
   

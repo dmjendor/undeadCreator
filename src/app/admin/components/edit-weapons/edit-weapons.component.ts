@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Weapon } from 'shared/models/weapon';
 import { WeaponService } from 'shared/services/weapons.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -20,11 +21,15 @@ export class EditWeaponsComponent implements OnInit, OnDestroy {
     selectedWeapon: Weapon;
     columns = [
       { prop: 'name' },
-      { name: 'type' },
-      { name: 'damage' }
+      { name: 'Type' },
+      { name: 'Damage' }
     ];
 
-    constructor(private weaponService: WeaponService) {
+    constructor(
+      private weaponService: WeaponService,
+      private route: ActivatedRoute,
+      private router: Router,
+      ) {
       this.subscription = this.weaponService.getAll()
       .subscribe(weapons => {
         this.weapons = weapons;
@@ -33,13 +38,22 @@ export class EditWeaponsComponent implements OnInit, OnDestroy {
         console.log(this.selectedWeapon);
         // this.initializeTable(monsters);
       });
+    }
 
+    createWeapon() {
+      this.router.navigate(['/admin/weapons/new']);
+    }
+
+    editWeapon() {
+      this.router.navigate(['/admin/weapons/' + this.selectedWeapon.key]);
+    }
+
+    deleteWeapon() {
+      this.weaponService.remove(this.selectedWeapon.key);
     }
 
     onSelect({ selected }) {
-      console.log('Select Event', selected, this.selected);
       this.selectedWeapon = this.selected[0];
-      console.log(this.selectedWeapon);
     }
 
     onActivate(event) {

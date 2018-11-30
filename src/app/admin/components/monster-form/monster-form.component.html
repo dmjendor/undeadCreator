@@ -1,28 +1,310 @@
 <div class="container">
-    <div class="row">
-      <div class="col-6">
-          <form #monsterForm="ngForm" (ngSubmit)="save(monsterForm.value)">
-              <div class="form-group">
-                <label for="name">name</label>
-                <input required #name="ngModel" [(ngModel)]="monster.name" id="name" ngModel name="name" type="text" class="form-control">
-                <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
-                  name is required.
+  <div class="row">
+    <div class="col-6">
+      <form #monsterForm="ngForm" (ngSubmit)="save(monsterForm.value)">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            required
+            #name="ngModel"
+            [(ngModel)]="monster.name"
+            id="name"
+            name="name"
+            type="text"
+            class="form-control"
+          />
+          <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+            Name is required.
+          </div>
+        </div>
+        <hr />
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="alignment">Alignment</label>
+            <select
+              required
+              #alignment="ngModel"
+              [(ngModel)]="monster.alignment"
+              id="alignment"
+              name="alignment"
+              class="form-control"
+            >
+              <option value="">Select</option>
+              <option value="lawful good">Lawful Good</option>
+              <option value="neutral good">Neutral Good</option>
+              <option value="chaotic good">Chaotic Good</option>
+              <option value="lawful neutral">Lawful Neutral</option>
+              <option value="true neutral">True Neutral</option>
+              <option value="chaotic neutral">Chaotic Neutral</option>
+              <option value="lawful evil">Lawful Evil</option>
+              <option value="neutral evil">Neutral Evil</option>
+              <option value="chaotic evil">Chaotic Evil</option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="alignment.touched && alignment.invalid"
+            >
+              Alignment is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="ac">Armor Class</label>
+            <input
+              required
+              #ac="ngModel"
+              [(ngModel)]="monster.armor_class"
+              id="ac"
+              name="ac"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="ac.touched && ac.invalid">
+              Armor Class is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="hdq">Hit Dice</label>
+            <input
+              required
+              #hdq="ngModel"
+              [(ngModel)]="monster.hit_dice_qty"
+              id="hdq"
+              name="hdq"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="hdq.touched && hdq.invalid">
+              Armor Class is required.
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="form-group row top-margin">
+          <div class="col-4">
+            <label for="str">Strength</label>
+            <input
+              required
+              #str="ngModel"
+              [(ngModel)]="monster.strength"
+              id="str"
+              name="str"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="str.touched && str.invalid">
+              Strength is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="dex">Dexterity</label>
+            <input
+              required
+              #dex="ngModel"
+              [(ngModel)]="monster.dexterity"
+              id="dex"
+              name="dex"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="dex.touched && dex.invalid">
+              is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="con">Constitution</label>
+            <input
+              required
+              #con="ngModel"
+              [(ngModel)]="monster.constitution"
+              id="con"
+              name="con"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="con.touched && con.invalid">
+              Constitution is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="int">Intelligence</label>
+            <input
+              required
+              #int="ngModel"
+              [(ngModel)]="monster.intelligence"
+              id="int"
+              name="int"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="int.touched && int.invalid">
+              Intelligence is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="wis">Wisdom</label>
+            <input
+              required
+              #wis="ngModel"
+              [(ngModel)]="monster.wisdom"
+              id="wis"
+              name="wis"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="wis.touched && wis.invalid">
+              Wisdom is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="cha">Charisma</label>
+            <input
+              required
+              #cha="ngModel"
+              [(ngModel)]="monster.charisma"
+              id="cha"
+              name="cha"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="cha.touched && cha.invalid">
+              Charisma is required.
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="prof">Proficiency</label>
+            <input
+              required
+              #prof="ngModel"
+              [(ngModel)]="monster.proficiency"
+              id="prof"
+              name="prof"
+              type="text"
+              class="form-control"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="prof.touched && prof.invalid"
+            >
+              is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="size">Size</label>
+            <select
+              required
+              #size="ngModel"
+              [(ngModel)]="monster.size"
+              id="size"
+              name="size"
+              class="form-control"
+            >
+              <option value="">Select</option>
+              <option value="Tiny">Tiny</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Huge">Huge</option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="size.touched && size.invalid"
+            >
+              Size is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="cost">Cost</label>
+            <input
+              required
+              #cost="ngModel"
+              [(ngModel)]="monster.cost"
+              id="cost"
+              name="cost"
+              type="text"
+              class="form-control"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="cost.touched && cost.invalid"
+            >
+              is required.
+            </div>
+          </div>
+        </div>
+        <hr />
+        
+          <skill-edit name="Athletics" [(skill)]="monster.skills.athletics"></skill-edit>
+          
+          <skill-edit name="Acrobatics" [(skill)]="monster.skills.acrobatics"></skill-edit>
+          <skill-edit name="Sleight of Hand" [(skill)]="monster.skills.sleight_of_hand"></skill-edit>
+          <skill-edit name="Stealth" [(skill)]="monster.skills.stealth"></skill-edit>
+
+          <skill-edit name="Arcana" [(skill)]="monster.skills.arcana"></skill-edit>
+          <skill-edit name="History" [(skill)]="monster.skills.history"></skill-edit>
+          <skill-edit name="Investigation" [(skill)]="monster.skills.investigation"></skill-edit>
+          <skill-edit name="Nature" [(skill)]="monster.skills.nature"></skill-edit>
+          <skill-edit name="Religion" [(skill)]="monster.skills.religion"></skill-edit>
+
+          <skill-edit name="Animal Handling" [(skill)]="monster.skills.animal_handling"></skill-edit>
+          <skill-edit name="Insight" [(skill)]="monster.skills.insight"></skill-edit>
+          <skill-edit name="Medicine" [(skill)]="monster.skills.medicine"></skill-edit>
+          <skill-edit name="Perception" [(skill)]="monster.skills.perception"></skill-edit>
+          <skill-edit name="Survival" [(skill)]="monster.skills.survival"></skill-edit>
+
+          <skill-edit name="Deception" [(skill)]="monster.skills.deception"></skill-edit>
+          <skill-edit name="Intimidation" [(skill)]="monster.skills.intimidation"></skill-edit>
+          <skill-edit name="Performance" [(skill)]="monster.skills.performance"></skill-edit>
+          <skill-edit name="Persuasion" [(skill)]="monster.skills.persuasion"></skill-edit>
+          
+        <!--
+          <div class="row form-group top-margin">
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="monster." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
                 </div>
-              </div>
-              
-              <div class="row">
-                <div class="col-4"><button class="btn btn-primary">Save</button></div>
-                <div class="col-4"><button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button></div>
-                <div class="col-4"><button type="button" class="btn btn-danger" (click)="delete()">Delete</button></div>
-              </div>
-              
-              
-              
-            
-            </form>
-      </div>
-      <div class="col-6"> 
-        <monster-card [monster]="monster" [edit]="false"></monster-card>
-      </div>
+            </div>
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="monster." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
+                </div>
+            </div>
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="monster." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
+                </div>
+            </div>
+          </div>
+        -->
+        <div class="row">
+          <div class="col-4"><button class="btn btn-primary">Save</button></div>
+          <div class="col-4">
+            <button type="button" class="btn btn-primary" (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-4">
+            <button type="button" class="btn btn-danger" (click)="delete()">
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <monster-card [monster]="monster" [edit]="false"></monster-card>
     </div>
   </div>
+</div>

@@ -12,7 +12,7 @@ import { Weapon } from 'shared/models/weapon';
 })
 export class WeaponFormComponent implements OnInit {
   categories$: Observable<any>;
-  weapon: Weapon;
+  weapon = {};
   id;
 
   constructor(
@@ -27,9 +27,9 @@ export class WeaponFormComponent implements OnInit {
       this.weaponService.get(this.id)
         .valueChanges()
         .pipe(take(1))
-        .subscribe((wep: Weapon) => {
-          this.weapon = wep;
-        });
+        .subscribe(p => this.weapon = p);
+    } else {
+      this.weapon.light = false;
     }
   }
 

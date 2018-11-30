@@ -6,19 +6,29 @@
                 <label for="type">Name</label>
                 <input required #name="ngModel" [(ngModel)]="weapon.name" id="name" name="name" type="text" class="form-control">
                 <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
-                  name is required.
+                  Weapon Name is required.
                 </div>
               </div>
               <div class="form-group">
                 <label for="damage">Damage Type</label>
-                <input required #damage="ngModel" [(ngModel)]="weapon.damage" id="damage" name="damage" type="text" class="form-control">
+                <select required #damage="ngModel" [(ngModel)]="weapon.damage" id="damage" name="damage" class="form-control">
+                  <option value="">Select</option>
+                  <option value="bludgeoning">Bludgeoning</option>
+                  <option value="piercing">Piercing</option>
+                  <option value="slashing">Slashing</option>
+                </select>
                 <div class="alert alert-danger" *ngIf="damage.touched && damage.invalid">
                   Weapon Damage Type is required.
                 </div>
               </div>
               <div class="form-group">
                 <label for="type">Weapon Type</label>
-                <input required #type="ngModel" [(ngModel)]="weapon.type" id="type" name="type" type="text" class="form-control">
+                <select required #type="ngModel" [(ngModel)]="weapon.type" id="type" name="type" class="form-control">
+                  <option value="">Select</option>
+                  <option value="melee">Melee</option>
+                  <option value="finesse">Finesse</option>
+                  <option value="ranged">Ranged</option>
+                </select>
                 <div class="alert alert-danger" *ngIf="type.touched && type.invalid">
                   type is required.
                 </div>

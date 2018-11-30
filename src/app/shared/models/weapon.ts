@@ -1,4 +1,5 @@
 export interface Weapon {
+    key: string;
     name: string;
     damage: damageType;
     type: weaponType;

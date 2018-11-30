@@ -16,15 +16,15 @@ import { WeaponFormComponent } from './components/weapon-form/weapon-form.compon
   imports: [
     SharedModule,
     RouterModule.forChild([
-      {
-        path: 'admin/monsters/new',
-        component: MonsterFormComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
+    {
+      path: 'admin/monsters/new',
+      component: MonsterFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
-        path: 'admin/monsters/:id',
-        component: MonsterFormComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
+      path: 'admin/monsters/:id',
+      component: MonsterFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
       path: 'admin/monsters',
@@ -42,15 +42,30 @@ import { WeaponFormComponent } from './components/weapon-form/weapon-form.compon
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
-        path: 'admin/weapons/:id',
-        component: WeaponFormComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
+      path: 'admin/weapons/:id',
+      component: WeaponFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
       path: 'admin/weapons',
       component: EditWeaponsComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
-    }
+    },
+    {
+      path: 'admin/spells/new',
+      component: MonsterFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/spells/:id',
+      component: MonsterFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/spells',
+      component: ManageMonstersComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
     ])
   ],
   declarations: [

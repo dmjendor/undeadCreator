@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Monster } from 'shared/models/monster';
 import { MonsterService } from 'shared/services/monster.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,22 +24,35 @@ export class ManageMonstersComponent implements OnInit, OnDestroy {
       { name: 'Active' }
     ];
 
-    constructor(private monsterService: MonsterService) {
+    constructor(
+      private monsterService: MonsterService,
+      private router: Router
+      ) {
       this.subscription = this.monsterService.getAll()
       .subscribe(monsters => {
         this.monsters = monsters;
         this.selected = [monsters[0]];
         this.selectedMonster = monsters[0];
-        console.log(this.selectedMonster);
+
         // this.initializeTable(monsters);
       });
 
     }
 
+    createMonster() {
+      this.router.navigate(['/admin/monsters/new']);
+    }
+
+    editMonster() {
+      this.router.navigate(['/admin/monster/' + this.selectedMonster.key]);
+    }
+
+    deleteMonster() {
+      this.monsterService.remove(this.selectedMonster.key);
+    }
+
     onSelect({ selected }) {
-      console.log('Select Event', selected, this.selected);
       this.selectedMonster = this.selected[0];
-      console.log(this.selectedMonster);
     }
 
     onActivate(event) {

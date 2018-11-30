@@ -38,6 +38,8 @@
               <ng-container *ngIf="appUser.role==='admin'">
                   <a class="dropdown-item" routerLink="/admin/undead">Manage Undead</a>
                   <a class="dropdown-item" routerLink="/admin/monsters">Manage Monsters</a>  
+                  <a class="dropdown-item" routerLink="/admin/weapons">Manage Weapons</a>  
+                  <a class="dropdown-item" routerLink="/admin/spells">Manage Spells</a>  
               </ng-container>
               <a class="dropdown-item" routerLink="/account">My Account</a>
               <a class="dropdown-item" (click)="logout()">Log Out</a>

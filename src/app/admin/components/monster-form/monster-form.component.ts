@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 })
 export class MonsterFormComponent implements OnInit {
   categories$: Observable<any>;
-  weapon: {};
+  monster: {};
   id;
 
   constructor(
@@ -23,27 +23,27 @@ export class MonsterFormComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.monsterService.get(this.id).valueChanges().pipe(take(1)).subscribe(p => this.weapon = p);
+      this.monsterService.get(this.id).valueChanges().pipe(take(1)).subscribe(p => this.monster = p);
     }
   }
 
-  save(weapon) {
+  save(monster) {
     if (this.id) {
-      this.monsterService.update(this.id, weapon);
+      this.monsterService.update(this.id, monster);
     } else {
-      this.monsterService.create(weapon);
+      this.monsterService.create(monster);
     }
-    this.router.navigate(['/admin/products']);
+    this.router.navigate(['/admin/monsters']);
   }
 
   cancel() {
-    this.router.navigate(['/admin/products']);
+    this.router.navigate(['/admin/monsters']);
   }
 
   delete() {
-    if (confirm('Are you sure you wish to delete this product?')) {
+    if (confirm('Are you sure you wish to delete this monster?')) {
       this.monsterService.remove(this.id);
-      this.router.navigate(['/admin/products']);
+      this.router.navigate(['/admin/monsters']);
     }
   }
 

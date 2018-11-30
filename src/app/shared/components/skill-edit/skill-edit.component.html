@@ -1,0 +1,39 @@
+<div class="form-group row top-margin">
+    <div class="col-4"><span>{{name}}</span></div>
+    <div class="col-8">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="athletics"
+          id="Unskilled"
+          value="0"
+          [(ngModel)]="skill"
+        />
+        <label class="form-check-label" for="athleticsUnskilled">Unskilled</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="athletics"
+          id="Proficient"
+          value="1"
+          [(ngModel)]="skill"
+        />
+        <label class="form-check-label" for="athleticsProficient">Proficient</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="athletics"
+          id="expert"
+          value="2"
+          [(ngModel)]="skill"
+        />
+        <label class="form-check-label" for="expert">Expert</label>
+      </div>
+    </div>
+    
+</div>

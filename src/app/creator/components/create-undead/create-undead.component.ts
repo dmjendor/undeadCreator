@@ -12,6 +12,8 @@ import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
 import { UndeadService } from 'shared/services/undead.service';
 import { Monster } from 'shared/models/monster';
+import { Weapon } from 'shared/models/weapon';
+import { WeaponService } from 'shared/services/weapons.service';
 
 @Component({
   selector: 'create-undead',
@@ -26,9 +28,10 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   filteredMonsters: Monster[];
   modifiers: Modifier[];
   monsterSub: Subscription;
+  weaponSub: Subscription;
   modifierSub: Subscription;
   sizeSub: Subscription;
-
+  weapons: Weapon[];
   sizes: Size[];
   active: boolean;
   currentSize: string;
@@ -36,12 +39,14 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   appUser: AppUser;
 
   constructor(
+    private undeadService: UndeadService,
+    private weaponService: WeaponService,
     private monsterService: MonsterService,
     private modifierService: ModifierService,
     private filtersService: FiltersService,
     private sizeService: SizeService,
     private auth: AuthService,
-    private undeadService: UndeadService) {
+    ) {
 
   }
 
@@ -55,6 +60,11 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
     this.modifierSub = this.modifierService.getAll()
     .subscribe(modifiers => {
       this.modifiers = modifiers;
+    });
+
+    this.weaponSub = this.weaponService.getAll()
+    .subscribe(weapons => {
+      this.weapons = weapons;
     });
 
     this.sizeSub = this.sizeService.getAll()
@@ -143,6 +153,11 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   filterModsOfType(type) {
     return this.modifiers.filter(x => x.type === type);
   }
+
+  offHandWeapons() {
+    return this.weapons.filter(x => x.light === true);
+  }
+
 
   applyHover() {
     if (this.selectedMonster.speed.hover) {

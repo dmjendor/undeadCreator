@@ -18,6 +18,15 @@
         </ng-template>
     </ngx-datatable-column>
     </ngx-datatable>
+    <div class="row">
+        <div class="col-12">
+          <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+            <button type="button" class="btn btn-secondary btn-primary w-100" (click)="createMonster()">Create</button>
+            <button type="button" class="btn btn-secondary btn-info w-100" (click)="editMonster()">Edit</button>
+            <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteMonster()">Delete</button>
+          </div>
+        </div>
+      </div>
   </div>
   <div class="col-6">
       <monster-card [monster]="selectedMonster"></monster-card>   
