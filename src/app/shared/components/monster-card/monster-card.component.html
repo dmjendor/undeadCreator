@@ -108,24 +108,24 @@
       <div class="row" *ngIf="monster.skills">
           <div class="col-3 bold">Skills</div>
           <div class="col-9">
-            <span *ngIf="monster.skills.acrobatics">Acrobatics +{{ monster.skills.acrobatics+modifier(monster.dexterity) }}, </span>  
-            <span *ngIf="monster.skills.athletics">Athletics +{{ monster.skills.athletics+modifier(monster.strength) }}, </span>
-            <span *ngIf="monster.skills.animal_handling">Animal Handling +{{ monster.skills.animal_handling+modifier(monster.wisdom) }}, </span>
-            <span *ngIf="monster.skills.arcana">Arcana +{{ monster.skills.arcana+modifier(monster.intelligence) }}, </span>
-            <span *ngIf="monster.skills.deception">Deception +{{ monster.skills.deception+modifier(monster.charisma) }}, </span>
-            <span *ngIf="monster.skills.history">History +{{ monster.skills.history+modifier(monster.intelligence) }}, </span>
-            <span *ngIf="monster.skills.insight">Insight +{{ monster.skills.insight+modifier(monster.wisdom) }}, </span>
-            <span *ngIf="monster.skills.intimidation">Intimidation +{{ monster.skills.intimidation+modifier(monster.charisma) }}, </span>
-            <span *ngIf="monster.skills.investigation">Investigation +{{ monster.skills.investigation+modifier(monster.intelligence) }}, </span>
-            <span *ngIf="monster.skills.medicine">Medicine +{{ monster.skills.medicine+modifier(monster.wisdom) }}, </span>
-            <span *ngIf="monster.skills.nature">Nature +{{ monster.skills.nature+modifier(monster.intelligence) }}, </span>
-            <span *ngIf="monster.skills.perception">Perception +{{ monster.skills.perception+modifier(monster.wisdom) }}, </span>
-            <span *ngIf="monster.skills.performance">Performance +{{ monster.skills.performance+modifier(monster.charisma) }}, </span>
-            <span *ngIf="monster.skills.persuasion">Persuasion +{{ monster.skills.persuasion+modifier(monster.charisma) }}, </span>
-            <span *ngIf="monster.skills.religion">Religion +{{ monster.skills.religion+modifier(monster.intelligence) }}, </span>
-            <span *ngIf="monster.skills.sleight_of_hand">Sleight of Hand +{{ monster.skills.sleight_of_hand+modifier(monster.dexterity) }}, </span>
-            <span *ngIf="monster.skills.stealth">Stealth +{{ monster.skills.stealth+modifier(monster.dexterity) }}, </span>
-            <span *ngIf="monster.skills.survival">Survival +{{ monster.skills.survival+modifier(monster.wisdom) }}</span>
+            <skill-display name="Acrobatics" [(skill)]="monster.skills.acrobatics" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Athletics" [skill]="monster.skills.athletics" [statMod]="modifier(monster.strength)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Animal Handling" [skill]="monster.skills.animal_handling" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Arcana" [skill]="monster.skills.arcana" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Deception" [skill]="monster.skills.deception" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="History" [skill]="monster.skills.history" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Insight" [skill]="monster.skills.insight" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Intimidation" [skill]="monster.skills.intimidation" [statMod]="modifier(monster.strength)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Investigation" [skill]="monster.skills.investigation" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Medicine" [skill]="monster.skills.medicine" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Nature" [skill]="monster.skills.nature" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Perception" [skill]="monster.skills.perception" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Performance" [skill]="monster.skills.performance" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Persuasion" [skill]="monster.skills.persuasion" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Religion" [skill]="monster.skills.religion" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Sleight of Hand" [skill]="monster.skills.sleight_of_hand" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Stealth" [skill]="monster.skills.stealth" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
+            <skill-display name="Survival" [skill]="monster.skills.survival" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
           </div>
       </div>
       <div class="row" *ngIf="monster.damage_immunities">

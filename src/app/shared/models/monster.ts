@@ -14,10 +14,8 @@ export interface Monster {
     intelligence: number;
     wisdom: number;
     charisma: number;
-    hit_dice: string;
     hit_dice_size: number;
     hit_dice_qty: number;
-    hit_points: number;
     condition_immunities: any[];
     damage_immunities: any[];
     damage_resistances: any[];

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="monster">
   <div class="row">
     <div class="col-6">
       <form #monsterForm="ngForm" (ngSubmit)="save(monsterForm.value)">
@@ -239,29 +239,42 @@
           </div>
         </div>
         <hr />
-        
-          <skill-edit name="Athletics" [(skill)]="monster.skills.athletics"></skill-edit>
+        <div class="row">
+          <div class="col-12">
+              <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Skills</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <skill-edit name="Athletics" [(skill)]="monster.skills.athletics"></skill-edit>
           
-          <skill-edit name="Acrobatics" [(skill)]="monster.skills.acrobatics"></skill-edit>
-          <skill-edit name="Sleight of Hand" [(skill)]="monster.skills.sleight_of_hand"></skill-edit>
-          <skill-edit name="Stealth" [(skill)]="monster.skills.stealth"></skill-edit>
-
-          <skill-edit name="Arcana" [(skill)]="monster.skills.arcana"></skill-edit>
-          <skill-edit name="History" [(skill)]="monster.skills.history"></skill-edit>
-          <skill-edit name="Investigation" [(skill)]="monster.skills.investigation"></skill-edit>
-          <skill-edit name="Nature" [(skill)]="monster.skills.nature"></skill-edit>
-          <skill-edit name="Religion" [(skill)]="monster.skills.religion"></skill-edit>
-
-          <skill-edit name="Animal Handling" [(skill)]="monster.skills.animal_handling"></skill-edit>
-          <skill-edit name="Insight" [(skill)]="monster.skills.insight"></skill-edit>
-          <skill-edit name="Medicine" [(skill)]="monster.skills.medicine"></skill-edit>
-          <skill-edit name="Perception" [(skill)]="monster.skills.perception"></skill-edit>
-          <skill-edit name="Survival" [(skill)]="monster.skills.survival"></skill-edit>
-
-          <skill-edit name="Deception" [(skill)]="monster.skills.deception"></skill-edit>
-          <skill-edit name="Intimidation" [(skill)]="monster.skills.intimidation"></skill-edit>
-          <skill-edit name="Performance" [(skill)]="monster.skills.performance"></skill-edit>
-          <skill-edit name="Persuasion" [(skill)]="monster.skills.persuasion"></skill-edit>
+                        <skill-edit name="Acrobatics" [(skill)]="monster.skills.acrobatics"></skill-edit>
+                        <skill-edit name="Sleight of Hand" [(skill)]="monster.skills.sleight_of_hand"></skill-edit>
+                        <skill-edit name="Stealth" [(skill)]="monster.skills.stealth"></skill-edit>
+              
+                        <skill-edit name="Arcana" [(skill)]="monster.skills.arcana"></skill-edit>
+                        <skill-edit name="History" [(skill)]="monster.skills.history"></skill-edit>
+                        <skill-edit name="Investigation" [(skill)]="monster.skills.investigation"></skill-edit>
+                        <skill-edit name="Nature" [(skill)]="monster.skills.nature"></skill-edit>
+                        <skill-edit name="Religion" [(skill)]="monster.skills.religion"></skill-edit>
+              
+                        <skill-edit name="Animal Handling" [(skill)]="monster.skills.animal_handling"></skill-edit>
+                        <skill-edit name="Insight" [(skill)]="monster.skills.insight"></skill-edit>
+                        <skill-edit name="Medicine" [(skill)]="monster.skills.medicine"></skill-edit>
+                        <skill-edit name="Perception" [(skill)]="monster.skills.perception"></skill-edit>
+                        <skill-edit name="Survival" [(skill)]="monster.skills.survival"></skill-edit>
+              
+                        <skill-edit name="Deception" [(skill)]="monster.skills.deception"></skill-edit>
+                        <skill-edit name="Intimidation" [(skill)]="monster.skills.intimidation"></skill-edit>
+                        <skill-edit name="Performance" [(skill)]="monster.skills.performance"></skill-edit>
+                        <skill-edit name="Persuasion" [(skill)]="monster.skills.persuasion"></skill-edit>
+                    </ng-template>
+                  </ngb-panel>
+              </ngb-accordion>
+          </div>
+        </div>
+          
           
         <!--
           <div class="row form-group top-margin">

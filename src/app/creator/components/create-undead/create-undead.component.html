@@ -151,16 +151,14 @@
                     <ng-template ngbPanelContent>
                         
                       <div class="row top-margin" *ngFor="let mod of filterModsOfType('skills')">
-                        <div class="col-5"><b>{{mod.name}}</b></div>
-                        <div class="col-5">
-                            <option-quantity
-                            [max]="10"
-                            [step]="1"
-                            [costval]="mod.cost" 
-                            [baseval]="baseMonster[mod.type][mod.location]" 
-                            [(totalcost)]="selectedMonster.cost" 
-                            [(optval)]="selectedMonster[mod.type][mod.location]"
-                          ></option-quantity>
+                        <div class="col-10">
+                            <skill-edit
+                            [name]="mod.name"
+                            [(totalCost)]="selectedMonster.cost"
+                            [base]="baseMonster[mod.type][mod.location]" 
+                            [(skill)]="selectedMonster[mod.type][mod.location]" 
+                            
+                          ></skill-edit>
                         </div>
                         <div class="col-2">
                             <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
