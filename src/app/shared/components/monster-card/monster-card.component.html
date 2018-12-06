@@ -108,47 +108,46 @@
       <div class="row" *ngIf="monster.skills">
           <div class="col-3 bold">Skills</div>
           <div class="col-9">
-            <skill-display name="Acrobatics" [(skill)]="monster.skills.acrobatics" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Athletics" [skill]="monster.skills.athletics" [statMod]="modifier(monster.strength)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Animal Handling" [skill]="monster.skills.animal_handling" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Arcana" [skill]="monster.skills.arcana" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Deception" [skill]="monster.skills.deception" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="History" [skill]="monster.skills.history" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Insight" [skill]="monster.skills.insight" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Intimidation" [skill]="monster.skills.intimidation" [statMod]="modifier(monster.strength)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Investigation" [skill]="monster.skills.investigation" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Medicine" [skill]="monster.skills.medicine" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Nature" [skill]="monster.skills.nature" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Perception" [skill]="monster.skills.perception" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Performance" [skill]="monster.skills.performance" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Persuasion" [skill]="monster.skills.persuasion" [statMod]="modifier(monster.charisma)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Religion" [skill]="monster.skills.religion" [statMod]="modifier(monster.intelligence)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Sleight of Hand" [skill]="monster.skills.sleight_of_hand" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Stealth" [skill]="monster.skills.stealth" [statMod]="modifier(monster.dexterity)" [prof]="monster.proficiency"></skill-display>
-            <skill-display name="Survival" [skill]="monster.skills.survival" [statMod]="modifier(monster.wisdom)" [prof]="monster.proficiency"></skill-display>
+            <span *ngFor="let skill of monsterKeys(monster.skills); let isLast=last" >
+                <skill-display 
+                    *ngIf="monster.skills[skill]>0"
+                    [name]="skill"
+                    [(skill)]="monster.skills[skill]" 
+                    [monster]="monster"
+                ></skill-display>
+                <span *ngIf="monster.skills[skill]>0">{{isLast ? '' : ', '}}</span>
+            </span>
           </div>
       </div>
-      <div class="row" *ngIf="monster.damage_immunities">
-          <div class="col-34 bold">Dmg. Imm.</div>
+      <div class="row">
+            <div class="col-3 bold">Dmg. Vul.</div>
+            <div class="col-9">
+                  <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                    <span *ngIf="monster.damage_modifiers[dmg]===-1">{{dmg}}{{isLast ? '' : ', '}}</span>
+                  </span>
+            </div>
+      </div>
+      <div class="row">
+          <div class="col-3 bold">Dmg. Imm.</div>
           <div class="col-9">
-                <span class="damage_immunities" *ngFor="let dmi of monster.damage_immunities; let isLast=last">
-                    {{dmi}}{{isLast ? '' : ', '}}
+                <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                    <span *ngIf="monster.damage_modifiers[dmg]===1">{{dmg}}{{isLast ? '' : ', '}}</span>
                 </span>
           </div>
       </div>
-      <div class="row" *ngIf="monster.damage_resistances">
+      <div class="row">
           <div class="col-3 bold">Dmg. Res.</div>
           <div class="col-9">
-                <span class="damage_resistances" *ngFor="let dmr of monster.damage_resistances; let isLast=last">
-                    {{dmr}}{{isLast ? '' : ', '}}
+                <span class="damage_resistances" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                    <span *ngIf="monster.damage_modifiers[dmg]===2">{{dmg}}{{isLast ? '' : ', '}}</span>
                 </span>
           </div>
       </div>
-      <div class="row" *ngIf="monster.condition_immunities">
+      <div class="row">
           <div class="col-3 bold">Cnd. Imm.</div>
           <div class="col-9">
-                <span class="condition_immunities" *ngFor="let cdi of monster.condition_immunities; let isLast=last">
-                    {{cdi}}{{isLast ? '' : ', '}}
+                <span class="condition_immunities" *ngFor="let condi of monsterKeys(monster.condition_modifiers); let isLast=last">
+                    <span *ngIf="monster.condition_modifiers[condi]>0">{{condi}}{{isLast ? '' : ', '}}</span>
                 </span>
           </div>
       </div>

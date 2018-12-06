@@ -16,10 +16,37 @@ export interface Monster {
     charisma: number;
     hit_dice_size: number;
     hit_dice_qty: number;
-    condition_immunities: any[];
-    damage_immunities: any[];
-    damage_resistances: any[];
-    damage_vulnerabilities: any[];
+    condition_modifiers: {
+        blinded: number;
+        charmed: number;
+        deafened: number;
+        exhaustion: number;
+        fatigued: number;
+        frightened: number;
+        grappled: number;
+        incapacitated: number;
+        paralyzed: number;
+        petrified: number;
+        poisoned: number;
+        prone: number;
+        restrained: number;
+        stunned: number;
+        unconcious: number;
+    };
+    damage_modifiers: {
+        acid: number;
+        bludgeoning: number;
+        cold: number;
+        fire: number;
+        force: number;
+        lightning: number;
+        necrotic: number;
+        piercing: number;
+        poison: number;
+        radiant: number;
+        slashing: number;
+        thunder: number;
+    };
     elemental: {
         acidic: number,
         electric: number,

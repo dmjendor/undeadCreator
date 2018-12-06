@@ -11,8 +11,8 @@ import { Weapon } from 'shared/models/weapon';
   styleUrls: ['./weapon-form.component.css']
 })
 export class WeaponFormComponent implements OnInit {
-  categories$: Observable<any>;
-  weapon = {};
+  wpn: {};
+  weapon: Weapon;
   id;
 
   constructor(
@@ -27,9 +27,10 @@ export class WeaponFormComponent implements OnInit {
       this.weaponService.get(this.id)
         .valueChanges()
         .pipe(take(1))
-        .subscribe(p => this.weapon = p);
-    } else {
-      this.weapon.light = false;
+        .subscribe(p => {
+          this.wpn = p;
+          this.weapon = this.wpn as Weapon;
+        });
     }
   }
 
@@ -54,7 +55,9 @@ export class WeaponFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if (!this.weapon.key) {
+      this.weapon.light = false;
+    }
   }
 
 }

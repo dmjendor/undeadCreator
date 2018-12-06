@@ -20,7 +20,7 @@ export class UndeadCardComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private card: CardService,
+    private cardService: CardService,
     private utilityService: UtilityService,
     private undeadService: UndeadService
   ) {}
@@ -31,23 +31,23 @@ export class UndeadCardComponent implements OnInit {
 
 
   calculated_hit_points = function() {
-    return this.card.calculated_hit_points(this.undead);
+    return this.cardService.calculated_hit_points(this.undead);
   };
 
   calculated_attack = function(stat: number) {
-    return this.card.calculated_attack(stat);
+    return this.cardService.calculated_attack(stat, this.undead);
   };
 
   modifier = function(stat: number) {
-    return this.card.modifier(stat);
+    return this.cardService.modifier(stat);
   };
 
   invalidModifier = function(stat: number) {
-    return this.card.invalidModifier(stat);
+    return this.cardService.invalidModifier(stat);
   };
 
   bonusHitPoints = function() {
-    return this.card.bonusHitPoints(this.undead);
+    return this.cardService.bonusHitPoints(this.undead);
   };
 
   deleteUndead() {
@@ -57,6 +57,17 @@ export class UndeadCardComponent implements OnInit {
   editUndead() {
 
   }
+
+  checkSpecials = function() {
+    const elements = Object.values(this.undead.elemental);
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i] > 0) {
+        console.log(elements[i]);
+        return true;
+      }
+    }
+    return false;
+  };
 
   async ngOnInit() {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);

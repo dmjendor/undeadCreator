@@ -9,10 +9,7 @@ import { map } from 'rxjs/operators';
 export class UndeadService {
   undead$: Observable<any[]>;
 
-  constructor(private db: AngularFireDatabase) {
-    this.undead$ = this.db.list('/undead', c => c.orderByChild('name'))
-    .snapshotChanges();
-   }
+  constructor(private db: AngularFireDatabase) {}
 
   create(creature) {
     return this.db.list('/undead').push(creature);
@@ -27,6 +24,7 @@ export class UndeadService {
   }
 
   getAll() {
+    return this.db.list('/undead/').valueChanges();
     return this.undead$.pipe(map(changes => {
       return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
     }));
@@ -34,5 +32,10 @@ export class UndeadService {
 
   get(creatureId) {
     return this.db.object('/undead/' + creatureId);
+  }
+
+  getUndeadByUser(userId: string) {
+    return this.db.list('/undead',
+      ref => ref.orderByChild('user').equalTo(userId)).valueChanges();
   }
 }

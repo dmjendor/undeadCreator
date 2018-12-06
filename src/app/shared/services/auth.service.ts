@@ -39,6 +39,23 @@ export class AuthService {
       this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
+  signInWithTwitter() {
+    return this.afAuth.auth.signInWithPopup(
+      new firebase.auth.TwitterAuthProvider()
+    );
+  }
+  signInWithFacebook() {
+    return this.afAuth.auth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider()
+    );
+  }
+
+  signInWithGoogle() {
+    return this.afAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
+  }
+
   logout() {
     this.afAuth.auth.signOut();
   }

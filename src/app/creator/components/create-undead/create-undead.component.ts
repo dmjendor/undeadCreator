@@ -14,6 +14,7 @@ import { UndeadService } from 'shared/services/undead.service';
 import { Monster } from 'shared/models/monster';
 import { Weapon } from 'shared/models/weapon';
 import { WeaponService } from 'shared/services/weapons.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'create-undead',
@@ -46,6 +47,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
     private filtersService: FiltersService,
     private sizeService: SizeService,
     private auth: AuthService,
+    private router: Router
     ) {
 
   }
@@ -148,6 +150,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
 
     newDead.user = localStorage.getItem('userId');
     this.undeadService.create(newDead);
+    this.router.navigate(['/undead']);
   }
 
   filterModsOfType(type) {
