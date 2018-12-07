@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { HomeComponent } from 'core/components/home/home.component';
-import { LoginComponent } from 'core/components/login/login.component';
 import { environment } from 'environments/environment';
 
 import { AdminModule } from './admin/admin.module';

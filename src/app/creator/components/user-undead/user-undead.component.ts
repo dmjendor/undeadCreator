@@ -7,6 +7,7 @@ import { SelectedSpell } from 'shared/models/selected-spell';
 import { Spell } from 'shared/models/spell';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'user-undead',
@@ -14,17 +15,21 @@ import { AppUser } from 'shared/models/app-user';
   styleUrls: ['./user-undead.component.css']
 })
 export class UserUndeadComponent implements OnInit, OnDestroy {
-    undead: Undead[];
-    undeadSub: Subscription;
-    // items: Monster[] = [];
-    itemCount: number;
-    selected: any[];
-    selectedUndead: Undead;
-    appUser: AppUser;
+
+  itemCount: number;
+  selected: any[];
+
+  undead$;
+  undead: Undead[];
+  undeadSub: Subscription;
+  selectedUndead: Undead;
 
   spells: Spell[];
   selectedSpells: SelectedSpell[];
   spellSub: Subscription;
+
+  userId: string;
+  userSubscription: Subscription;
 
     columns = [
       { prop: 'name' },
@@ -35,17 +40,8 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     constructor(
       private undeadService: UndeadService,
       private spellService: SpellService,
-      private auth: AuthService
-      ) {
-      this.undeadSub = this.undeadService.getAll()
-      .subscribe(undead => {
-        this.undead = undead;
-        this.selected = [undead[0]];
-        this.selectedUndead = undead[0];
-        console.log(this.selectedUndead);
-        // this.initializeTable(monsters);
-      });
-
+      private authService: AuthService
+    ) {
     }
 
     onSelect({ selected }) {
@@ -83,7 +79,17 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
       // }
     }
 
+    transform(source: Undead[]) {
+      const dest: Undead[] = [];
+
+      for (const sourceItem of source) {
+        const destItem = {...sourceItem};
+        dest.push(destItem);
+      }
+    }
+
     async ngOnInit() {
+
 
       this.spellSub = this.spellService.getAll()
       .subscribe(spells => {
@@ -93,14 +99,32 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
           this.selectedSpells.push({key: this.spells[i].key, points: this.spells[i].points, count: 0});
         }
       });
+      this.userSubscription = this.authService.user$.subscribe(user => {
+        this.userId = user.uid;
+        this.undeadService.getUndeadByUser(this.userId)
+        .subscribe(undead => {
+          this.undead = undead as Undead[];
+          this.selected = [undead[0]];
+          this.selectedUndead = undead[0] as Undead;
+          console.log(this.selectedUndead);
+        });
+      });
 
-      this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
 
 
+
+        // this.undeadSub = this.undeadService.getUndeadByUser(this.appUser.key)
+        // .subscribe(undead => {
+        //   this.undead = undead;
+        //   this.selected = [undead[0]];
+        //   this.selectedUndead = undead[0];
+        //   console.log(this.selectedUndead);
+        //   // this.initializeTable(monsters);
+        // });
     }
 
     ngOnDestroy() {
-      this.undeadSub.unsubscribe();
+      this.userSubscription.unsubscribe();
       this.spellSub.unsubscribe();
     }
 

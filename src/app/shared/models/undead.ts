@@ -4,7 +4,12 @@ export interface Undead {
     user: string;
     name: string;
     cost: number;
-    actions: any[];
+    actions: {
+        attack_number: number,
+        multiattack: boolean,
+        primary: string,
+        secondary: string
+    };
     alignment: string;
     armor_class: string;
     strength: number;

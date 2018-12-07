@@ -63,6 +63,14 @@ h1, h2, h3 {
   color: #FFF;
 }
 
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+  padding: 0.25rem;
+}
+
+.ngx-datatable.bootstrap .datatable-header .datatable-header-cell {
+  padding: 0.25rem 0;
+}
+
 .card-header {
   background-color: $primary-color;
 }

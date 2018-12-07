@@ -161,6 +161,11 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
     return this.weapons.filter(x => x.light === true);
   }
 
+  updateWeapon() {
+    if (!this.selectedMonster.actions.multiattack) {
+      this.selectedMonster.actions.secondary = null;
+    }
+  }
 
   applyHover() {
     if (this.selectedMonster.speed.hover) {

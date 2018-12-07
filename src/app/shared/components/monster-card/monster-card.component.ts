@@ -5,6 +5,9 @@ import { AuthService } from 'shared/services/auth.service';
 import { CardService } from 'shared/services/card.service';
 import { UtilityService } from 'shared/services/utility.service';
 import { utils } from 'protractor';
+import { Weapon } from 'shared/models/weapon';
+import { WeaponService } from 'shared/services/weapons.service';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -17,21 +20,26 @@ export class MonsterCardComponent implements OnInit {
   @Input() edit: boolean;
   appUser: AppUser;
   monsterKeys = Object.keys;
+  primaryAttack: Weapon;
+  offHandAttack: Weapon;
 
 
   constructor(
     private auth: AuthService,
     private card: CardService,
+    private weaponService: WeaponService,
     private utilityService: UtilityService
     ) {}
 
-    async ngOnInit() {
-      this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    }
+  async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    this.weaponService.get(this.monster.actions.primary).valueChanges().pipe(take(1)).subscribe(p => this.primaryAttack = p as Weapon);
+    this.weaponService.get(this.monster.actions.secondary).valueChanges().pipe(take(1)).subscribe(p => this.offHandAttack = p as Weapon);
+  }
 
-    toTitleCase = function(text) {
-      return this.utilityService.toTitleCase(text);
-    };
+  toTitleCase = function(text) {
+    return this.utilityService.toTitleCase(text);
+  };
 
   calculated_hit_points = function() {
     return this.card.calculated_hit_points(this.monster);
@@ -64,6 +72,56 @@ export class MonsterCardComponent implements OnInit {
     return false;
   };
 
+  damageMod(weapon) {
+    let mod;
+    switch (weapon.type) {
+      case 'melee':
+        mod = this.modifier(this.monster.strength);
+        break;
+      case 'ranged':
+      case 'finesse':
+        mod = this.modifier(this.monster.dexterity);
+        break;
+    }
+    return mod;
+  }
+
+  attackMod(weapon) {
+    let mod;
+    switch (weapon.type) {
+      case 'melee':
+        mod = this.calculated_attack(this.monster.strength);
+        break;
+      case 'ranged':
+      case 'finesse':
+        mod = this.calculated_attack(this.monster.dexterity);
+        break;
+    }
+    return mod;
+  }
+
+  weaponDamage(weapon) {
+    let dmg;
+    console.log(weapon);
+    switch (this.monster.size) {
+      case 'Tiny':
+        dmg = weapon.tiny;
+        break;
+      case 'Small':
+        dmg = weapon.small;
+        break;
+      case 'Medium':
+        dmg = weapon.medium;
+        break;
+       case 'Large':
+        dmg = weapon.large;
+        break;
+      case 'Huge':
+        dmg = weapon.huge;
+        break;
+    }
+    return dmg;
+  }
 }
 
 

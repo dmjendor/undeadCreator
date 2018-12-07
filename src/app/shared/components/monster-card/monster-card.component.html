@@ -187,14 +187,26 @@
     <div class="row" *ngIf="monster.elemental.venomous>0">
             <div class="col-12"><b>Venomous:</b> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
     </div>
-    <div class="row" *ngIf="monster.actions && monster.actions.length>0">
+    <div class="row">
         <div class="col-12">
-        <hr/>
-        <h5>Actions</h5>
-        <div class="row" *ngFor="let action of monster.actions; let isLast=last">
-                <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
+            <hr/>
+            <h5>Actions</h5>
         </div>
-        </div>
+    </div>
+    <div class="row" *ngIf="primaryAttack">
+        <div class="col-12">
+            <b>{{primaryAttack.name}}</b>&nbsp;<span *ngIf="monster.actions.attack_number>1">: {{monster.actions.attack_number}} attacks with primary attack.</span><br />
+            <i>{{toTitleCase(primaryAttack.type)}} Weapon Attack</i>{{attackMod(primaryAttack)}} to hit, {{weaponDamage(primaryAttack)}}{{damageMod(primaryAttack)}}
+        </div>          
+    </div>
+    <div class="row" *ngIf="offHandAttack && monster.actions.multiattack">
+        <div class="col-12">
+            <b>{{offHandAttack.name}}</b><br/>
+            <i>{{toTitleCase(offHandAttack.type)}} Weapon Attack</i>{{attackMod(offHandAttack)}} to hit, {{weaponDamage(offHandAttack)}}{{damageMod(offHandAttack)}}
+        </div>          
+    </div>
+    <div class="row" *ngIf="monster.actions.multiattack">
+        <div class="col-12">Can make an attack with both its primary and off hand attacks.</div>
     </div>
     <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
         <div class="col-12">

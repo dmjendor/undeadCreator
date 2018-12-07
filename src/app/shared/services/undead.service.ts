@@ -24,10 +24,10 @@ export class UndeadService {
   }
 
   getAll() {
-    return this.db.list('/undead/').valueChanges();
-    return this.undead$.pipe(map(changes => {
-      return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
-    }));
+     return this.db.list('/undead/').valueChanges();
+    // return this.undead$.pipe(map(changes => {
+    //   return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
+    // }));
   }
 
   get(creatureId) {
@@ -35,6 +35,7 @@ export class UndeadService {
   }
 
   getUndeadByUser(userId: string) {
+    console.log(userId);
     return this.db.list('/undead',
       ref => ref.orderByChild('user').equalTo(userId)).valueChanges();
   }

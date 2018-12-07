@@ -4,7 +4,12 @@ export interface Monster {
     name: string;
     active: boolean;
     cost: number;
-    actions: any[];
+    actions: {
+        attack_number: number,
+        multiattack: boolean,
+        primary: string,
+        secondary: string
+    };
     alignment: string;
     armor_class: string;
     challenge_rating: string;

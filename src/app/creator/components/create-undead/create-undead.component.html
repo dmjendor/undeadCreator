@@ -73,7 +73,7 @@
                               ></option-quantity>
                             </div>
                             <div class="col-2">
-                                <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
                             </div>  
                         </div>
                         <div class="row">
@@ -173,40 +173,48 @@
                           
                         <div class="row top-margin" >
                           <div class="col-5"><b>Primary Attack</b></div>
-                          <div class="col-5">
-                              
-                          </div>
-                          <div class="col-2">
-                                
+                          <div class="col-7">
+                            <select [(ngModel)]="selectedMonster.actions.primary" id="primary" name="primary" class="form-control">
+                              <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                            </select>                                
                           </div>
                         </div>
                         <div class="row top-margin" >
                           <div class="col-5"><b># of Attacks</b></div>
                           <div class="col-5">
-                              
+                            <option-quantity
+                              [max]="4"
+                              [step]="1"
+                              [costval]="4" 
+                              [baseval]="baseMonster.actions.attack_number" 
+                              [(totalcost)]="selectedMonster.cost" 
+                              [(optval)]="selectedMonster.actions.attack_number"
+                          ></option-quantity>
                           </div>
                           <div class="col-2">
-                                
+                            <span class="cost badge badge-danger badge-pill"> 4 </span>
                           </div>
                         </div>
                         <div class="row top-margin" >
+                            <div class="col-2 text-right">
+                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="selectedMonster.actions.multiattack" (change)="updateWeapon()">
+                            </div>
+                            <div class="col-8">
+                              <b>Multiattack</b>                   
+                            </div>
+                            <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> 2 </span>
+                            </div>
+                          </div>
+                        <div class="row top-margin" *ngIf="selectedMonster.actions.multiattack" >
                           <div class="col-5"><b>Offhand Attack</b></div>
-                          <div class="col-5">
-                              
-                          </div>
-                          <div class="col-2">
-                                
-                          </div>
-                        </div>
-                        <div class="row top-margin" >
-                          <div class="col-5"><b>Multiattack</b></div>
-                          <div class="col-5">
-                              
-                          </div>
-                          <div class="col-2">
-                                
+                          <div class="col-7">
+                              <select [(ngModel)]="selectedMonster.actions.secondary" id="secondary" name="secondary" class="form-control">
+                                <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>
                           </div>
                         </div>
+                        
                     </ng-template>
                 </ngb-panel>
                 <ngb-panel>
