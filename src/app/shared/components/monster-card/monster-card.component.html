@@ -196,13 +196,13 @@
     <div class="row" *ngIf="primaryAttack">
         <div class="col-12">
             <b>{{primaryAttack.name}}</b>&nbsp;<span *ngIf="monster.actions.attack_number>1">: {{monster.actions.attack_number}} attacks with primary attack.</span><br />
-            <i>{{toTitleCase(primaryAttack.type)}} Weapon Attack</i>{{attackMod(primaryAttack)}} to hit, {{weaponDamage(primaryAttack)}}{{damageMod(primaryAttack)}}
+            <i *ngIf="primaryAttack.type">{{toTitleCase(primaryAttack.type)}} Weapon Attack</i>{{attackMod(primaryAttack)}} to hit, {{weaponDamage(primaryAttack)}}{{damageMod(primaryAttack)}}
         </div>          
     </div>
     <div class="row" *ngIf="offHandAttack && monster.actions.multiattack">
         <div class="col-12">
             <b>{{offHandAttack.name}}</b><br/>
-            <i>{{toTitleCase(offHandAttack.type)}} Weapon Attack</i>{{attackMod(offHandAttack)}} to hit, {{weaponDamage(offHandAttack)}}{{damageMod(offHandAttack)}}
+            <i *ngIf="offHandAttack.type">{{toTitleCase(offHandAttack.type)}} Weapon Attack</i>{{attackMod(offHandAttack)}} to hit, {{weaponDamage(offHandAttack)}}{{damageMod(offHandAttack)}}
         </div>          
     </div>
     <div class="row" *ngIf="monster.actions.multiattack">

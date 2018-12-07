@@ -65,7 +65,6 @@ export class MonsterCardComponent implements OnInit {
     const elements = Object.values(this.monster.elemental);
     for (let i = 0; i < elements.length; i++) {
       if (elements[i] > 0) {
-        console.log(elements[i]);
         return true;
       }
     }
@@ -102,7 +101,6 @@ export class MonsterCardComponent implements OnInit {
 
   weaponDamage(weapon) {
     let dmg;
-    console.log(weapon);
     switch (this.monster.size) {
       case 'Tiny':
         dmg = weapon.tiny;

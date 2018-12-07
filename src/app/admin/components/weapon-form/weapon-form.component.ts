@@ -55,9 +55,7 @@ export class WeaponFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.weapon.key) {
-      this.weapon.light = false;
-    }
+    console.log(this.weapon);
   }
 
 }
