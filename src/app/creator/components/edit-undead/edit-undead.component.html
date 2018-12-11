@@ -1,0 +1,260 @@
+<div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="row" *ngIf="undead && modifiers">
+          <div class="col-12">
+            <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">
+                <ngb-panel>
+                  <ng-template ngbPanelTitle>
+                      <span>Stats</span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
+                              <div class="col-5"><b>{{mod.name}}</b></div>
+                              <div class="col-5">
+                                <option-quantity
+                                  [max]="25"
+                                  [step]="1"
+                                  [costval]="mod.cost" 
+                                  [baseval]="baseMonster[mod.location]" 
+                                  [(totalcost)]="undead.cost" 
+                                  [(optval)]="undead[mod.location]"
+                                ></option-quantity>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                              </div>  
+                        </div>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Size</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                      <div class="row top-margin" [class.hidden]="mod.type!=='size'" *ngFor="let mod of modifiers">
+                          <ng-container>
+                              <div class="col-2 text-right">
+                                <input type="radio" class="form-check-input" [value]="mod.name"  name="size"  [(ngModel)]="currentSize" (change)="updateSize(mod)" >
+                              </div>
+                              <div class="col-8">
+                                  <b>{{mod.name}}</b>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                              </div>
+                            </ng-container>      
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>
+                        <span>Movement</span>
+                      </ng-template>
+                      <ng-template ngbPanelContent>
+                          <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
+                              <div class="col-5"><b>{{mod.name}}</b></div>
+                              <div class="col-5" *ngIf="mod.type==='speed'">
+                                <option-quantity
+                                  [max]="90"
+                                  [step]="5"
+                                  [costval]="mod.cost" 
+                                  [baseval]="baseMonster[mod.type][mod.location]" 
+                                  [(totalcost)]="undead.cost" 
+                                  [(optval)]="undead[mod.type][mod.location]"
+                                ></option-quantity>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                              </div>  
+                          </div>
+                          <div class="row">
+                              <div class="col-2 text-right">
+                                  <input [disabled]="undead.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="undead.speed.hover" (change)="applyHover()">
+                                </div>
+                                <div class="col-8">
+                                    <b>Hover</b>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cost badge badge-danger badge-pill"> 1 </span>
+                                </div>
+                          </div>
+                      </ng-template>
+                      
+                    </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                      <span>Combat</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row top-margin" *ngFor="let mod of  filterModsOfType('combat')">
+                            <div class="col-5"><b>{{mod.name}}</b></div>
+                            <div class="col-5">
+                              <option-quantity 
+                                *ngIf="mod.location!=='proficiency'"
+                                [max]="25"
+                                [step]="1"
+                                [costval]="mod.cost" 
+                                [baseval]="baseMonster[mod.location]" 
+                                [(totalcost)]="undead.cost" 
+                                [(optval)]="undead[mod.location]"
+                              ></option-quantity>
+                              <option-quantity 
+                                *ngIf="mod.location==='proficiency'"
+                                [max]="6"
+                                [step]="1"
+                                [costval]="mod.cost" 
+                                [baseval]="baseMonster[mod.location]" 
+                                [(totalcost)]="undead.cost" 
+                                [(optval)]="undead[mod.location]"
+                              ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                            </div>  
+                        </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>Senses</ng-template>
+                    <ng-template ngbPanelContent>
+                        
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('senses')">
+                        <div class="col-5"><b>{{mod.name}}</b></div>
+                        <div class="col-5">
+                            <option-quantity
+                            [max]="90"
+                            [step]="5"
+                            [costval]="mod.cost" 
+                            [baseval]="baseMonster[mod.type][mod.location]" 
+                            [(totalcost)]="undead.cost" 
+                            [(optval)]="undead[mod.type][mod.location]"
+                          ></option-quantity>
+                        </div>
+                        <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                        </div>
+                          
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>Skills</ng-template>
+                      <ng-template ngbPanelContent>
+                          
+                        <div class="row top-margin" *ngFor="let mod of filterModsOfType('skills')">
+                          <div class="col-10">
+                              <skill-edit
+                              [name]="mod.name"
+                              [(totalCost)]="undead.cost"
+                              [base]="baseMonster[mod.type][mod.location]" 
+                              [(skill)]="undead[mod.type][mod.location]" 
+                              
+                            ></skill-edit>
+                          </div>
+                          <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                          </div>
+                            
+                        </div>
+                      </ng-template>
+                    </ngb-panel>
+                    <ngb-panel>
+                        <ng-template ngbPanelTitle>Actions</ng-template>
+                        <ng-template ngbPanelContent>
+                            
+                          <div class="row top-margin" >
+                            <div class="col-5"><b>Primary Attack</b></div>
+                            <div class="col-7">
+                              <select [(ngModel)]="undead.actions.primary" id="primary" name="primary" class="form-control">
+                                <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>                                
+                            </div>
+                          </div>
+                          <div class="row top-margin" >
+                            <div class="col-5"><b># of Attacks</b></div>
+                            <div class="col-5">
+                              <option-quantity
+                                [max]="4"
+                                [step]="1"
+                                [costval]="4" 
+                                [baseval]="baseMonster.actions.attack_number" 
+                                [(totalcost)]="undead.cost" 
+                                [(optval)]="undead.actions.attack_number"
+                            ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> 4 </span>
+                            </div>
+                          </div>
+                          <div class="row top-margin" >
+                              <div class="col-2 text-right">
+                                <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="undead.actions.multiattack" (change)="updateWeapon()">
+                              </div>
+                              <div class="col-8">
+                                <b>Multiattack</b>                   
+                              </div>
+                              <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> 2 </span>
+                              </div>
+                            </div>
+                          <div class="row top-margin" *ngIf="undead.actions.multiattack" >
+                            <div class="col-5"><b>Offhand Attack</b></div>
+                            <div class="col-7">
+                                <select [(ngModel)]="undead.actions.secondary" id="secondary" name="secondary" class="form-control">
+                                  <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
+                                </select>
+                            </div>
+                          </div>
+                          
+                      </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                  <ng-template ngbPanelTitle>
+                    <span>Special Abilities</span>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('elemental')">
+                          <ng-container>
+                            <!-- <div class="col-2 text-right">
+                              <input type="checkbox" class="checkbox" [(ngModel)]="mod.added" (change)="updateMonster(mod)">
+                            </div> -->
+                            <div class="col-5">
+                                <b>{{mod.name}}</b>
+                            </div>
+                            <div class="col-5">
+                              <option-quantity
+                              [max]="10"
+                              [step]="1"
+                              [costval]="mod.cost" 
+                              [baseval]="baseMonster[mod.type][mod.location]" 
+                              [(totalcost)]="undead.cost" 
+                              [(optval)]="undead[mod.type][mod.location]"
+                            ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost}} </span>
+                            </div>
+                          </ng-container>
+                        </div>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-lg btn-block btn-info"
+              (click)="saveUndead()"
+            >
+              <span>Save</span>
+  
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <monster-card *ngIf="undead" [edit]="true" [monster]="undead"></monster-card>
+      </div>
+    </div>
+  </div>

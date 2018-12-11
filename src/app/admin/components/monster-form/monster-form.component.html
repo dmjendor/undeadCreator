@@ -1,4 +1,4 @@
-<div class="container" *ngIf="monster">
+<div class="container">
   <div class="row">
     <div class="col-6">
       <form #monsterForm="ngForm" (ngSubmit)="save(monsterForm.value)">
@@ -62,6 +62,29 @@
               Armor Class is required.
             </div>
           </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label for="size">Size</label>
+                <select
+                  required
+                  #size="ngModel"
+                  [(ngModel)]="monster.size"
+                  id="size"
+                  name="size"
+                  class="form-control"
+                  (change)="updateHitDice()"
+                >
+                  <option value="">Select</option>
+                  <option *ngFor="let s of sizes" [value]="s.key">{{toTitleCase(s.key)}}</option>
+                </select>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="size.touched && size.invalid"
+                >
+                  Size is required.
+                </div>
+              </div>
           <div class="col-4">
             <label for="hdq">Hit Dice</label>
             <input
@@ -195,30 +218,7 @@
               is required.
             </div>
           </div>
-          <div class="col-4">
-            <label for="size">Size</label>
-            <select
-              required
-              #size="ngModel"
-              [(ngModel)]="monster.size"
-              id="size"
-              name="size"
-              class="form-control"
-            >
-              <option value="">Select</option>
-              <option value="Tiny">Tiny</option>
-              <option value="Small">Small</option>
-              <option value="Medium">Medium</option>
-              <option value="Large">Large</option>
-              <option value="Huge">Huge</option>
-            </select>
-            <div
-              class="alert alert-danger"
-              *ngIf="size.touched && size.invalid"
-            >
-              Size is required.
-            </div>
-          </div>
+          
           <div class="col-4">
             <label for="cost">Cost</label>
             <input
@@ -247,30 +247,117 @@
                         <span>Skills</span>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                        <skill-edit name="Athletics" [(skill)]="monster.skills.athletics"></skill-edit>
-          
-                        <skill-edit name="Acrobatics" [(skill)]="monster.skills.acrobatics"></skill-edit>
-                        <skill-edit name="Sleight of Hand" [(skill)]="monster.skills.sleight_of_hand"></skill-edit>
-                        <skill-edit name="Stealth" [(skill)]="monster.skills.stealth"></skill-edit>
-              
-                        <skill-edit name="Arcana" [(skill)]="monster.skills.arcana"></skill-edit>
-                        <skill-edit name="History" [(skill)]="monster.skills.history"></skill-edit>
-                        <skill-edit name="Investigation" [(skill)]="monster.skills.investigation"></skill-edit>
-                        <skill-edit name="Nature" [(skill)]="monster.skills.nature"></skill-edit>
-                        <skill-edit name="Religion" [(skill)]="monster.skills.religion"></skill-edit>
-              
-                        <skill-edit name="Animal Handling" [(skill)]="monster.skills.animal_handling"></skill-edit>
-                        <skill-edit name="Insight" [(skill)]="monster.skills.insight"></skill-edit>
-                        <skill-edit name="Medicine" [(skill)]="monster.skills.medicine"></skill-edit>
-                        <skill-edit name="Perception" [(skill)]="monster.skills.perception"></skill-edit>
-                        <skill-edit name="Survival" [(skill)]="monster.skills.survival"></skill-edit>
-              
-                        <skill-edit name="Deception" [(skill)]="monster.skills.deception"></skill-edit>
-                        <skill-edit name="Intimidation" [(skill)]="monster.skills.intimidation"></skill-edit>
-                        <skill-edit name="Performance" [(skill)]="monster.skills.performance"></skill-edit>
-                        <skill-edit name="Persuasion" [(skill)]="monster.skills.persuasion"></skill-edit>
+                        <div class="row " *ngFor="let mod of filterModsOfType('skills')">
+                            <div class="col-12">
+                                <skill-edit
+                                [name]="mod.name"
+                                [(totalCost)]="monster.cost"
+                                [base]="0" 
+                                [(skill)]="monster[mod.type][mod.location]" 
+                                
+                              ></skill-edit>
+                            </div>
+                        </div>
                     </ng-template>
                   </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>Saves</ng-template>
+                      <ng-template ngbPanelContent>
+                          <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
+                              <div class="col-2 text-right">
+                                  <input type="checkbox" ng-true-value="1" ng-false-value="0" class="form-check-input" [name]="mod.location"  [(ngModel)]="monster.saves[mod.location]" >
+                                </div>
+                                <div class="col-10">
+                                    <b>{{mod.name}}</b>
+                                </div>
+                          </div>
+                        
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Condition Modifiers</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row" *ngFor="let mod of filterModsOfType('conditions')">
+                            <div class="col-12">
+                                <dnc-edit
+                                [name]="mod.name"
+                                [(totalCost)]="monster.cost"
+                                [base]="monster.condition_modifiers[mod.location]" 
+                                [(dnc)]="monster.condition_modifiers[mod.location]" 
+                              ></dnc-edit>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Damage Modifiers</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row" *ngFor="let mod of filterModsOfType('damage')">
+                            <div class="col-12">
+                                <dnc-edit
+                                [name]="mod.name"
+                                [(totalCost)]="monster.cost"
+                                [base]="monster.damage_modifiers[mod.location]" 
+                                [(dnc)]="monster.damage_modifiers[mod.location]"
+                              ></dnc-edit>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>Actions</ng-template>
+                      <ng-template ngbPanelContent>
+                          
+                        <div class="row top-margin" >
+                          <div class="col-5"><b>Primary Attack</b></div>
+                          <div class="col-7">
+                            <select [(ngModel)]="monster.actions.primary" id="primary" name="primary" class="form-control">
+                              <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                            </select>                                
+                          </div>
+                        </div>
+                        <div class="row top-margin" >
+                          <div class="col-5"><b># of Attacks</b></div>
+                          <div class="col-5">
+                            <option-quantity
+                              [max]="4"
+                              [step]="1"
+                              [costval]="4" 
+                              [baseval]="1" 
+                              [(totalcost)]="monster.cost" 
+                              [(optval)]="monster.actions.attack_number"
+                          ></option-quantity>
+                          </div>
+                          <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> 4 </span>
+                          </div>
+                        </div>
+                        <div class="row top-margin" >
+                            <div class="col-2 text-right">
+                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="monster.actions.multiattack" (change)="updateWeapon()">
+                            </div>
+                            <div class="col-8">
+                              <b>Multiattack</b>
+                            </div>
+                            <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> 2 </span>
+                            </div>
+                          </div>
+                        <div class="row top-margin" *ngIf="monster.actions.multiattack" >
+                          <div class="col-5"><b>Offhand Attack</b></div>
+                          <div class="col-7"> 
+                              <select [(ngModel)]="monster.actions.secondary" id="secondary" name="secondary" class="form-control">
+                                <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>
+                          </div>
+                        </div>
+                        
+                    </ng-template>
+                </ngb-panel>
               </ngb-accordion>
           </div>
         </div>
@@ -301,7 +388,7 @@
             </div>
           </div>
         -->
-        <div class="row">
+        <div class="row top-margin">
           <div class="col-4"><button class="btn btn-primary">Save</button></div>
           <div class="col-4">
             <button type="button" class="btn btn-primary" (click)="cancel()">

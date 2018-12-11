@@ -15,8 +15,9 @@ export class CardService implements OnInit {
   }
 
   public calculated_hit_points = function(creature) {
-    const avghp = Math.floor(((creature.hit_dice_size / 2) + 0.5) * creature.hit_dice_qty);
-    const maxhp = creature.hit_dice_size * creature.hit_dice_qty;
+    const diceSize = parseInt(creature.hit_dice_size, 10) > 0 ? parseInt(creature.hit_dice_size, 10) : 8;
+    const avghp = Math.floor(((diceSize / 2) + 0.5) * creature.hit_dice_qty);
+    const maxhp = diceSize * creature.hit_dice_qty;
     const bonushp = this.bonusHitPoints(creature);
     let retVal = 0;
     if (this.appUser && this.appUser.summoner) {
@@ -28,7 +29,7 @@ export class CardService implements OnInit {
   };
 
   public calculated_attack = function(stat, creature) {
-    const retVal = parseInt(this.modifier(stat), 10) + creature.proficiency;
+    const retVal = parseInt(this.modifier(stat), 10) + parseInt(creature.proficiency, 10);
     return retVal > 0 ? '+' + retVal : retVal;
   };
 

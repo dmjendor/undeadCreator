@@ -5,19 +5,34 @@ import { RouterModule } from '@angular/router';
 import { UserUndeadComponent } from './components/user-undead/user-undead.component';
 import { AuthGuard } from 'shared/services/auth-guard.service';
 import { CreateUndeadComponent } from './components/create-undead/create-undead.component';
+import { EditUndeadComponent } from './components/edit-undead/edit-undead.component';
 
 @NgModule({
   imports: [
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'create-undead', component: CreateUndeadComponent, canActivate: [AuthGuard] },
-      { path: 'undead', component: UserUndeadComponent, canActivate: [AuthGuard] },
+      {
+        path: 'undead/new',
+        component: CreateUndeadComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'undead/:id',
+        component: EditUndeadComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'undead',
+        component: UserUndeadComponent,
+        canActivate: [AuthGuard]
+      },
     ])
   ],
   declarations: [
     CreateUndeadComponent,
-    UserUndeadComponent
+    UserUndeadComponent,
+    EditUndeadComponent
   ]
 })
 export class CreatorModule { }

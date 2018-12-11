@@ -8,6 +8,7 @@ import { Spell } from 'shared/models/spell';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
 import { switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-undead',
@@ -18,6 +19,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
 
   itemCount: number;
   selected: any[];
+  appUser: AppUser;
 
   undead$;
   undead: Undead[];
@@ -40,14 +42,18 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     constructor(
       private undeadService: UndeadService,
       private spellService: SpellService,
-      private authService: AuthService
+      private authService: AuthService,
+      private router: Router
     ) {
     }
 
+    editUndead(value, row, rowIndex) {
+      console.log(value, row, rowIndex);
+      this.router.navigate(['/undead/' + row.key]);
+    }
+
     onSelect({ selected }) {
-      console.log('Select Event', selected, this.selected);
       this.selectedUndead = this.selected[0];
-      console.log(this.selectedUndead);
     }
 
     onActivate(event) {
@@ -110,7 +116,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
         });
       });
 
-
+      this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
 
 
         // this.undeadSub = this.undeadService.getUndeadByUser(this.appUser.key)

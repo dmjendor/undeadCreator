@@ -31,6 +31,7 @@ export class UndeadService {
   }
 
   get(creatureId) {
+    console.log(creatureId);
     return this.db.object('/undead/' + creatureId);
   }
 

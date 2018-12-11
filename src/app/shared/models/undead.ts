@@ -1,6 +1,7 @@
 
 export interface Undead {
     key: string;
+    base: string;
     user: string;
     name: string;
     cost: number;
@@ -11,7 +12,7 @@ export interface Undead {
         secondary: string
     };
     alignment: string;
-    armor_class: string;
+    armor_class: number;
     strength: number;
     dexterity: number;
     constitution: number;

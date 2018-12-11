@@ -33,8 +33,19 @@ export class MonsterCardComponent implements OnInit {
 
   async ngOnInit() {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    this.weaponService.get(this.monster.actions.primary).valueChanges().pipe(take(1)).subscribe(p => this.primaryAttack = p as Weapon);
-    this.weaponService.get(this.monster.actions.secondary).valueChanges().pipe(take(1)).subscribe(p => this.offHandAttack = p as Weapon);
+    if (this.monster.actions) {
+      this.weaponService.get(this.monster.actions.primary)
+      .valueChanges()
+      .pipe(take(1))
+      .subscribe(p => this.primaryAttack = p as Weapon);
+    }
+    if (this.monster.actions) {
+      this.weaponService.get(this.monster.actions.secondary)
+      .valueChanges()
+      .pipe(take(1))
+      .subscribe(p => this.offHandAttack = p as Weapon);
+    }
+
   }
 
   toTitleCase = function(text) {
@@ -62,10 +73,12 @@ export class MonsterCardComponent implements OnInit {
   };
 
   checkSpecials = function() {
-    const elements = Object.values(this.monster.elemental);
-    for (let i = 0; i < elements.length; i++) {
-      if (elements[i] > 0) {
-        return true;
+    if (this.monster.elemental) {
+      const elements = Object.values(this.monster.elemental);
+      for (let i = 0; i < elements.length; i++) {
+        if (elements[i] > 0) {
+          return true;
+        }
       }
     }
     return false;

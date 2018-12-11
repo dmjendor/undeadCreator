@@ -79,6 +79,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.weaponSub.unsubscribe();
     this.monsterSub.unsubscribe();
     this.modifierSub.unsubscribe();
     this.sizeSub.unsubscribe();
@@ -147,7 +148,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
 
   createUndead() {
     const newDead = this.selectedMonster as Undead;
-
+    newDead.base = this.selectedMonster.key;
     newDead.user = localStorage.getItem('userId');
     this.undeadService.create(newDead);
     this.router.navigate(['/undead']);

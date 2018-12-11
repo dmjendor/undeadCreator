@@ -62,7 +62,6 @@ export class UndeadCardComponent implements OnInit {
     const elements = Object.values(this.undead.elemental);
     for (let i = 0; i < elements.length; i++) {
       if (elements[i] > 0) {
-        console.log(elements[i]);
         return true;
       }
     }

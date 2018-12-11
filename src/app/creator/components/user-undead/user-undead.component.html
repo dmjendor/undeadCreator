@@ -9,25 +9,41 @@
 </div>
 <div class="row" *ngIf="undead">
     <div class="col-6">
-      <ngx-datatable
-      class="bootstrap"
-      [rows]="undead"
-      [columns]="columns"
-      [selected]="selected"
-      [selectionType]="'single'"
-      (activate)="onActivate($event)"
-      (select)='onSelect($event)'>
-      >
-      
-      <ngx-datatable-column name="Name"></ngx-datatable-column>
-      <ngx-datatable-column name="Cost"></ngx-datatable-column>
-      <ngx-datatable-column name="Active" [width]="60" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
-          <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected">
-            <input type="checkbox" [checked]="value" disabled="disabled" />
-          </ng-template>
-      </ngx-datatable-column>
-      
-      </ngx-datatable>
+      <div class="row">
+        <div class="col-12">
+            <ngx-datatable
+            class="bootstrap"
+            [columnMode]="'force'"
+            [rows]="undead"
+            [limit]="25"
+            [rowHeight]="'auto'"
+            [columns]="columns"
+            [selected]="selected"
+            [selectionType]="'single'"
+            (activate)="onActivate($event)"
+            (select)='onSelect($event)'>
+            >
+            
+              <ngx-datatable-column name="Name"></ngx-datatable-column>
+              <ngx-datatable-column name="Cost"></ngx-datatable-column>
+              <ngx-datatable-column name="Active" [width]="60" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+                  <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected">
+                    <input type="checkbox" [checked]="value" disabled="disabled" />
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Edit">
+                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                    <button
+                      class="btn btn-info btn-sm"
+                      (click)="editUndead(value,row,rowIndex)">
+                      <i class="far fa-edit"></i>
+                    </button>
+                    
+                  </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+      </div>
       <div class="row">
         <div class="col-12">
             <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">

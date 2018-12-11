@@ -21,6 +21,7 @@ import { WeaponService } from './services/weapons.service';
 import { WeaponCardComponent } from './components/weapon-card/weapon-card.component';
 import { SkillEditComponent } from './components/skill-edit/skill-edit.component';
 import { SkillDisplayComponent } from './components/skill-display/skill-display.component';
+import { DnCEditComponent } from './components/dnc-edit/dnc-edit.component';
 
 
 @NgModule({
@@ -40,13 +41,15 @@ import { SkillDisplayComponent } from './components/skill-display/skill-display.
     UndeadCardComponent,
     WeaponCardComponent,
     SkillEditComponent,
-    SkillDisplayComponent
+    SkillDisplayComponent,
+    DnCEditComponent
   ],
   exports: [
     MonsterCardComponent,
     UndeadCardComponent,
     WeaponCardComponent,
     SkillEditComponent,
+    DnCEditComponent,
     SkillDisplayComponent,
     OptionQuantityComponent,
     SpellQuantityComponent,
