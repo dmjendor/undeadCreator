@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Undead } from 'shared/models/undead';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class UndeadService {
   }
 
   update(creatureId, creature) {
+    console.log(creatureId, creature.key);
     return this.db.object('/undead/' + creatureId).update(creature);
   }
 
@@ -31,13 +33,21 @@ export class UndeadService {
   }
 
   get(creatureId) {
-    console.log(creatureId);
     return this.db.object('/undead/' + creatureId);
   }
 
   getUndeadByUser(userId: string) {
-    console.log(userId);
     return this.db.list('/undead',
-      ref => ref.orderByChild('user').equalTo(userId)).valueChanges();
+      ref => ref.orderByChild('user')
+      .equalTo(userId))
+      .snapshotChanges()
+      .pipe(map(items => {            // <== new way of chaining
+        return items.map(a => {
+          const data = a.payload.val() as Undead;
+          const key = a.payload.key;
+          data.key  = key;
+          return data;
+        });
+      }));
   }
 }

@@ -244,12 +244,16 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <button class="btn btn-lg btn-block btn-info"
-              (click)="saveUndead()"
-            >
-              <span>Save</span>
-  
-            </button>
+            <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+              <button class="btn btn-secondary w-100 btn-info"
+                (click)="saveUndead()">
+                <span>Save</span>
+              </button>
+              <button class="btn btn-secondary w-100 btn-danger"
+                (click)="cancelUndead()">
+                <span>Cancel</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

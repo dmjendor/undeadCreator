@@ -7,7 +7,6 @@ import { SelectedSpell } from 'shared/models/selected-spell';
 import { Spell } from 'shared/models/spell';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
-import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,9 +46,12 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     ) {
     }
 
-    editUndead(value, row, rowIndex) {
-      console.log(value, row, rowIndex);
+    editUndead(row) {
       this.router.navigate(['/undead/' + row.key]);
+    }
+
+    deleteUndead(row) {
+      this.undeadService.remove(row.key);
     }
 
     onSelect({ selected }) {
@@ -60,29 +62,13 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
       // console.log('Activate Event', event);
     }
 
-    // private initializeTable(products: Monster[]) {
-    //   this.tableResource = new DataTableResource(products);
-    //   this.tableResource.query({ offset: 0 })
-    //     .then(items => this.items = items);
-    //   this.tableResource.count()
-    //     .then(count => this.itemCount = count);
-    // }
-
     filter(query: string) {
        const filteredProducts = (query) ?
         this.undead.filter(p => p.name.toLowerCase().includes(query.toLowerCase())) :
         this.undead;
-      // this.initializeTable(filteredProducts);
-
     }
 
     reloadItems(params) {
-      // if (this.tableResource) {
-      //   this.tableResource.query({ offset: 0 })
-      //     .then(items => this.items = items);
-      // } else {
-      //   return;
-      // }
     }
 
     transform(source: Undead[]) {
@@ -112,21 +98,10 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
           this.undead = undead as Undead[];
           this.selected = [undead[0]];
           this.selectedUndead = undead[0] as Undead;
-          console.log(this.selectedUndead);
         });
       });
 
       this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
-
-
-        // this.undeadSub = this.undeadService.getUndeadByUser(this.appUser.key)
-        // .subscribe(undead => {
-        //   this.undead = undead;
-        //   this.selected = [undead[0]];
-        //   this.selectedUndead = undead[0];
-        //   console.log(this.selectedUndead);
-        //   // this.initializeTable(monsters);
-        // });
     }
 
     ngOnDestroy() {

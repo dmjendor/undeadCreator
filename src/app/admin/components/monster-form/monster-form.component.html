@@ -30,15 +30,15 @@
               class="form-control"
             >
               <option value="">Select</option>
-              <option value="lawful good">Lawful Good</option>
-              <option value="neutral good">Neutral Good</option>
-              <option value="chaotic good">Chaotic Good</option>
-              <option value="lawful neutral">Lawful Neutral</option>
-              <option value="true neutral">True Neutral</option>
-              <option value="chaotic neutral">Chaotic Neutral</option>
-              <option value="lawful evil">Lawful Evil</option>
-              <option value="neutral evil">Neutral Evil</option>
-              <option value="chaotic evil">Chaotic Evil</option>
+              <option value="lawful_good">Lawful Good</option>
+              <option value="neutral_good">Neutral Good</option>
+              <option value="chaotic_good">Chaotic Good</option>
+              <option value="lawful_neutral">Lawful Neutral</option>
+              <option value="true_neutral">True Neutral</option>
+              <option value="chaotic_neutral">Chaotic Neutral</option>
+              <option value="lawful_evil">Lawful Evil</option>
+              <option value="neutral_evil">Neutral Evil</option>
+              <option value="chaotic_evil">Chaotic Evil</option>
             </select>
             <div
               class="alert alert-danger"
@@ -48,17 +48,17 @@
             </div>
           </div>
           <div class="col-4">
-            <label for="ac">Armor Class</label>
+            <label for="armor_class">Armor Class</label>
             <input
               required
-              #ac="ngModel"
+              #armor_class="ngModel"
               [(ngModel)]="monster.armor_class"
-              id="ac"
-              name="ac"
+              id="armor_class"
+              name="armor_class"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="ac.touched && ac.invalid">
+            <div class="alert alert-danger" *ngIf="armor_class.touched && armor_class.invalid">
               Armor Class is required.
             </div>
           </div>
@@ -86,18 +86,18 @@
                 </div>
               </div>
           <div class="col-4">
-            <label for="hdq">Hit Dice</label>
+            <label for="hit_dice_qty">Hit Dice</label>
             <input
               required
-              #hdq="ngModel"
+              #hit_dice_qty="ngModel"
               [(ngModel)]="monster.hit_dice_qty"
-              id="hdq"
-              name="hdq"
+              id="hit_dice_qty"
+              name="hit_dice_qty"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="hdq.touched && hdq.invalid">
-              Armor Class is required.
+            <div class="alert alert-danger" *ngIf="hit_dice_qty.touched && hit_dice_qty.invalid">
+              Hit Dice are required.
             </div>
           </div>
         </div>
@@ -105,47 +105,47 @@
 
         <div class="form-group row top-margin">
           <div class="col-4">
-            <label for="str">Strength</label>
+            <label for="strength">Strength</label>
             <input
               required
-              #str="ngModel"
+              #strength="ngModel"
               [(ngModel)]="monster.strength"
-              id="str"
-              name="str"
+              id="strength"
+              name="strength"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="str.touched && str.invalid">
+            <div class="alert alert-danger" *ngIf="strength.touched && strength.invalid">
               Strength is required.
             </div>
           </div>
           <div class="col-4">
-            <label for="dex">Dexterity</label>
+            <label for="dexterity">Dexterity</label>
             <input
               required
-              #dex="ngModel"
+              #dexterity="ngModel"
               [(ngModel)]="monster.dexterity"
-              id="dex"
-              name="dex"
+              id="dexterity"
+              name="dexterity"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="dex.touched && dex.invalid">
+            <div class="alert alert-danger" *ngIf="dexterity.touched && dexterity.invalid">
               is required.
             </div>
           </div>
           <div class="col-4">
-            <label for="con">Constitution</label>
+            <label for="constitution">Constitution</label>
             <input
               required
-              #con="ngModel"
+              #constitution="ngModel"
               [(ngModel)]="monster.constitution"
-              id="con"
-              name="con"
+              id="constitution"
+              name="constitution"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="con.touched && con.invalid">
+            <div class="alert alert-danger" *ngIf="constitution.touched && constitution.invalid">
               Constitution is required.
             </div>
           </div>
@@ -153,47 +153,47 @@
 
         <div class="row form-group top-margin">
           <div class="col-4">
-            <label for="int">Intelligence</label>
+            <label for="intelligence">Intelligence</label>
             <input
               required
-              #int="ngModel"
+              #intelligence="ngModel"
               [(ngModel)]="monster.intelligence"
-              id="int"
-              name="int"
+              id="intelligence"
+              name="intelligence"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="int.touched && int.invalid">
+            <div class="alert alert-danger" *ngIf="intelligence.touched && intelligence.invalid">
               Intelligence is required.
             </div>
           </div>
           <div class="col-4">
-            <label for="wis">Wisdom</label>
+            <label for="wisdom">Wisdom</label>
             <input
               required
-              #wis="ngModel"
+              #wisdom="ngModel"
               [(ngModel)]="monster.wisdom"
-              id="wis"
-              name="wis"
+              id="wisdom"
+              name="wisdom"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="wis.touched && wis.invalid">
+            <div class="alert alert-danger" *ngIf="wisdom.touched && wisdom.invalid">
               Wisdom is required.
             </div>
           </div>
           <div class="col-4">
-            <label for="cha">Charisma</label>
+            <label for="charisma">Charisma</label>
             <input
               required
-              #cha="ngModel"
+              #charisma="ngModel"
               [(ngModel)]="monster.charisma"
-              id="cha"
-              name="cha"
+              id="charisma"
+              name="charisma"
               type="text"
               class="form-control"
             />
-            <div class="alert alert-danger" *ngIf="cha.touched && cha.invalid">
+            <div class="alert alert-danger" *ngIf="charisma.touched && charisma.invalid">
               Charisma is required.
             </div>
           </div>
@@ -215,7 +215,7 @@
               class="alert alert-danger"
               *ngIf="prof.touched && prof.invalid"
             >
-              is required.
+              Proficiency is required.
             </div>
           </div>
           
@@ -227,21 +227,21 @@
               [(ngModel)]="monster.cost"
               id="cost"
               name="cost"
-              type="text"
+              type="number"
               class="form-control"
             />
             <div
               class="alert alert-danger"
               *ngIf="cost.touched && cost.invalid"
             >
-              is required.
+              Cost is required.
             </div>
           </div>
         </div>
         <hr />
         <div class="row">
           <div class="col-12">
-              <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">
+              <ngb-accordion  [closeOthers]="true" #armor_classc="ngbAccordion">
                   <ngb-panel>
                     <ng-template ngbPanelTitle>
                         <span>Skills</span>
@@ -261,8 +261,8 @@
                     </ng-template>
                   </ngb-panel>
                   <ngb-panel>
-                      <ng-template ngbPanelTitle>Saves</ng-template>
-                      <ng-template ngbPanelContent>
+                    <ng-template ngbPanelTitle>Saves</ng-template>
+                    <ng-template ngbPanelContent>
                           <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
                               <div class="col-2 text-right">
                                   <input type="checkbox" ng-true-value="1" ng-false-value="0" class="form-check-input" [name]="mod.location"  [(ngModel)]="monster.saves[mod.location]" >
@@ -274,6 +274,82 @@
                         
                     </ng-template>
                   </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                      <span>Movement</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
+                            <div class="col-5"><b>{{mod.name}}</b></div>
+                            <div class="col-5" *ngIf="mod.type==='speed'">
+                              <option-quantity
+                                [max]="90"
+                                [step]="5"
+                                [costval]="mod.cost" 
+                                [baseval]="0" 
+                                [(totalcost)]="monster.cost" 
+                                [(optval)]="monster[mod.type][mod.location]"
+                              ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-2 text-right"> 
+                                <input [disabled]="monster.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="monster.speed.hover" (change)="applyHover()">
+                              </div>
+                              <div class="col-8">
+                                  <b>Hover</b>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> 1 </span>
+                              </div>
+                        </div>
+                    </ng-template>
+                      
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>Senses</ng-template>
+                    <ng-template ngbPanelContent>
+                        
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('senses')">
+                        <div class="col-5"><b>{{mod.name}}</b></div>
+                        <div class="col-5">
+                            <option-quantity
+                            [max]="90"
+                            [step]="5"
+                            [costval]="mod.cost" 
+                            [baseval]="0" 
+                            [(totalcost)]="monster.cost" 
+                            [(optval)]="monster[mod.type][mod.location]"
+                          ></option-quantity>
+                        </div>
+                        <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                        </div>
+                          
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>
+                          <span>Damage Modifiers</span>
+                      </ng-template>
+                      <ng-template ngbPanelContent>
+                          <div class="row" *ngFor="let mod of filterModsOfType('damage')">
+                              <div class="col-12">
+                                
+                                  <dnc-edit
+                                  [name]="mod.name"
+                                  [(totalCost)]="monster.cost"
+                                  [base]="monster.damage_modifiers[mod.location]" 
+                                  [(dnc)]="monster.damage_modifiers[mod.location]"
+                                ></dnc-edit>
+                              </div>
+                          </div>
+                      </ng-template>
+                    </ngb-panel>
                   <ngb-panel>
                     <ng-template ngbPanelTitle>
                         <span>Condition Modifiers</span>
@@ -291,29 +367,13 @@
                         </div>
                     </ng-template>
                   </ngb-panel>
-                  <ngb-panel>
-                    <ng-template ngbPanelTitle>
-                        <span>Damage Modifiers</span>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                        <div class="row" *ngFor="let mod of filterModsOfType('damage')">
-                            <div class="col-12">
-                                <dnc-edit
-                                [name]="mod.name"
-                                [(totalCost)]="monster.cost"
-                                [base]="monster.damage_modifiers[mod.location]" 
-                                [(dnc)]="monster.damage_modifiers[mod.location]"
-                              ></dnc-edit>
-                            </div>
-                        </div>
-                    </ng-template>
-                  </ngb-panel>
+                  
                   <ngb-panel>
                       <ng-template ngbPanelTitle>Actions</ng-template>
                       <ng-template ngbPanelContent>
                           
                         <div class="row top-margin" >
-                          <div class="col-5"><b>Primary Attack</b></div>
+                          <div class="col-5"><b>Primary Attarmor_classk</b></div>
                           <div class="col-7">
                             <select [(ngModel)]="monster.actions.primary" id="primary" name="primary" class="form-control">
                               <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
@@ -338,17 +398,17 @@
                         </div>
                         <div class="row top-margin" >
                             <div class="col-2 text-right">
-                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="monster.actions.multiattack" (change)="updateWeapon()">
+                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattarmor_classk"  [(ngModel)]="monster.actions.multiattack" (change)="updateWeapon()">
                             </div>
                             <div class="col-8">
-                              <b>Multiattack</b>
+                              <b>Multiattarmor_classk</b>
                             </div>
                             <div class="col-2">
                               <span class="cost badge badge-danger badge-pill"> 2 </span>
                             </div>
                           </div>
                         <div class="row top-margin" *ngIf="monster.actions.multiattack" >
-                          <div class="col-5"><b>Offhand Attack</b></div>
+                          <div class="col-5"><b>Offhand Attarmor_classk</b></div>
                           <div class="col-7"> 
                               <select [(ngModel)]="monster.actions.secondary" id="secondary" name="secondary" class="form-control">
                                 <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
@@ -358,6 +418,22 @@
                         
                     </ng-template>
                 </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>Special</ng-template>
+                    <ng-template ngbPanelContent>
+                      <ngForm>
+                          <div class="form-group">
+                              <label for="specialName">Name</label>
+                              <input type="text" class="form-control" id="specialName" name="specialName" [(ngModel)]="specialName">
+                            </div>
+                            <div class="form-group">
+                              <label for="specialDescription">Password</label>
+                              <textarea class="form-control" id="specialDescription" name="specialDescription" [(ngModel)]="specialDescription"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" (click)="addSpecial()">Add</button> 
+                      </ngForm>
+                    </ng-template>
+                  </ngb-panel>
               </ngb-accordion>
           </div>
         </div>
@@ -389,16 +465,25 @@
           </div>
         -->
         <div class="row top-margin">
-          <div class="col-4"><button class="btn btn-primary">Save</button></div>
+          <div class="col-12">
+              <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+                  <button class="btn btn-primary w-100">
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-primary w-100" (click)="cancel()">
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger w-100" (click)="delete()">
+                    Delete
+                  </button>
+              </div>
+          </div>
+          <div class="col-4"></div>
           <div class="col-4">
-            <button type="button" class="btn btn-primary" (click)="cancel()">
-              Cancel
-            </button>
+            
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-danger" (click)="delete()">
-              Delete
-            </button>
+            
           </div>
         </div>
       </form>

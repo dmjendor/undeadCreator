@@ -26,6 +26,8 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
   weapons: Weapon[];
   modifierSub: Subscription;
   modifiers: Modifier[];
+  specialName: Text;
+  specialDescription: Text;
 
   id;
 
@@ -70,11 +72,17 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  addSpecial() {
+    this.monster.special_abilities.push({name: this.specialName, description: this.specialDescription});
+    this.specialDescription = null;
+    this.specialName = null;
+  }
+
   save(monster) {
     if (this.id) {
-      this.monsterService.update(this.id, monster);
+      this.monsterService.update(this.id, this.monster);
     } else {
-      this.monsterService.create(monster);
+      this.monsterService.create(this.monster);
     }
     this.router.navigate(['/admin/monsters']);
   }
@@ -87,6 +95,14 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
     if (confirm('Are you sure you wish to delete this monster?')) {
       this.monsterService.remove(this.id);
       this.router.navigate(['/admin/monsters']);
+    }
+  }
+
+  applyHover() {
+    if (this.monster.speed.hover) {
+      this.monster.cost++;
+    } else {
+      this.monster.cost--;
     }
   }
 

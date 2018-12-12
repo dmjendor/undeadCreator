@@ -123,26 +123,26 @@
             <div class="col-3 bold">Dmg. Vul.</div>
             <div class="col-9">
                   <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
-                    <span *ngIf="monster.damage_modifiers[dmg]===-1">{{dmg}}{{isLast ? '' : ', '}}</span>
+                    <span *ngIf="monster.damage_modifiers[dmg]==-1">{{dmg}}{{isLast ? '' : ', '}}</span>
                   </span>
             </div>
       </div>
       <div class="row" *ngIf="monster.damage_modifiers">
+            <div class="col-3 bold">Dmg. Res.</div>
+            <div class="col-9">
+                  <span class="damage_resistances" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                      <span *ngIf="monster.damage_modifiers[dmg]==1">{{dmg}}{{isLast ? '' : ', '}}</span>
+                  </span>
+            </div>
+        </div>
+      <div class="row" *ngIf="monster.damage_modifiers">
           <div class="col-3 bold">Dmg. Imm.</div>
           <div class="col-9">
                 <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
-                    <span *ngIf="monster.damage_modifiers[dmg]===1">{{dmg}}{{isLast ? '' : ', '}}</span>
+                    <span *ngIf="monster.damage_modifiers[dmg]==2">{{dmg}}{{isLast ? '' : ', '}}</span>
                 </span>
           </div>
-      </div>
-      <div class="row" *ngIf="monster.damage_modifiers">
-          <div class="col-3 bold">Dmg. Res.</div>
-          <div class="col-9">
-                <span class="damage_resistances" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
-                    <span *ngIf="monster.damage_modifiers[dmg]===2">{{dmg}}{{isLast ? '' : ', '}}</span>
-                </span>
-          </div>
-      </div>
+      </div>      
       <div class="row" *ngIf="monster.condition_modifiers">
           <div class="col-3 bold">Cnd. Imm.</div>
           <div class="col-9">
@@ -163,6 +163,7 @@
       
       
     <div class="row" *ngIf="checkSpecials()">
+        <hr/>
         <div class="col-12">
             <hr/>
             <h5>Special Abilities</h5>
@@ -185,6 +186,15 @@
                     <div class="col-12"><b>Venomous:</b> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
             </div>
         </div>  
+    </div>
+    <div class="row" *ngIf="monster.special_abilities && monster.special_abilities.length>0">
+        <hr/>
+        <div class="col-12">
+            <div class="row" *ngFor="let ability of monster.special_abilities">
+                <div class="col-4"><b>{{ability.name}}</b></div>
+                <div class="col-8">{{ability.description}}</div>
+            </div>
+        </div>
     </div>
 
     

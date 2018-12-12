@@ -1,6 +1,4 @@
 export interface MonsterData {
-    user: string; // placeholder for undead
-    base: string; // placeholder for undead
     key: string;
     name: string;
     active: boolean;
@@ -180,7 +178,7 @@ export class Monster implements MonsterData {
     languages = [];
     legendary_actions = [];
     perception = 0;
-    proficiency = 1;
+    proficiency = 2;
     senses = {
         darkvision: 0,
         blindsight: 0,

@@ -15,6 +15,7 @@ export class DnCEditComponent {
   }
   @Input('dnc') set setDnC(value) {
     this.dnc = value;
+    console.log(this.name, this.dnc);
   }
 
   @Input('base') set setBase(value) {

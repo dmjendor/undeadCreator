@@ -44,7 +44,7 @@ export class ManageMonstersComponent implements OnInit, OnDestroy {
     }
 
     editMonster() {
-      this.router.navigate(['/admin/monster/' + this.selectedMonster.key]);
+      this.router.navigate(['/admin/monsters/' + this.selectedMonster.key]);
     }
 
     deleteMonster() {

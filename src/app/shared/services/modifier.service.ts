@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Modifier } from 'shared/models/modifier';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,13 @@ export class ModifierService {
     return this.modifiers$.pipe(map(changes => {
       return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
     }));
+  }
+
+  getModiferOfType(type) {
+    return this.db.list('/modifiers',
+      ref => ref.orderByChild('type')
+      .equalTo(type))
+      .valueChanges();
   }
 
   get(modifierId) {

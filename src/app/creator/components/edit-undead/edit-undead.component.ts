@@ -58,17 +58,17 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(p => {
             this.undead = p as Undead;
-            console.log(this.undead, p);
-            // this.monsterService.get(this.undead.base)
-            //   .valueChanges()
-            //   .pipe(take(1))
-            //   .subscribe(p => this.baseMonster = p as Monster);
         });
     }
   }
 
   saveUndead() {
+    this.undeadService.update(this.undead.key, this.undead);
+    this.router.navigate(['/undead']);
+  }
 
+  cancelUndead() {
+    this.router.navigate(['/undead']);
   }
 
   updateMonster(mod: Modifier) {

@@ -54,42 +54,42 @@
                           </ng-container>      
                     </div>
                   </ng-template>
-                </ngb-panel>
-                <ngb-panel>
-                    <ng-template ngbPanelTitle>
-                      <span>Movement</span>
-                    </ng-template>
-                    <ng-template ngbPanelContent>
-                        <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
-                            <div class="col-5"><b>{{mod.name}}</b></div>
-                            <div class="col-5" *ngIf="mod.type==='speed'">
-                              <option-quantity
-                                [max]="90"
-                                [step]="5"
-                                [costval]="mod.cost" 
-                                [baseval]="baseMonster[mod.type][mod.location]" 
-                                [(totalcost)]="selectedMonster.cost" 
-                                [(optval)]="selectedMonster[mod.type][mod.location]"
-                              ></option-quantity>
-                            </div>
-                            <div class="col-2">
-                                <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
-                            </div>  
+              </ngb-panel>
+              <ngb-panel>
+                <ng-template ngbPanelTitle>
+                  <span>Movement</span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
+                        <div class="col-5"><b>{{mod.name}}</b></div>
+                        <div class="col-5" *ngIf="mod.type==='speed'">
+                          <option-quantity
+                            [max]="90"
+                            [step]="5"
+                            [costval]="mod.cost" 
+                            [baseval]="baseMonster[mod.type][mod.location]" 
+                            [(totalcost)]="selectedMonster.cost" 
+                            [(optval)]="selectedMonster[mod.type][mod.location]"
+                          ></option-quantity>
                         </div>
-                        <div class="row">
-                            <div class="col-2 text-right">
-                                <input [disabled]="selectedMonster.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="selectedMonster.speed.hover" (change)="applyHover()">
-                              </div>
-                              <div class="col-8">
-                                  <b>Hover</b>
-                              </div>
-                              <div class="col-2">
-                                  <span class="cost badge badge-danger badge-pill"> 1 </span>
-                              </div>
-                        </div>
-                    </ng-template>
-                    
-                  </ngb-panel>
+                        <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-2 text-right">
+                            <input [disabled]="selectedMonster.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="selectedMonster.speed.hover" (change)="applyHover()">
+                          </div>
+                          <div class="col-8">
+                              <b>Hover</b>
+                          </div>
+                          <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> 1 </span>
+                          </div>
+                    </div>
+                </ng-template>
+                  
+              </ngb-panel>
               <ngb-panel>
                   <ng-template ngbPanelTitle>
                     <span>Combat</span>
