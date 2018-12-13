@@ -10,6 +10,9 @@ import { ManageUndeadComponent } from './components/manage-undead/manage-undead.
 import { AuthGuard } from 'shared/services/auth-guard.service';
 import { EditWeaponsComponent } from './components/edit-weapons/edit-weapons.component';
 import { WeaponFormComponent } from './components/weapon-form/weapon-form.component';
+import { SpellFormComponent } from './spell-form/spell-form.component';
+import { ManageSpellsComponent } from './manage-spells/manage-spells.component';
+import { UndeadFormComponent } from './undead-form/undead-form.component';
 
 
 @NgModule({
@@ -29,6 +32,11 @@ import { WeaponFormComponent } from './components/weapon-form/weapon-form.compon
     {
       path: 'admin/monsters',
       component: ManageMonstersComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/undead/:id',
+      component: UndeadFormComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
@@ -53,17 +61,17 @@ import { WeaponFormComponent } from './components/weapon-form/weapon-form.compon
     },
     {
       path: 'admin/spells/new',
-      component: MonsterFormComponent,
+      component: SpellFormComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
       path: 'admin/spells/:id',
-      component: MonsterFormComponent,
+      component: SpellFormComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
       path: 'admin/spells',
-      component: ManageMonstersComponent,
+      component: ManageSpellsComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     ])
@@ -74,6 +82,9 @@ import { WeaponFormComponent } from './components/weapon-form/weapon-form.compon
     MonsterFormComponent,
     EditWeaponsComponent,
     WeaponFormComponent,
+    SpellFormComponent,
+    ManageSpellsComponent,
+    UndeadFormComponent,
   ],
   providers: [
     AdminAuthGuard

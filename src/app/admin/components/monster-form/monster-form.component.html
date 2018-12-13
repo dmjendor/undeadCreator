@@ -2,20 +2,33 @@
   <div class="row">
     <div class="col-6">
       <form #monsterForm="ngForm" (ngSubmit)="save(monsterForm.value)">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            required
-            #name="ngModel"
-            [(ngModel)]="monster.name"
-            id="name"
-            name="name"
-            type="text"
-            class="form-control"
-          />
-          <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
-            Name is required.
+        <div class="form-group row">
+          <div class="col-8">
+              <label for="name">Name</label>
+              <input
+                required
+                #name="ngModel"
+                [(ngModel)]="monster.name"
+                id="name"
+                name="name"
+                type="text"
+                class="form-control"
+              />
+              <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                Name is required.
+              </div>
           </div>
+          <div class="col-4">
+            <label for="active">Active</label>
+            <input
+              #name="ngModel"
+              [(ngModel)]="monster.active"
+              id="active"
+              name="active"
+              type="checkbox"
+              class="form-control">
+          </div>
+          
         </div>
         <hr />
         <div class="row form-group top-margin">
@@ -62,29 +75,44 @@
               Armor Class is required.
             </div>
           </div>
+          <div class="col-4">
+              <label for="level">Req. Level</label>
+              <input
+                required
+                #level="ngModel"
+                [(ngModel)]="monster.level"
+                id="level"
+                name="level"
+                type="text"
+                class="form-control"
+              />
+              <div class="alert alert-danger" *ngIf="level.touched && level.invalid">
+                Level is required.
+              </div>
+            </div>
         </div>
         <div class="row">
-            <div class="col-4">
-                <label for="size">Size</label>
-                <select
-                  required
-                  #size="ngModel"
-                  [(ngModel)]="monster.size"
-                  id="size"
-                  name="size"
-                  class="form-control"
-                  (change)="updateHitDice()"
-                >
-                  <option value="">Select</option>
-                  <option *ngFor="let s of sizes" [value]="s.key">{{toTitleCase(s.key)}}</option>
-                </select>
-                <div
-                  class="alert alert-danger"
-                  *ngIf="size.touched && size.invalid"
-                >
-                  Size is required.
-                </div>
-              </div>
+          <div class="col-4">
+            <label for="size">Size</label>
+            <select
+              required
+              #size="ngModel"
+              [(ngModel)]="monster.size"
+              id="size"
+              name="size"
+              class="form-control"
+              (change)="updateHitDice()"
+            >
+              <option value="">Select</option>
+              <option *ngFor="let s of sizes" [value]="s.key">{{toTitleCase(s.key)}}</option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="size.touched && size.invalid"
+            >
+              Size is required.
+            </div>
+          </div>
           <div class="col-4">
             <label for="hit_dice_qty">Hit Dice</label>
             <input
@@ -100,6 +128,7 @@
               Hit Dice are required.
             </div>
           </div>
+          
         </div>
         <hr />
 
@@ -373,13 +402,21 @@
                       <ng-template ngbPanelContent>
                           
                         <div class="row top-margin" >
-                          <div class="col-5"><b>Primary Attarmor_classk</b></div>
+                          <div class="col-5"><b>Primary Attack</b></div>
                           <div class="col-7">
                             <select [(ngModel)]="monster.actions.primary" id="primary" name="primary" class="form-control">
                               <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
                             </select>                                
                           </div>
                         </div>
+                        <div class="row top-margin" >
+                            <div class="col-5"><b>Secondary Attack</b></div>
+                            <div class="col-7">
+                              <select [(ngModel)]="monster.actions.secondary" id="secondary" name="secondary" class="form-control">
+                                <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>                                
+                            </div>
+                          </div>
                         <div class="row top-margin" >
                           <div class="col-5"><b># of Attacks</b></div>
                           <div class="col-5">
@@ -398,19 +435,19 @@
                         </div>
                         <div class="row top-margin" >
                             <div class="col-2 text-right">
-                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattarmor_classk"  [(ngModel)]="monster.actions.multiattack" (change)="updateWeapon()">
+                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="monster.actions.multiattack" (change)="updateWeapon()">
                             </div>
                             <div class="col-8">
-                              <b>Multiattarmor_classk</b>
+                              <b>Multiattack</b>
                             </div>
                             <div class="col-2">
                               <span class="cost badge badge-danger badge-pill"> 2 </span>
                             </div>
                           </div>
                         <div class="row top-margin" *ngIf="monster.actions.multiattack" >
-                          <div class="col-5"><b>Offhand Attarmor_classk</b></div>
+                          <div class="col-5"><b>Offhand Attack</b></div>
                           <div class="col-7"> 
-                              <select [(ngModel)]="monster.actions.secondary" id="secondary" name="secondary" class="form-control">
+                              <select [(ngModel)]="monster.actions.offhand" id="offhand" name="offhand" class="form-control">
                                 <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
                               </select>
                           </div>

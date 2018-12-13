@@ -12,7 +12,7 @@ export class UserService {
   user$:  Observable<any>;
 
   constructor(private db: AngularFireDatabase) {
-    this.user$ = this.db.list('/user', c => c.orderByChild('name'))
+    this.user$ = this.db.list('/users', c => c.orderByChild('name'))
     .snapshotChanges();
   }
 

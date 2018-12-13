@@ -27,6 +27,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   selectedMonster: Monster;
   baseMonster: Monster;
   filteredMonsters: Monster[];
+  filter1: Monster[];
   modifiers: Modifier[];
   monsterSub: Subscription;
   weaponSub: Subscription;
@@ -53,10 +54,13 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+
     this.monsterSub = this.monsterService.getAll()
     .subscribe(monsters => {
       this.monsters = monsters;
-      this.filteredMonsters = this.filtersService.filterBoolean(this.monsters, 'active', true);
+      this.filter1 = this.filtersService.filterBoolean(this.monsters, 'active', true);
+      this.filteredMonsters = this.filtersService.filterLTE(this.filter1, 'level', this.appUser.level);
     });
 
     this.modifierSub = this.modifierService.getAll()
@@ -74,7 +78,7 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
       this.sizes = sizes;
     });
 
-    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+
 
   }
 

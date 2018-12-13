@@ -1,4 +1,4 @@
-<div *ngIf="monster.name" class="card">
+<div *ngIf="monster && monster.name" class="card">
     <div class="card-header bg-primary">
         <div class="row">
             <div class="col-7">
@@ -22,92 +22,92 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <span class="size" *ngIf="monster.size">{{ monster.size }} </span> 
-                <span class="type" *ngIf="monster.type">{{ monster.type }}</span> 
-                <span class="subtype" *ngIf="monster.subtype">, {{ monster.subtype }}</span>
-                <span class="alignment" *ngIf="monster.alignment">, {{ monster.alignment }}</span>
+                <span class="size" *ngIf="monster.size">{{ toTitleCase(monster.size) }} </span> 
+                <span class="type" *ngIf="monster.type">{{ toTitleCase(monster.type) }}</span> 
+                <span class="subtype" *ngIf="monster.subtype">, {{ toTitleCase(monster.subtype) }}</span>
+                <span class="alignment" *ngIf="monster.alignment">, {{ toTitleCase(monster.alignment) }}</span>
             </div>
         </div>     
-      <hr/>
-      <div class="row" *ngIf="monster.armor_class">
+        <hr/>
+        <div class="row" *ngIf="monster.armor_class">
             <div class="col-4 bold">
                     Armor Class:
-                 </div>
-                 <div class="col-8">
-             <span class="armor_class">{{ monster.armor_class }}</span>
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.hit_dice_qty">
+                    </div>
+                    <div class="col-8">
+                <span class="armor_class">{{ monster.armor_class }}</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="monster.hit_dice_qty">
             <div class="col-4 bold">
                     Hit Points:
-                 </div>
-                 <div class="col-8">
+                    </div>
+                    <div class="col-8">
                 <span class="hit_points">
                     {{ calculated_hit_points() }}
                 </span> 
                 (<span class="hit_dice">{{monster.hit_dice_qty}}d{{ monster.hit_dice_size }}+{{ bonusHitPoints() }}</span>)
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.speed">
-          <div class="col-4 bold">
-             Speed:
-          </div>
-          <div class="col-8">
-             <span>{{ monster.speed.base }} ft.</span>
-             <span *ngIf="monster.speed.fly>0">, Fly {{ monster.speed.fly }} ft.</span>
-             <span *ngIf="monster.speed.hover===true">(Hover)</span>
-             <span *ngIf="monster.speed.climb>0">, Climb {{ monster.speed.climb }} ft.</span>
-             <span *ngIf="monster.speed.swim>0">, Swim {{ monster.speed.swim }} ft.</span>
-             <span *ngIf="monster.speed.burrow>0">, Burrow {{ monster.speed.burrow }} ft.</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="monster.speed">
+            <div class="col-4 bold">
+                Speed:
+            </div>
+            <div class="col-8">
+                <span>{{ monster.speed.base }} ft.</span>
+                <span *ngIf="monster.speed.fly>0">, Fly {{ monster.speed.fly }} ft.</span>
+                <span *ngIf="monster.speed.hover===true">(Hover)</span>
+                <span *ngIf="monster.speed.climb>0">, Climb {{ monster.speed.climb }} ft.</span>
+                <span *ngIf="monster.speed.swim>0">, Swim {{ monster.speed.swim }} ft.</span>
+                <span *ngIf="monster.speed.burrow>0">, Burrow {{ monster.speed.burrow }} ft.</span>
 
-          </div>
-      </div>
-      <hr />
-      <div class="row">
+            </div>
+        </div>
+        <hr />
+        <div class="row">
         <div class="col-2 bold">STR</div>
         <div class="col-2 bold">DEX</div>
         <div class="col-2 bold">CON</div>
         <div class="col-2 bold">INT</div>
         <div class="col-2 bold">WIS</div>
         <div class="col-2 bold">CHA</div>        
-      </div>
-      <div class="row">
-          <div class="col-2" *ngIf="monster.strength"><span [class.danger]="invalidModifier(monster.strength)">{{ monster.strength }}</span></div>
-          <div class="col-2" *ngIf="monster.dexterity"><span [class.danger]="invalidModifier(monster.dexterity)">{{ monster.dexterity }}</span></div>
-          <div class="col-2" *ngIf="monster.constitution"><span [class.danger]="invalidModifier(monster.constitution)">{{ monster.constitution }}</span></div>
-          <div class="col-2" *ngIf="monster.intelligence"><span [class.danger]="invalidModifier(monster.intelligence)">{{ monster.intelligence }}</span></div>
-          <div class="col-2" *ngIf="monster.wisdom"><span [class.danger]="invalidModifier(monster.wisdom)">{{ monster.wisdom }}</span></div>
-          <div class="col-2" *ngIf="monster.charisma"><span [class.danger]="invalidModifier(monster.charisma)">{{ monster.charisma }}</span></div>
-      </div>
-      <div class="row">
-          <div class="col-2" *ngIf="monster.strength"><span [class.danger]="invalidModifier(monster.strength)">({{modifier(monster.strength)}})</span></div>
-          <div class="col-2" *ngIf="monster.dexterity"><span [class.danger]="invalidModifier(monster.dexterity)">({{modifier(monster.dexterity)}})</span></div>
-          <div class="col-2" *ngIf="monster.constitution"><span [class.danger]="invalidModifier(monster.constitution)">({{modifier(monster.constitution)}})</span></div>
-          <div class="col-2" *ngIf="monster.intelligence"><span [class.danger]="invalidModifier(monster.intelligence)">({{modifier(monster.intelligence)}})</span></div>
-          <div class="col-2" *ngIf="monster.wisdom"><span [class.danger]="invalidModifier(monster.wisdom)">({{modifier(monster.wisdom)}})</span></div>
-          <div class="col-2" *ngIf="monster.charisma"><span [class.danger]="invalidModifier(monster.charisma)">({{modifier(monster.charisma)}}</span>)</div>
-      </div>
-      <hr />
-      <div class="row" *ngIf="monster.proficiency">
-          <div class="col-3"><strong>Prof:</strong> +{{ monster.proficiency }}</div>
-          <div class="col-4"><strong>Melee:</strong> {{ calculated_attack(monster.strength) }}</div>
-          <div class="col-4"><strong>Ranged:</strong> {{ calculated_attack(monster.dexterity) }}</div>
-      </div>
-      
-      <div class="row" *ngIf="monster.saves">
-          <div class="col-3 bold">Saving Throws</div>
-          <div class="col-9">
-              <span *ngIf="monster.saves.strength">Str +{{monster.saves.strength}}, </span>
-              <span *ngIf="monster.saves.dexterity">Dex +{{monster.saves.dexterity}}, </span>
-              <span *ngIf="monster.saves.constitution">Con +{{monster.saves.constitution}}, </span>
-              <span *ngIf="monster.saves.intelligence">Int +{{monster.saves.intelligence}}, </span>
-              <span *ngIf="monster.saves.wisdom">Wis +{{monster.saves.wisdom}}, </span>
-              <span *ngIf="monster.saves.charisma">Cha +{{monster.saves.charisma}}, </span>
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.skills">
-          <div class="col-3 bold">Skills</div>
-          <div class="col-9">
+        </div>
+        <div class="row">
+            <div class="col-2" *ngIf="monster.strength"><span [class.danger]="invalidModifier(monster.strength)">{{ monster.strength }}</span></div>
+            <div class="col-2" *ngIf="monster.dexterity"><span [class.danger]="invalidModifier(monster.dexterity)">{{ monster.dexterity }}</span></div>
+            <div class="col-2" *ngIf="monster.constitution"><span [class.danger]="invalidModifier(monster.constitution)">{{ monster.constitution }}</span></div>
+            <div class="col-2" *ngIf="monster.intelligence"><span [class.danger]="invalidModifier(monster.intelligence)">{{ monster.intelligence }}</span></div>
+            <div class="col-2" *ngIf="monster.wisdom"><span [class.danger]="invalidModifier(monster.wisdom)">{{ monster.wisdom }}</span></div>
+            <div class="col-2" *ngIf="monster.charisma"><span [class.danger]="invalidModifier(monster.charisma)">{{ monster.charisma }}</span></div>
+        </div>
+        <div class="row">
+            <div class="col-2" *ngIf="monster.strength"><span [class.danger]="invalidModifier(monster.strength)">({{modifier(monster.strength)}})</span></div>
+            <div class="col-2" *ngIf="monster.dexterity"><span [class.danger]="invalidModifier(monster.dexterity)">({{modifier(monster.dexterity)}})</span></div>
+            <div class="col-2" *ngIf="monster.constitution"><span [class.danger]="invalidModifier(monster.constitution)">({{modifier(monster.constitution)}})</span></div>
+            <div class="col-2" *ngIf="monster.intelligence"><span [class.danger]="invalidModifier(monster.intelligence)">({{modifier(monster.intelligence)}})</span></div>
+            <div class="col-2" *ngIf="monster.wisdom"><span [class.danger]="invalidModifier(monster.wisdom)">({{modifier(monster.wisdom)}})</span></div>
+            <div class="col-2" *ngIf="monster.charisma"><span [class.danger]="invalidModifier(monster.charisma)">({{modifier(monster.charisma)}}</span>)</div>
+        </div>
+        <hr />
+        <div class="row" *ngIf="monster.proficiency">
+            <div class="col-4"><strong>Prof:</strong> +{{ monster.proficiency }}</div>
+            <div class="col-4"><strong>Melee:</strong> {{ calculated_attack(monster.strength) }}</div>
+            <div class="col-4"><strong>Ranged:</strong> {{ calculated_attack(monster.dexterity) }}</div>
+        </div>
+        
+        <div class="row" *ngIf="monster.saves">
+            <div class="col-4 bold">Saving Throws</div>
+            <div class="col-8">
+                <span *ngIf="monster.saves.strength">Str {{calculated_attack(monster.strength)}}, </span>
+                <span *ngIf="monster.saves.dexterity">Dex {{calculated_attack(monster.dexterity)}}, </span>
+                <span *ngIf="monster.saves.constitution">Con {{calculated_attack(monster.constitution)}}, </span>
+                <span *ngIf="monster.saves.intelligence">Int {{calculated_attack(monster.intelligence)}}, </span>
+                <span *ngIf="monster.saves.wisdom">Wis {{calculated_attack(monster.wisdom)}}, </span>
+                <span *ngIf="monster.saves.charisma">Cha {{calculated_attack(monster.charisma)}}, </span>
+            </div>
+        </div>
+        <div class="row" *ngIf="monster.skills">
+            <div class="col-4 bold">Skills</div>
+            <div class="col-8">
             <span *ngFor="let skill of monsterKeys(monster.skills); let isLast=last" >
                 <skill-display 
                     *ngIf="monster.skills[skill]>0"
@@ -117,118 +117,123 @@
                 ></skill-display>
                 <span *ngIf="monster.skills[skill]>0">{{isLast ? '' : ', '}}</span>
             </span>
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.damage_modifiers">
-            <div class="col-3 bold">Dmg. Vul.</div>
-            <div class="col-9">
-                  <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+            </div>
+        </div>
+        <div class="row" *ngIf="monster.damage_modifiers">
+            <div class="col-4 bold">Dmg. Vul.</div>
+            <div class="col-8">
+                    <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
                     <span *ngIf="monster.damage_modifiers[dmg]==-1">{{dmg}}{{isLast ? '' : ', '}}</span>
-                  </span>
-            </div>
-      </div>
-      <div class="row" *ngIf="monster.damage_modifiers">
-            <div class="col-3 bold">Dmg. Res.</div>
-            <div class="col-9">
-                  <span class="damage_resistances" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
-                      <span *ngIf="monster.damage_modifiers[dmg]==1">{{dmg}}{{isLast ? '' : ', '}}</span>
-                  </span>
+                    </span>
             </div>
         </div>
-      <div class="row" *ngIf="monster.damage_modifiers">
-          <div class="col-3 bold">Dmg. Imm.</div>
-          <div class="col-9">
-                <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
-                    <span *ngIf="monster.damage_modifiers[dmg]==2">{{dmg}}{{isLast ? '' : ', '}}</span>
-                </span>
-          </div>
-      </div>      
-      <div class="row" *ngIf="monster.condition_modifiers">
-          <div class="col-3 bold">Cnd. Imm.</div>
-          <div class="col-9">
-                <span class="condition_immunities" *ngFor="let condi of monsterKeys(monster.condition_modifiers); let isLast=last">
-                    <span *ngIf="monster.condition_modifiers[condi]>0">{{condi}}{{isLast ? '' : ', '}}</span>
-                </span>
-          </div>
-      </div>
-      <div class="row" *ngIf="monster.senses">
-          <div class="col-3 bold">Senses</div>
-          <div class="col-9">
-                Passive Perception {{ monster.skills.perception+modifier(monster.wisdom)+10 }},
-                <span class="senses" *ngFor="let sense of monsterKeys(monster.senses); let isLast=last">
-                    <span *ngIf="monster.senses[sense]>0">{{toTitleCase(sense)}} {{monster.senses[sense]}}ft{{isLast ? '' : ', '}}</span>
-                </span>
-          </div>
-      </div>
-      
-      
-    <div class="row" *ngIf="checkSpecials()">
-        <hr/>
-        <div class="col-12">
-            <hr/>
-            <h5>Special Abilities</h5>
-            <div class="row" *ngIf="monster.elemental.acidic>0">
-                    <div class="col-12"><b>Acidic:</b> {{ monster.elemental.acidic }}d6 acid damage (melee attack bonus)</div>
+        <div class="row" *ngIf="monster.damage_modifiers">
+            <div class="col-4 bold">Dmg. Res.</div>
+            <div class="col-8">
+                    <span class="damage_resistances" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                        <span *ngIf="monster.damage_modifiers[dmg]==1">{{dmg}}{{isLast ? '' : ', '}}</span>
+                    </span>
             </div>
-            <div class="row" *ngIf="monster.elemental.electric>0">
-                <div class="col-12"><b>Electric:</b> {{ monster.elemental.electric }}d6 lightning damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.damage_modifiers">
+            <div class="col-4 bold">Dmg. Imm.</div>
+            <div class="col-8">
+                    <span class="damage_modifiers" *ngFor="let dmg of monsterKeys(monster.damage_modifiers); let isLast=last">
+                        <span *ngIf="monster.damage_modifiers[dmg]==2">{{dmg}}{{isLast ? '' : ', '}}</span>
+                    </span>
             </div>
-            <div class="row" *ngIf="monster.elemental.flaming>0">
-                    <div class="col-12"><b>Flaming:</b> {{ monster.elemental.flaming }}d6 fire damage (melee attack bonus)</div>
+        </div>      
+        <div class="row" *ngIf="monster.condition_modifiers">
+            <div class="col-4 bold">Cnd. Imm.</div>
+            <div class="col-8">
+                    <span class="condition_immunities" *ngFor="let condi of monsterKeys(monster.condition_modifiers); let isLast=last">
+                        <span *ngIf="monster.condition_modifiers[condi]>0">{{condi}}{{isLast ? '' : ', '}}</span>
+                    </span>
             </div>
-            <div class="row" *ngIf="monster.elemental.freezing>0">
-                    <div class="col-12"><b>Freezing:</b> {{ monster.elemental.freezing }}d6 cold damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.senses">
+            <div class="col-4 bold">Senses</div>
+            <div class="col-8">
+                    Passive Perception {{ monster.skills.perception+modifier(monster.wisdom)+10 }},
+                    <span class="senses" *ngFor="let sense of monsterKeys(monster.senses); let isLast=last">
+                        <span *ngIf="monster.senses[sense]>0">{{toTitleCase(sense)}} {{monster.senses[sense]}}ft{{isLast ? '' : ', '}}</span>
+                    </span>
             </div>
-            <div class="row" *ngIf="monster.elemental.necrotic>0">
-                    <div class="col-12"><b>Necrotic:</b> {{ monster.elemental.necrotic }}d6 necrotic damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="(monster.special_abilities && monster.special_abilities.length>0)||checkSpecials()">
+            <div class="col-12">
+                <hr/>
+                <h5>Special Abilities</h5>
             </div>
-            <div class="row" *ngIf="monster.elemental.venomous>0">
-                    <div class="col-12"><b>Venomous:</b> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
-            </div>
-        </div>  
-    </div>
-    <div class="row" *ngIf="monster.special_abilities && monster.special_abilities.length>0">
-        <hr/>
-        <div class="col-12">
+        </div>
+        <div class="row" *ngIf="monster.elemental.acidic>0">
+            <div class="col-5 offset-1"><b>Acidic:</b></div>
+            <div class="col-6"> {{ monster.elemental.acidic }}d6 acid damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.elemental.electric>0">
+            <div class="col-5 offset-1"><b>Electric:</b></div>
+            <div class="col-6"> {{ monster.elemental.electric }}d6 lightning damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.elemental.flaming>0">
+            <div class="col-5 offset-1"><b>Flaming:</b></div>
+            <div class="col-6"> {{ monster.elemental.flaming }}d6 fire damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.elemental.freezing>0">
+            <div class="col-5 offset-1"><b>Freezing:</b></div>
+            <div class="col-6"> {{ monster.elemental.freezing }}d6 cold damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.elemental.necrotic>0">
+            <div class="col-5 offset-1"><b>Necrotic:</b></div>
+            <div class="col-6"> {{ monster.elemental.necrotic }}d6 necrotic damage (melee attack bonus)</div>
+        </div>
+        <div class="row" *ngIf="monster.elemental.venomous>0">
+            <div class="col-5 offset-1"><b>Venomous:</b></div>
+            <div class="col-6"> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
+        </div>
+        <ng-container class="row" *ngIf="(monster.special_abilities && monster.special_abilities.length>0)||checkSpecials()">
             <div class="row" *ngFor="let ability of monster.special_abilities">
-                <div class="col-4"><b>{{ability.name}}</b></div>
-                <div class="col-8">{{ability.description}}</div>
+                <div class="col-5 offset-1"><b>{{ability.name}}</b></div>
+                <div class="col-6">{{ability.description}}</div>
             </div>
-        </div>
-    </div>
+        </ng-container>
 
-    
-    <div class="row" *ngIf="monster.actions">
-        <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <hr/>
+                <h5>Actions</h5>
+                <div class="row" *ngIf="primaryAttack">
+                    <div class="col-12">
+                        <b>{{primaryAttack.name}}</b>&nbsp;<span *ngIf="monster.actions.attack_number>1">: {{monster.actions.attack_number}} attacks with primary attack.</span><br />
+                        <i *ngIf="primaryAttack.type">{{toTitleCase(primaryAttack.type)}} Weapon Attack</i>{{attackMod(primaryAttack)}} to hit, {{weaponDamage(primaryAttack)}}{{damageMod(primaryAttack)}} {{primaryAttack.damage}} damage.
+                    </div>          
+                </div>
+                <div class="row" *ngIf="secondaryAttack">
+                    <div class="col-12">
+                        <b>{{secondaryAttack.name}}</b><br />
+                        <i *ngIf="secondaryAttack.type">{{toTitleCase(secondaryAttack.type)}} Weapon Attack</i>{{attackMod(secondaryAttack)}} to hit, {{weaponDamage(secondaryAttack)}}{{damageMod(secondaryAttack)}} {{secondaryAttack.damage}} damage.
+                    </div>          
+                </div>
+                <div class="row" *ngIf="offHandAttack">
+                    <div class="col-12">
+                        <b>{{offHandAttack.name}}</b><br/>
+                        <i *ngIf="offHandAttack.type">{{toTitleCase(offHandAttack.type)}} Weapon Attack</i>{{attackMod(offHandAttack)}} to hit, {{weaponDamage(offHandAttack)}}{{damageMod(offHandAttack)}} {{offHandAttack.damage}} damage.
+                    </div>          
+                </div>
+                <!-- <div class="row" *ngIf="monster.actions.multiattack">
+                    <div class="col-12">Can make an attack with both its primary and off hand attacks.</div>
+                </div> -->
+            </div>
+        </div>
+        
+        <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
+            <div class="col-12">
             <hr/>
-            <h5>Actions</h5>
-            <div class="row" *ngIf="primaryAttack">
-                <div class="col-12">
-                    <b>{{primaryAttack.name}}</b>&nbsp;<span *ngIf="monster.actions.attack_number>1">: {{monster.actions.attack_number}} attacks with primary attack.</span><br />
-                    <i *ngIf="primaryAttack.type">{{toTitleCase(primaryAttack.type)}} Weapon Attack</i>{{attackMod(primaryAttack)}} to hit, {{weaponDamage(primaryAttack)}}{{damageMod(primaryAttack)}}
-                </div>          
+            <h5>Legendary Actions</h5>
+            <div class="row" *ngFor="let action of monster.legendary_actions; let isLast=last">
+                    <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
             </div>
-            <div class="row" *ngIf="offHandAttack && monster.actions.multiattack">
-                <div class="col-12">
-                    <b>{{offHandAttack.name}}</b><br/>
-                    <i *ngIf="offHandAttack.type">{{toTitleCase(offHandAttack.type)}} Weapon Attack</i>{{attackMod(offHandAttack)}} to hit, {{weaponDamage(offHandAttack)}}{{damageMod(offHandAttack)}}
-                </div>          
-            </div>
-            <div class="row" *ngIf="monster.actions.multiattack">
-                <div class="col-12">Can make an attack with both its primary and off hand attacks.</div>
             </div>
         </div>
-    </div>
-    
-    <div class="row" *ngIf="monster.legendary_actions && monster.legendary_actions.length>0">
-        <div class="col-12">
-        <hr/>
-        <h5>Legendary Actions</h5>
-        <div class="row" *ngFor="let action of monster.legendary_actions; let isLast=last">
-                <div class="col-12"><b>{{ action.name }}: </b><span *ngIf="action.attack_bonus>0">+{{action.attack_bonus}} to hit; {{action.damage_dice}} damage | </span>{{ action.desc }}</div>
-        </div>
-        </div>
-    </div>
       
     </div>
     <!-- <div *ngIf="showActions && shoppingCart" class="card-footer"> -->

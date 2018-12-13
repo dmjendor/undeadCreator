@@ -24,7 +24,24 @@ export class FiltersService {
   /// filter  numbers greater than rule
   public filterGreaterThan(source: object, property: string, rule: number) {
     this.filters[property] = val => val > rule;
-    this.applyFilters(source);
+    return this.applyFilters(source);
+  }
+
+  /// filter  numbers greater than rule
+  public filterGTE(source: object, property: string, rule: number) {
+    this.filters[property] = val => val >= rule;
+    return this.applyFilters(source);
+  }
+
+  // filter  numbers less than rule
+  public filterLessThan(source: object, property: string, rule: number) {
+    this.filters[property] = val => val < rule;
+    return this.applyFilters(source);
+  }
+
+  public filterLTE(source: object, property: string, rule: number) {
+    this.filters[property] = val => val <= rule;
+    return this.applyFilters(source);
   }
 
   /// filter properties that resolve to true

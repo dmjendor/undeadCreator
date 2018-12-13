@@ -1,6 +1,11 @@
-import { Monster } from './monster';
+import { Monster, MonsterData } from './monster';
 
-export interface Undead extends Monster {
+interface UndeadInterface extends MonsterData {
+    base: string;
+    user: string;
+}
+
+export class Undead  extends Monster implements UndeadInterface {
     base: string;
     user: string;
 }

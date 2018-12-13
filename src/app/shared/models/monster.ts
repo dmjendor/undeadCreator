@@ -7,7 +7,8 @@ export interface MonsterData {
         attack_number: number,
         multiattack: boolean,
         primary: string,
-        secondary: string
+        secondary: string,
+        offhand: string
     };
     alignment: string;
     armor_class: number;
@@ -60,6 +61,7 @@ export interface MonsterData {
         venomous: number
     };
     languages: any[];
+    level: number;
     legendary_actions: any[];
     perception: number;
     proficiency: number;
@@ -122,7 +124,8 @@ export class Monster implements MonsterData {
         attack_number: 0,
         multiattack: false,
         primary: '',
-        secondary: ''
+        secondary: '',
+        offhand: ''
     };
     alignment = 'chaotic_evil';
     armor_class = 10;
@@ -176,6 +179,7 @@ export class Monster implements MonsterData {
         venomous: 0
     };
     languages = [];
+    level: 5;
     legendary_actions = [];
     perception = 0;
     proficiency = 2;

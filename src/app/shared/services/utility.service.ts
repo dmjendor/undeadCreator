@@ -8,12 +8,18 @@ export class UtilityService {
   constructor() { }
 
  public toTitleCase(str) {
-    return str.replace(
+   if (typeof str === 'string') {
+    const mod = str.replace(/(_)/g, ' '); // convert underscores to spaces
+    return mod.replace( // campitalize the first letter after each space
         /\w\S*/g,
         function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         }
     );
+   } else {
+     return '';
+   }
+
  }
 
   deepFreeze(object) {

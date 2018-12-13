@@ -1,3 +1,30 @@
-<p>
-  manage-undead works!
-</p>
+<div class="row" *ngIf="undead">
+    <div class="col-6">
+      <ngx-datatable
+      class="bootstrap"
+      [rows]="undead"
+      [columns]="columns"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'>
+      >
+      
+      <ngx-datatable-column name="Name"></ngx-datatable-column>
+      <ngx-datatable-column name="Cost"></ngx-datatable-column>
+      <ngx-datatable-column name="User"></ngx-datatable-column>
+      </ngx-datatable>
+      <div class="row">
+          <div class="col-12">
+            <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+              <button type="button" class="btn btn-secondary btn-info w-100" (click)="editUndead()">Edit</button>
+              <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteUndead()">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <monster-card [monster]="selectedUndead"></monster-card>   
+    </div>
+  </div>
+  

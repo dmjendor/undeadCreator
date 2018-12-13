@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { Monster } from 'shared/models/monster';
 import { AppUser } from 'shared/models/app-user';
 import { AuthService } from 'shared/services/auth.service';
@@ -15,12 +15,13 @@ import { take } from 'rxjs/operators';
   templateUrl: './monster-card.component.html',
   styleUrls: ['./monster-card.component.css']
 })
-export class MonsterCardComponent implements OnInit {
+export class MonsterCardComponent implements OnInit, OnChanges {
   @Input() monster: Monster;
   @Input() edit: boolean;
   appUser: AppUser;
   monsterKeys = Object.keys;
   primaryAttack: Weapon;
+  secondaryAttack: Weapon;
   offHandAttack: Weapon;
 
 
@@ -31,22 +32,6 @@ export class MonsterCardComponent implements OnInit {
     private utilityService: UtilityService
     ) {}
 
-  async ngOnInit() {
-    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    if (this.monster.actions) {
-      this.weaponService.get(this.monster.actions.primary)
-      .valueChanges()
-      .pipe(take(1))
-      .subscribe(p => this.primaryAttack = p as Weapon);
-    }
-    if (this.monster.actions) {
-      this.weaponService.get(this.monster.actions.secondary)
-      .valueChanges()
-      .pipe(take(1))
-      .subscribe(p => this.offHandAttack = p as Weapon);
-    }
-
-  }
 
   toTitleCase = function(text) {
     return this.utilityService.toTitleCase(text);
@@ -113,25 +98,60 @@ export class MonsterCardComponent implements OnInit {
   }
 
   weaponDamage(weapon) {
-    let dmg;
+    let dmg = '';
+    console.log(this.monster.size);
     switch (this.monster.size) {
-      case 'Tiny':
+      case 'tiny':
         dmg = weapon.tiny;
         break;
-      case 'Small':
+      case 'small':
         dmg = weapon.small;
         break;
-      case 'Medium':
+      case 'medium':
         dmg = weapon.medium;
         break;
-       case 'Large':
+       case 'large':
         dmg = weapon.large;
         break;
-      case 'Huge':
+      case 'huge':
         dmg = weapon.huge;
         break;
     }
+    console.log(dmg);
     return dmg;
+  }
+
+  loadSubs() {
+    if (this.monster && this.monster.actions) {
+      if (this.monster.actions.primary !== '') {
+        this.weaponService.get(this.monster.actions.primary)
+        .valueChanges()
+        .pipe(take(1))
+        .subscribe(p => this.primaryAttack = p as Weapon );
+      }
+      if (this.monster.actions.secondary !== '') {
+        this.weaponService.get(this.monster.actions.secondary)
+        .valueChanges()
+        .pipe(take(1))
+        .subscribe(p => this.secondaryAttack = p as Weapon );
+      }
+      if (this.monster.actions.offhand !== '') {
+        this.weaponService.get(this.monster.actions.offhand)
+        .valueChanges()
+        .pipe(take(1))
+        .subscribe(p => this.offHandAttack = p as Weapon);
+      }
+    }
+
+  }
+
+  async ngOnInit() {
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    this.loadSubs();
+  }
+
+  ngOnChanges() {
+    this.loadSubs();
   }
 }
 
