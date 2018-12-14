@@ -187,7 +187,7 @@
         <div class="row" *ngIf="undead.elemental.venomous>0">
                 <div class="col-12"><b>Venomous:</b> {{ undead.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
         </div>
-        <div class="row" *ngIf="undead.actions && undead.actions.length>0">
+        <div class="row" *ngIf="undead.actions">
             <div class="col-12">
             <hr/>
             <h5>Actions</h5>
