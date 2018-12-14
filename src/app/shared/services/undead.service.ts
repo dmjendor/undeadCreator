@@ -10,7 +10,10 @@ import { Undead } from 'shared/models/undead';
 export class UndeadService {
   undead$: Observable<any[]>;
 
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) {
+    this.undead$ = this.db.list('/undead', c => c.orderByChild('name'))
+    .snapshotChanges();
+  }
 
   create(creature) {
     return this.db.list('/undead').push(creature);
@@ -26,10 +29,10 @@ export class UndeadService {
   }
 
   getAll() {
-     return this.db.list('/undead/').valueChanges();
-    // return this.undead$.pipe(map(changes => {
-    //   return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
-    // }));
+    // return this.db.list('/undead/').valueChanges();
+    return this.undead$.pipe(map(changes => {
+      return changes.map(p => ({ key: p.payload.key, ...p.payload.val() }));
+    }));
   }
 
   get(creatureId) {

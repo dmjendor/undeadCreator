@@ -190,7 +190,7 @@
             <div class="col-5 offset-1"><b>Venomous:</b></div>
             <div class="col-6"> {{ monster.elemental.venomous }}d6 poison damage (melee attack bonus)</div>
         </div>
-        <ng-container class="row" *ngIf="(monster.special_abilities && monster.special_abilities.length>0)||checkSpecials()">
+        <ng-container class="row" *ngIf="(monster.special_abilities && monster.special_abilities.length>0)">
             <div class="row" *ngFor="let ability of monster.special_abilities">
                 <div class="col-5 offset-1"><b>{{ability.name}}</b></div>
                 <div class="col-6">{{ability.description}}</div>

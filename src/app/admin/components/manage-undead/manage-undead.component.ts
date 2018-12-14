@@ -23,9 +23,9 @@ export class ManageUndeadComponent implements OnInit, OnDestroy {
     selected: any[];
     selectedUndead: Undead;
     columns = [
-      { prop: 'name' },
+      { prop: 'name', name: 'Name' },
       { name: 'Cost' },
-      { user: 'User' }
+      { name: 'Owner' }
     ];
 
     constructor(
@@ -42,6 +42,7 @@ export class ManageUndeadComponent implements OnInit, OnDestroy {
     }
 
     editUndead() {
+      localStorage.setItem('returnUrl', '/admin/undead');
       this.router.navigate(['/admin/undead/' + this.selectedUndead.key]);
     }
 
@@ -74,10 +75,9 @@ export class ManageUndeadComponent implements OnInit, OnDestroy {
       this.undeadSub = this.undeadService.getAll()
       .subscribe(undead => {
         this.undead = undead as Undead[];
-        console.log(this.users);
         for (let i = 0; i < this.undead.length; i++) {
           const u = this.users.find(x => x.key === this.undead[i].user);
-          this.undead[i].user = u.name;
+          this.undead[i].owner = u.name;
         }
         this.selected = [this.undead[0]];
         this.selectedUndead = this.undead[0];

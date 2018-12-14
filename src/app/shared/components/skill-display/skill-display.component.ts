@@ -19,7 +19,6 @@ export class SkillDisplayComponent implements OnInit {
   ngOnInit() {
     let stat;
     this.profMod = this.skill === 2 ? this.monster.proficiency * 2 : this.monster.proficiency;
-    console.log(this.name);
     switch (this.name) {
       case 'athletics':
         stat = this.cardService.modifier(this.monster.strength);

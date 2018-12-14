@@ -33,6 +33,9 @@ import { EditUndeadComponent } from './components/edit-undead/edit-undead.compon
     CreateUndeadComponent,
     UserUndeadComponent,
     EditUndeadComponent
+  ],
+  exports: [
+    EditUndeadComponent
   ]
 })
 export class CreatorModule { }

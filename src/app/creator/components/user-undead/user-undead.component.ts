@@ -7,7 +7,7 @@ import { SelectedSpell } from 'shared/models/selected-spell';
 import { Spell } from 'shared/models/spell';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'user-undead',
@@ -47,6 +47,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     }
 
     editUndead(row) {
+      localStorage.setItem('returnUrl', '/undead');
       this.router.navigate(['/undead/' + row.key]);
     }
 

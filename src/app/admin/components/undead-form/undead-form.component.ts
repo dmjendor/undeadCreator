@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MonsterService } from 'shared/services/monster.service';
+import { UndeadService } from 'shared/services/undead.service';
 import { take } from 'rxjs/operators';
-import { Monster } from 'shared/models/monster';
+import { Undead } from 'shared/models/undead';
 import { SizeService } from 'shared/services/size.service';
 import { Size } from 'shared/models/size';
 import { UtilityService } from 'shared/services/utility.service';
@@ -13,13 +13,13 @@ import { Modifier } from 'shared/models/modifier';
 import { ModifierService } from 'shared/services/modifier.service';
 
 @Component({
-  selector: 'monster-form',
-  templateUrl: './monster-form.component.html',
-  styleUrls: ['./monster-form.component.css']
+  selector: 'app-undead-form',
+  templateUrl: './undead-form.component.html',
+  styleUrls: ['./undead-form.component.css']
 })
-export class MonsterFormComponent implements OnInit, OnDestroy {
+export class UndeadFormComponent implements OnInit, OnDestroy {
   categories$: Observable<any>;
-  monster = new Monster();
+  undead = new Undead();
   sizeSub: Subscription;
   sizes: Size[];
   weaponSub: Subscription;
@@ -37,13 +37,13 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
     private sizeService: SizeService,
     private weaponService: WeaponService,
     private utilityService: UtilityService,
-    private monsterService: MonsterService,
+    private undeadService: UndeadService,
     private modifierService: ModifierService
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.monsterService.get(this.id)
-      .valueChanges().pipe(take(1)).subscribe(p => this.monster = p as Monster);
+      this.undeadService.get(this.id)
+      .valueChanges().pipe(take(1)).subscribe(p => this.undead = p as Undead);
     }
   }
 
@@ -52,8 +52,8 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
   }
 
   updateHitDice() {
-    const selectedSize = this.sizes.find(x => x.key === this.monster.size);
-    this.monster.hit_dice_size = selectedSize.hit_dice_size;
+    const selectedSize = this.sizes.find(x => x.key === this.undead.size);
+    this.undead.hit_dice_size = selectedSize.hit_dice_size;
   }
 
   filterModsOfType(type) {
@@ -67,42 +67,42 @@ export class MonsterFormComponent implements OnInit, OnDestroy {
   }
 
   updateWeapon() {
-    if (!this.monster.actions.multiattack) {
-      this.monster.actions.secondary = null;
+    if (!this.undead.actions.multiattack) {
+      this.undead.actions.secondary = null;
     }
   }
 
   addSpecial() {
-    this.monster.special_abilities.push({name: this.specialName, description: this.specialDescription});
+    this.undead.special_abilities.push({name: this.specialName, description: this.specialDescription});
     this.specialDescription = null;
     this.specialName = null;
   }
 
-  save(monster) {
+  save(undead) {
     if (this.id) {
-      this.monsterService.update(this.id, this.monster);
+      this.undeadService.update(this.id, this.undead);
     } else {
-      this.monsterService.create(this.monster);
+      this.undeadService.create(this.undead);
     }
-    this.router.navigate(['/admin/monsters']);
+    this.router.navigate(['/admin/undeads']);
   }
 
   cancel() {
-    this.router.navigate(['/admin/monsters']);
+    this.router.navigate(['/admin/undeads']);
   }
 
   delete() {
-    if (confirm('Are you sure you wish to delete this monster?')) {
-      this.monsterService.remove(this.id);
-      this.router.navigate(['/admin/monsters']);
+    if (confirm('Are you sure you wish to delete this undead?')) {
+      this.undeadService.remove(this.id);
+      this.router.navigate(['/admin/undeads']);
     }
   }
 
   applyHover() {
-    if (this.monster.speed.hover) {
-      this.monster.cost++;
+    if (this.undead.speed.hover) {
+      this.undead.cost++;
     } else {
-      this.monster.cost--;
+      this.undead.cost--;
     }
   }
 

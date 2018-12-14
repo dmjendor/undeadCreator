@@ -117,7 +117,6 @@ export class MonsterCardComponent implements OnInit, OnChanges {
         dmg = weapon.huge;
         break;
     }
-    console.log(dmg);
     return dmg;
   }
 

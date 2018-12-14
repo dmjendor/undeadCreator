@@ -1,0 +1,532 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form #undeadForm="ngForm" (ngSubmit)="save(undeadForm.value)">
+        <div class="form-group row">
+          <div class="col-8">
+              <label for="name">Name</label>
+              <input
+                required
+                #name="ngModel"
+                [(ngModel)]="undead.name"
+                id="name"
+                name="name"
+                type="text"
+                class="form-control"
+              />
+              <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                Name is required. 
+              </div>
+          </div>
+          <div class="col-4">
+            <label for="active">Active</label>
+            <input
+              #name="ngModel"
+              [(ngModel)]="undead.active"
+              id="active"
+              name="active"
+              type="checkbox"
+              class="form-control">
+          </div>
+          
+        </div>
+        <hr />
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="alignment">Alignment</label>
+            <select
+              required
+              #alignment="ngModel"
+              [(ngModel)]="undead.alignment"
+              id="alignment"
+              name="alignment"
+              class="form-control"
+            >
+              <option value="">Select</option>
+              <option value="lawful_good">Lawful Good</option>
+              <option value="neutral_good">Neutral Good</option>
+              <option value="chaotic_good">Chaotic Good</option>
+              <option value="lawful_neutral">Lawful Neutral</option>
+              <option value="true_neutral">True Neutral</option>
+              <option value="chaotic_neutral">Chaotic Neutral</option>
+              <option value="lawful_evil">Lawful Evil</option>
+              <option value="neutral_evil">Neutral Evil</option>
+              <option value="chaotic_evil">Chaotic Evil</option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="alignment.touched && alignment.invalid"
+            >
+              Alignment is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="armor_class">Armor Class</label>
+            <input
+              required
+              #armor_class="ngModel"
+              [(ngModel)]="undead.armor_class"
+              id="armor_class"
+              name="armor_class"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="armor_class.touched && armor_class.invalid">
+              Armor Class is required.
+            </div>
+          </div>
+          <div class="col-4">
+              <label for="level">Req. Level</label>
+              <input
+                required
+                #level="ngModel"
+                [(ngModel)]="undead.level"
+                id="level"
+                name="level"
+                type="text"
+                class="form-control"
+              />
+              <div class="alert alert-danger" *ngIf="level.touched && level.invalid">
+                Level is required.
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="size">Size</label>
+            <select
+              required
+              #size="ngModel"
+              [(ngModel)]="undead.size"
+              id="size"
+              name="size"
+              class="form-control"
+              (change)="updateHitDice()"
+            >
+              <option value="">Select</option>
+              <option *ngFor="let s of sizes" [value]="s.key">{{toTitleCase(s.key)}}</option>
+            </select>
+            <div
+              class="alert alert-danger"
+              *ngIf="size.touched && size.invalid"
+            >
+              Size is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="hit_dice_qty">Hit Dice</label>
+            <input
+              required
+              #hit_dice_qty="ngModel"
+              [(ngModel)]="undead.hit_dice_qty"
+              id="hit_dice_qty"
+              name="hit_dice_qty"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="hit_dice_qty.touched && hit_dice_qty.invalid">
+              Hit Dice are required.
+            </div>
+          </div>
+          
+        </div>
+        <hr />
+
+        <div class="form-group row top-margin">
+          <div class="col-4">
+            <label for="strength">Strength</label>
+            <input
+              required
+              #strength="ngModel"
+              [(ngModel)]="undead.strength"
+              id="strength"
+              name="strength"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="strength.touched && strength.invalid">
+              Strength is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="dexterity">Dexterity</label>
+            <input
+              required
+              #dexterity="ngModel"
+              [(ngModel)]="undead.dexterity"
+              id="dexterity"
+              name="dexterity"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="dexterity.touched && dexterity.invalid">
+              is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="constitution">Constitution</label>
+            <input
+              required
+              #constitution="ngModel"
+              [(ngModel)]="undead.constitution"
+              id="constitution"
+              name="constitution"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="constitution.touched && constitution.invalid">
+              Constitution is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="intelligence">Intelligence</label>
+            <input
+              required
+              #intelligence="ngModel"
+              [(ngModel)]="undead.intelligence"
+              id="intelligence"
+              name="intelligence"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="intelligence.touched && intelligence.invalid">
+              Intelligence is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="wisdom">Wisdom</label>
+            <input
+              required
+              #wisdom="ngModel"
+              [(ngModel)]="undead.wisdom"
+              id="wisdom"
+              name="wisdom"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="wisdom.touched && wisdom.invalid">
+              Wisdom is required.
+            </div>
+          </div>
+          <div class="col-4">
+            <label for="charisma">Charisma</label>
+            <input
+              required
+              #charisma="ngModel"
+              [(ngModel)]="undead.charisma"
+              id="charisma"
+              name="charisma"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="charisma.touched && charisma.invalid">
+              Charisma is required.
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row form-group top-margin">
+          <div class="col-4">
+            <label for="prof">Proficiency</label>
+            <input
+              required
+              #prof="ngModel"
+              [(ngModel)]="undead.proficiency"
+              id="prof"
+              name="prof"
+              type="text"
+              class="form-control"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="prof.touched && prof.invalid"
+            >
+              Proficiency is required.
+            </div>
+          </div>
+          
+          <div class="col-4">
+            <label for="cost">Cost</label>
+            <input
+              required
+              #cost="ngModel"
+              [(ngModel)]="undead.cost"
+              id="cost"
+              name="cost"
+              type="number"
+              class="form-control"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="cost.touched && cost.invalid"
+            >
+              Cost is required.
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-12">
+              <ngb-accordion  [closeOthers]="true" #armor_classc="ngbAccordion">
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Skills</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row " *ngFor="let mod of filterModsOfType('skills')">
+                            <div class="col-12">
+                                <skill-edit
+                                [name]="mod.name"
+                                [(totalCost)]="undead.cost"
+                                [base]="0" 
+                                [(skill)]="undead[mod.type][mod.location]" 
+                                
+                              ></skill-edit>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>Saves</ng-template>
+                    <ng-template ngbPanelContent>
+                          <div class="row top-margin" *ngFor="let mod of filterModsOfType('ability')">
+                              <div class="col-2 text-right">
+                                  <input type="checkbox" ng-true-value="1" ng-false-value="0" class="form-check-input" [name]="mod.location"  [(ngModel)]="undead.saves[mod.location]" >
+                                </div>
+                                <div class="col-10">
+                                    <b>{{mod.name}}</b>
+                                </div>
+                          </div>
+                        
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                      <span>Movement</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row top-margin" *ngFor="let mod of filterModsOfType('speed')">
+                            <div class="col-5"><b>{{mod.name}}</b></div>
+                            <div class="col-5" *ngIf="mod.type==='speed'">
+                              <option-quantity
+                                [max]="90"
+                                [step]="5"
+                                [costval]="mod.cost" 
+                                [baseval]="0" 
+                                [(totalcost)]="undead.cost" 
+                                [(optval)]="undead[mod.type][mod.location]"
+                              ></option-quantity>
+                            </div>
+                            <div class="col-2">
+                                <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-2 text-right"> 
+                                <input [disabled]="undead.speed.fly===0" type="checkbox" class="form-check-input" name="hover"  [(ngModel)]="undead.speed.hover" (change)="applyHover()">
+                              </div>
+                              <div class="col-8">
+                                  <b>Hover</b>
+                              </div>
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> 1 </span>
+                              </div>
+                        </div>
+                    </ng-template>
+                      
+                  </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>Senses</ng-template>
+                    <ng-template ngbPanelContent>
+                        
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('senses')">
+                        <div class="col-5"><b>{{mod.name}}</b></div>
+                        <div class="col-5">
+                            <option-quantity
+                            [max]="90"
+                            [step]="5"
+                            [costval]="mod.cost" 
+                            [baseval]="0" 
+                            [(totalcost)]="undead.cost" 
+                            [(optval)]="undead[mod.type][mod.location]"
+                          ></option-quantity>
+                        </div>
+                        <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> {{mod.cost*5}} </span>
+                        </div>
+                          
+                      </div>
+                    </ng-template>
+                  </ngb-panel>
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>
+                          <span>Damage Modifiers</span>
+                      </ng-template>
+                      <ng-template ngbPanelContent>
+                          <div class="row" *ngFor="let mod of filterModsOfType('damage')">
+                              <div class="col-12">
+                                
+                                  <dnc-edit
+                                  [name]="mod.name"
+                                  [(totalCost)]="undead.cost"
+                                  [base]="undead.damage_modifiers[mod.location]" 
+                                  [(dnc)]="undead.damage_modifiers[mod.location]"
+                                ></dnc-edit>
+                              </div>
+                          </div>
+                      </ng-template>
+                    </ngb-panel>
+                  <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <span>Condition Modifiers</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="row" *ngFor="let mod of filterModsOfType('conditions')">
+                            <div class="col-12">
+                                <dnc-edit
+                                [name]="mod.name"
+                                [(totalCost)]="undead.cost"
+                                [base]="undead.condition_modifiers[mod.location]" 
+                                [(dnc)]="undead.condition_modifiers[mod.location]" 
+                              ></dnc-edit>
+                            </div>
+                        </div>
+                    </ng-template>
+                  </ngb-panel>
+                  
+                  <ngb-panel>
+                      <ng-template ngbPanelTitle>Actions</ng-template>
+                      <ng-template ngbPanelContent>
+                          
+                        <div class="row top-margin" >
+                          <div class="col-5"><b>Primary Attack</b></div>
+                          <div class="col-7">
+                            <select [(ngModel)]="undead.actions.primary" id="primary" name="primary" class="form-control">
+                              <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                            </select>                                
+                          </div>
+                        </div>
+                        <div class="row top-margin" >
+                            <div class="col-5"><b>Secondary Attack</b></div>
+                            <div class="col-7">
+                              <select [(ngModel)]="undead.actions.secondary" id="secondary" name="secondary" class="form-control">
+                                <option *ngFor="let weapon of weapons" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>                                
+                            </div>
+                          </div>
+                        <div class="row top-margin" >
+                          <div class="col-5"><b># of Attacks</b></div>
+                          <div class="col-5">
+                            <option-quantity
+                              [max]="4"
+                              [step]="1"
+                              [costval]="4" 
+                              [baseval]="1" 
+                              [(totalcost)]="undead.cost" 
+                              [(optval)]="undead.actions.attack_number"
+                          ></option-quantity>
+                          </div>
+                          <div class="col-2">
+                            <span class="cost badge badge-danger badge-pill"> 4 </span>
+                          </div>
+                        </div>
+                        <div class="row top-margin" >
+                            <div class="col-2 text-right">
+                              <input type="checkbox" class="form-check-input" ng-true-value="true" ng-false-value="false"  name="multiattack"  [(ngModel)]="undead.actions.multiattack" (change)="updateWeapon()">
+                            </div>
+                            <div class="col-8">
+                              <b>Multiattack</b>
+                            </div>
+                            <div class="col-2">
+                              <span class="cost badge badge-danger badge-pill"> 2 </span>
+                            </div>
+                          </div>
+                        <div class="row top-margin" *ngIf="undead.actions.multiattack" >
+                          <div class="col-5"><b>Offhand Attack</b></div>
+                          <div class="col-7"> 
+                              <select [(ngModel)]="undead.actions.offhand" id="offhand" name="offhand" class="form-control">
+                                <option *ngFor="let weapon of offHandWeapons()" [value]="weapon.key">{{weapon.name}}</option>
+                              </select>
+                          </div>
+                        </div>
+                        
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>Special</ng-template>
+                    <ng-template ngbPanelContent>
+                      <ngForm>
+                          <div class="form-group">
+                              <label for="specialName">Name</label>
+                              <input type="text" class="form-control" id="specialName" name="specialName" [(ngModel)]="specialName">
+                            </div>
+                            <div class="form-group">
+                              <label for="specialDescription">Password</label>
+                              <textarea class="form-control" id="specialDescription" name="specialDescription" [(ngModel)]="specialDescription"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" (click)="addSpecial()">Add</button> 
+                      </ngForm>
+                    </ng-template>
+                  </ngb-panel>
+              </ngb-accordion>
+          </div>
+        </div>
+          
+          
+        <!--
+          <div class="row form-group top-margin">
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="undead." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
+                </div>
+            </div>
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="undead." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
+                </div>
+            </div>
+            <div class="col-4">
+                <label for=""></label>
+                <input required #="ngModel" [(ngModel)]="undead." id="" name="" type="text" class="form-control">
+                <div class="alert alert-danger" *ngIf=".touched && .invalid">
+                  is required.
+                </div>
+            </div>
+          </div>
+        -->
+        <div class="row top-margin">
+          <div class="col-12">
+              <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+                  <button class="btn btn-primary w-100">
+                    Save
+                  </button>
+                  <button type="button" class="btn btn-primary w-100" (click)="cancel()">
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-danger w-100" (click)="delete()">
+                    Delete
+                  </button>
+              </div>
+          </div>
+          <div class="col-4"></div>
+          <div class="col-4">
+            
+          </div>
+          <div class="col-4">
+            
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-6">
+      <undead-card [undead]="undead" [edit]="false"></undead-card>
+    </div>
+  </div>
+</div>

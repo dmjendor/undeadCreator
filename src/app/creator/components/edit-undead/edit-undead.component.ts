@@ -39,6 +39,8 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
   currentSize: string;
   previousSize: string;
 
+  path = localStorage.getItem('returnUrl');
+
   constructor(
     private undeadService: UndeadService,
     private weaponService: WeaponService,
@@ -58,17 +60,25 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
           .pipe(take(1))
           .subscribe(p => {
             this.undead = p as Undead;
+            this.monsterService.get(this.undead.base)
+              .valueChanges()
+              .pipe(take(1))
+              .subscribe(q => {
+                this.baseMonster = q as Monster;
+                this.currentSize = this.undead.size;
+                this.previousSize = this.baseMonster.size;
+            });
         });
     }
   }
 
   saveUndead() {
     this.undeadService.update(this.undead.key, this.undead);
-    this.router.navigate(['/undead']);
+    this.router.navigate([this.path]);
   }
 
   cancelUndead() {
-    this.router.navigate(['/undead']);
+    this.router.navigate([this.path]);
   }
 
   updateMonster(mod: Modifier) {
@@ -104,7 +114,9 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
   }
 
   updateSize(mod) {
+    console.log(this.previousSize);
     const prevMod = this.modifiers.filter(i => i.name === this.previousSize)[0];
+    console.log(prevMod);
     const prevSize = this.sizes.filter(i => i.key === prevMod.name.toLowerCase())[0];
     const size = this.sizes.filter(i => i.key === mod.name.toLowerCase())[0];
     this.undead.cost -= prevMod.cost;

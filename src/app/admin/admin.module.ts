@@ -10,9 +10,10 @@ import { ManageUndeadComponent } from './components/manage-undead/manage-undead.
 import { AuthGuard } from 'shared/services/auth-guard.service';
 import { EditWeaponsComponent } from './components/edit-weapons/edit-weapons.component';
 import { WeaponFormComponent } from './components/weapon-form/weapon-form.component';
-import { SpellFormComponent } from './spell-form/spell-form.component';
-import { ManageSpellsComponent } from './manage-spells/manage-spells.component';
-import { UndeadFormComponent } from './undead-form/undead-form.component';
+import { SpellFormComponent } from './components/spell-form/spell-form.component';
+import { ManageSpellsComponent } from './components/manage-spells/manage-spells.component';
+import { UndeadFormComponent } from './components/undead-form/undead-form.component';
+import { EditUndeadComponent } from 'app/creator/components/edit-undead/edit-undead.component';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { UndeadFormComponent } from './undead-form/undead-form.component';
     },
     {
       path: 'admin/undead/:id',
-      component: UndeadFormComponent,
+      component: EditUndeadComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
     {
