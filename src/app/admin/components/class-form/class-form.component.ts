@@ -35,11 +35,11 @@ export class ClassFormComponent implements OnInit {
     return this.utilityService.toTitleCase(string);
   }
 
-  save() {
+  save(charClass) {
     if (this.id) {
-      this.classService.update(this.id, this.charClass);
+      this.classService.update(this.id, charClass);
     } else {
-      this.classService.create(this.charClass);
+      this.classService.create(charClass);
     }
     this.router.navigate(['/admin/classes']);
   }

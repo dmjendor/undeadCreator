@@ -35,15 +35,15 @@ export class SpellFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  toTitleCase(string) {
+  toTitleCase(string: String) {
     return this.utilityService.toTitleCase(string);
   }
 
-  save() {
+  save(spell: Spell) {
     if (this.id) {
-      this.spellService.update(this.id, this.spell);
+      this.spellService.update(this.id, spell);
     } else {
-      this.spellService.create(this.spell);
+      this.spellService.create(spell);
     }
     this.router.navigate(['/admin/spells']);
   }
