@@ -1,3 +1,31 @@
-<p>
-  manage-spells works!
-</p>
+<div class="row" *ngIf="spells">
+    <div class="col-6">
+      <ngx-datatable
+      class="bootstrap"
+      [rows]="spells"
+      [columns]="columns"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'>
+      >
+      <ngx-datatable-column name="Name"></ngx-datatable-column>
+      <ngx-datatable-column name="Level"></ngx-datatable-column>
+      <ngx-datatable-column name="Points"></ngx-datatable-column>
+      </ngx-datatable>
+      <div class="row">
+          <div class="col-12">
+            <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+              <button type="button" class="btn btn-secondary btn-primary w-100" (click)="createSpell()">New</button>
+              <button type="button" class="btn btn-secondary btn-info w-100" (click)="editSpell()">Edit</button>
+              <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteSpell()">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <spell-card [spell]="selectedSpell"></spell-card>
+        
+    </div>
+  </div>
+  

@@ -60,8 +60,8 @@
                     <span>Spells/Cost</span>
                   </ng-template>
                   <ng-template ngbPanelContent>
-                      <div class="row top-margin" [class.hidden]="spell.level>appUser.level" *ngFor="let spell of spells">
-                          <div class="col-7"><b>{{spell.name}}</b></div>
+                      <div class="row top-margin" [class.hidden]="levelCheck(spell)" *ngFor="let spell of spells">
+                          <div class="col-5"><b>{{spell.name}}</b></div>
                           <div class="col-5">
                             <spell-quantity 
                               [baseval]="0" 
@@ -69,8 +69,13 @@
                               [necromancer]="appUser.necromancer"                          
                               [pointval]="spell.points" 
                               [npointval]="spell.npoints"
-                              [(optval)]="selectedSpells[spell.key].count"
-                            ></spell-quantity>
+                              [(optval)]="selectedSpells[spell.key].count">
+                            </spell-quantity>
+                          </div>
+                          <div class="col-2">
+                              <div class="col-2">
+                                  <span class="cost badge badge-danger badge-pill"> {{spellPoints(spell)}} </span>
+                              </div>
                           </div>
                     </div>
                   </ng-template>

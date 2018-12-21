@@ -9,22 +9,22 @@ import { EventEmitter } from '@angular/core';
 export class SpellQuantityComponent {
   @Output('optvalChange') emitter1: EventEmitter<number> = new EventEmitter<number>();
   @Output('totalcostChange') emitter2: EventEmitter<number> = new EventEmitter<number>();
-  @Input('baseval') set setBaseVal(value) {
+  @Input('baseval') set setBaseVal(value: number) {
     this.base = value;
   }
-  @Input('optval') set setOptValue(value) {
+  @Input('optval') set setOptValue(value: number) {
     this.count = value;
   }
-  @Input('pointval') set setPointValue(value) {
+  @Input('pointval') set setPointValue(value: number) {
       this.points = value;
   }
-  @Input('npointval') set setNpointValue(value) {
+  @Input('npointval') set setNpointValue(value: number) {
       this.npoints = value;
   }
-  @Input('totalcost') set setTotalCostValue(value) {
+  @Input('totalcost') set setTotalCostValue(value: number) {
     this.totalcost = value;
   }
-  @Input('necromancer') set setNecromancerValue(value) {
+  @Input('necromancer') set setNecromancerValue(value: boolean) {
     this.necromancer = value;
   }
 
@@ -37,7 +37,8 @@ export class SpellQuantityComponent {
 
   increment() {
     this.count++;
-    this.totalcost -= this.necromancer ? this.npoints : this.points;
+    this.totalcost -= this.necromancer ? (this.points + this.npoints) : this.points;
+    console.log(this.necromancer, this.points, this.npoints, this.totalcost);
     this.emitter1.emit(this.count);
     this.emitter2.emit(this.totalcost);
   }
@@ -45,7 +46,8 @@ export class SpellQuantityComponent {
   decrement() {
     if (this.count > this.base) {
       this.count--;
-      this.totalcost += this.necromancer ? this.npoints : this.points;
+      this.totalcost += this.necromancer ? (this.points + this.npoints) : this.points;
+      console.log(this.necromancer, this.points, this.npoints, this.totalcost);
       this.emitter1.emit(this.count);
       this.emitter2.emit(this.totalcost);
     }

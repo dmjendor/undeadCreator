@@ -71,6 +71,13 @@ h1, h2, h3 {
   padding: 0.25rem 0;
 }
 
+.ngx-datatable.scroll-vertical {
+  height: 70vh;
+}
+.ngx-datatable .datatable-body {
+  max-height: 70vh !important;
+  overflow: auto !important;
+}
 .card-header {
   background-color: $primary-color;
 }

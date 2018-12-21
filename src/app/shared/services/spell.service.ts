@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Spell } from 'shared/models/spell';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,20 @@ export class SpellService {
 
   get(spellId) {
     return this.db.object('/spells/' + spellId);
+  }
+
+  getUndeadSpells() {
+    return this.db.list('/spells',
+      ref => ref.orderByChild('points')
+      .startAt(0.5))
+      .snapshotChanges()
+      .pipe(map(items => {            // <== new way of chaining
+        return items.map(a => {
+          const data = a.payload.val() as Spell;
+          const key = a.payload.key;
+          data.key  = key;
+          return data;
+        });
+      }));
   }
 }

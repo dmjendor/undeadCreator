@@ -1,0 +1,55 @@
+<div *ngIf="spell.name" class="card">
+    <div class="card-header bg-primary">
+        <div class="row">
+            <div class="col-7">
+              <h4>
+                  <span *ngIf="!edit">{{ spell.name }}</span> 
+                  <input *ngIf="edit" class="form-control" [(ngModel)]="spell.name" id="spellname" name="spellname" />
+              </h4>
+            </div>
+            <div class="col-5 text-right">
+                <h4>
+                    Level
+                    <span class="cost badge badge-danger badge-pill">
+                        {{ spell.level | number:'1.0-0' }}
+                    </span>
+                </h4>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row" *ngIf="spell.class && spell.class.length>0">
+            <div class="col-12">
+                <label>Class:&nbsp;</label>
+                <span *ngFor="let cls of spell.class; let isLast=last">
+                    {{ classMatch(cls) }}
+                    {{isLast ? '' : ', '}}
+                </span>                   
+            </div>
+        </div>
+        <div class="row" *ngIf="spell.points">
+            <div class="col-12">
+              <label>Points:&nbsp;</label> {{spell.points | number: '1.0-2' }}, 
+              <label>Necro:&nbsp;</label> {{spell.npoints | number: '1.0-2' }}
+            </div>
+        </div>
+        <div class="row" *ngIf="spell.location">
+          <div class="col-12"><label>Page:&nbsp;</label> {{spell.location }}</div>
+        </div>
+        <div class="row" *ngIf="spell.description">
+          <div class="col-12"><label>Description</label><p>{{spell.description }}</p></div>
+        </div>
+    </div>
+    
+    <div class="card-footer">
+        <!-- <button 
+            *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"
+            (click)="addToCart()"
+            class="btn btn-primary btn-block" >
+            Add to Cart
+        </button> -->
+        <!-- <ng-template #updateQuantity>
+            <product-quantity [product]="product" [shoppingCart]="shoppingCart"></product-quantity>
+        </ng-template> -->
+    </div>
+</div>    

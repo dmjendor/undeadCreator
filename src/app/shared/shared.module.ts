@@ -22,6 +22,7 @@ import { WeaponCardComponent } from './components/weapon-card/weapon-card.compon
 import { SkillEditComponent } from './components/skill-edit/skill-edit.component';
 import { SkillDisplayComponent } from './components/skill-display/skill-display.component';
 import { DnCEditComponent } from './components/dnc-edit/dnc-edit.component';
+import { SpellCardComponent } from './components/spell-card/spell-card.component';
 
 
 @NgModule({
@@ -42,11 +43,13 @@ import { DnCEditComponent } from './components/dnc-edit/dnc-edit.component';
     WeaponCardComponent,
     SkillEditComponent,
     SkillDisplayComponent,
-    DnCEditComponent
+    DnCEditComponent,
+    SpellCardComponent
   ],
   exports: [
     MonsterCardComponent,
     UndeadCardComponent,
+    SpellCardComponent,
     WeaponCardComponent,
     SkillEditComponent,
     DnCEditComponent,

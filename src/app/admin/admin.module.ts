@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ManageMonstersComponent } from './components/manage-monsters/manage-monsters.component';
 import { SharedModule } from 'shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { MonsterFormComponent } from './components/monster-form/monster-form.component';
 import { ManageUndeadComponent } from './components/manage-undead/manage-undead.component';
@@ -14,6 +13,8 @@ import { SpellFormComponent } from './components/spell-form/spell-form.component
 import { ManageSpellsComponent } from './components/manage-spells/manage-spells.component';
 import { UndeadFormComponent } from './components/undead-form/undead-form.component';
 import { EditUndeadComponent } from 'app/creator/components/edit-undead/edit-undead.component';
+import { ManageClassesComponent } from './components/manage-classes/manage-classes.component';
+import { ClassFormComponent } from './components/class-form/class-form.component';
 
 
 @NgModule({
@@ -75,6 +76,21 @@ import { EditUndeadComponent } from 'app/creator/components/edit-undead/edit-und
       component: ManageSpellsComponent,
       canActivate: [AuthGuard, AdminAuthGuard]
     },
+    {
+      path: 'admin/classes/new',
+      component: ClassFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/classes/:id',
+      component: ClassFormComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
+    {
+      path: 'admin/classes',
+      component: ManageClassesComponent,
+      canActivate: [AuthGuard, AdminAuthGuard]
+    },
     ])
   ],
   declarations: [
@@ -86,6 +102,8 @@ import { EditUndeadComponent } from 'app/creator/components/edit-undead/edit-und
     SpellFormComponent,
     ManageSpellsComponent,
     UndeadFormComponent,
+    ManageClassesComponent,
+    ClassFormComponent,
   ],
   providers: [
     AdminAuthGuard

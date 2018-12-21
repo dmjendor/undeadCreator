@@ -26,7 +26,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
   selectedUndead: Undead;
 
   spells: Spell[];
-  selectedSpells: SelectedSpell[];
+  selectedSpells: SelectedSpell[] = [];
   spellSub: Subscription;
 
   userId: string;
@@ -81,15 +81,30 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
       }
     }
 
+    spellPoints(spell) {
+      let points = spell.points;
+      if (this.appUser.necromancer) {
+        points += spell.npoints;
+      }
+      return points;
+    }
+
+    levelCheck(spell) {
+      return ((spell.level * 2) - 1) >= this.appUser.level;
+    }
+
     async ngOnInit() {
 
 
-      this.spellSub = this.spellService.getAll()
+      this.spellSub = this.spellService.getUndeadSpells()
       .subscribe(spells => {
         this.spells = spells;
-        this.selectedSpells = [];
+        console.log(this.spells);
         for (let i = 0; i < this.spells.length; i++) {
-          this.selectedSpells.push({key: this.spells[i].key, points: this.spells[i].points, count: 0});
+
+          if (this.spells[i].points > 0) {
+            this.selectedSpells.push({key: this.spells[i].key, points: this.spells[i].points, count: 0});
+          }
         }
       });
       this.userSubscription = this.authService.user$.subscribe(user => {

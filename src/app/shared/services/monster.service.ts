@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Monster } from 'shared/models/monster';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,15 @@ export class MonsterService {
     .snapshotChanges();
    }
 
-  create(creature) {
+  create(creature: Monster) {
     return this.db.list('/creatures').push(creature);
   }
 
-  update(creatureId, creature) {
+  update(creatureId: string, creature: Monster) {
     return this.db.object('/creatures/' + creatureId).update(creature);
   }
 
-  remove(creatureId) {
+  remove(creatureId: string) {
     return this.db.object('/creatures/' + creatureId).remove();
   }
 
@@ -32,7 +33,7 @@ export class MonsterService {
     }));
   }
 
-  get(productID) {
-    return this.db.object('/creatures/' + productID);
+  get(creatureID: string) {
+    return this.db.object('/creatures/' + creatureID);
   }
 }

@@ -1,0 +1,34 @@
+<div class="row" *ngIf="classes">
+    <div class="col-6">
+      <ngx-datatable
+      class="bootstrap"
+      [rows]="classes"
+      [columns]="columns"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'>
+      >
+      <ngx-datatable-column name="Name"></ngx-datatable-column>
+      <ngx-datatable-column name="Active" [width]="60" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+          <ng-template ngx-datatable-cell-template let-value="value" let-isSelected="isSelected">
+            <input type="checkbox" [checked]="value" disabled="disabled" />
+          </ng-template>
+      </ngx-datatable-column>
+      </ngx-datatable>
+      <div class="row">
+          <div class="col-12">
+            <div class="btn-group btn-group-lg d-flex" role="group" aria-label="..."> 
+              <button type="button" class="btn btn-secondary btn-primary w-100" (click)="createCharacterClass()">New</button>
+              <button type="button" class="btn btn-secondary btn-info w-100" (click)="editCharacterClass()">Edit</button>
+              <button type="button" class="btn btn-secondary btn-danger w-100" (click)="deleteCharacterClass()">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-6">
+        
+        
+    </div>
+  </div>
+  

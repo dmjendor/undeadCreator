@@ -8,21 +8,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent  {
-
+  user = {
+    email: '',
+    password: ''
+  };
   constructor(
     private authService: AuthService,
     private router: Router
     ) { }
 
-  login() {
-    this.authService.login();
+  signInWithFacebook() {
+    this.authService.login('facebook');
   }
 
-  signInWithFacebook() {
-    this.authService.signInWithFacebook()
-    .then((res) => {
-        this.router.navigate(['/undead']);
-      })
-    .catch((err) => console.log(err));
+  signInWithGoogle() {
+    this.authService.login('google');
+  }
+
+  signInWithTwitter() {
+    this.authService.login('twitter');
+  }
+
+  signInWithGithub() {
+    this.authService.login('github');
+  }
+
+  signInWithEmail() {
+    this.authService.signInRegular(this.user.email, this.user.password);
   }
 }
