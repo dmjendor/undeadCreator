@@ -30,11 +30,7 @@ export class UserService {
   }
 
   saveChanges(user: AppUser, userId) {
-    this.db.object('/users/' + userId).update({
-      level: user.level,
-      summoner: user.summoner,
-      necromancer: user.necromancer
-    });
+    this.db.object('/users/' + userId).update(user);
   }
 
   get(uid: string): AngularFireObject<AppUser> {

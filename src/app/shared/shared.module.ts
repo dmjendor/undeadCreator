@@ -23,6 +23,7 @@ import { SkillEditComponent } from './components/skill-edit/skill-edit.component
 import { SkillDisplayComponent } from './components/skill-display/skill-display.component';
 import { DnCEditComponent } from './components/dnc-edit/dnc-edit.component';
 import { SpellCardComponent } from './components/spell-card/spell-card.component';
+import { SanitizerPipe } from './pipes/sanitizer.pipe';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SpellCardComponent } from './components/spell-card/spell-card.component
     SkillEditComponent,
     SkillDisplayComponent,
     DnCEditComponent,
-    SpellCardComponent
+    SpellCardComponent,
+    SanitizerPipe
   ],
   exports: [
     MonsterCardComponent,
@@ -58,6 +60,7 @@ import { SpellCardComponent } from './components/spell-card/spell-card.component
     SpellQuantityComponent,
     CommonModule,
     FormsModule,
+    SanitizerPipe,
     CustomFormsModule,
     NgxDatatableModule,
     AngularFireDatabaseModule,

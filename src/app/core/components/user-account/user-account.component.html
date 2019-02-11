@@ -13,6 +13,15 @@
         </div>
       </div>
       <div class="row top-margin">
+        <div class="col-4"><b>Theme</b></div>
+        <div class="col-8">
+          <select class="form-control" name="theme" [(ngModel)]="appUser.theme" (change)="themePreview()">
+            <option *ngFor="let theme of themeList" [value]="theme.key">{{theme.name}}</option>
+          </select>
+        </div>
+      </div>
+      <hr />
+      <div class="row top-margin">
           <div class="col-4"><b>Level:</b></div>
           <div class="col-8">
               <option-quantity

@@ -15,6 +15,7 @@ import { Monster } from 'shared/models/monster';
 import { Weapon } from 'shared/models/weapon';
 import { WeaponService } from 'shared/services/weapons.service';
 import { Router } from '@angular/router';
+import { ThemeService } from 'shared/services/theme.service';
 
 @Component({
   selector: 'create-undead',
@@ -46,15 +47,19 @@ export class CreateUndeadComponent  implements OnInit, OnDestroy {
     private monsterService: MonsterService,
     private modifierService: ModifierService,
     private filtersService: FiltersService,
+    private themeService: ThemeService,
     private sizeService: SizeService,
-    private auth: AuthService,
+    private authService: AuthService,
     private router: Router
     ) {
 
   }
 
   async ngOnInit() {
-    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    this.authService.appUser$.subscribe(appUser => {
+      this.appUser = appUser;
+      this.themeService.setCurrentTheme(this.appUser.theme);
+    });
 
     this.monsterSub = this.monsterService.getAll()
     .subscribe(monsters => {

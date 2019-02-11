@@ -8,6 +8,7 @@ import { Spell } from 'shared/models/spell';
 import { AuthService } from 'shared/services/auth.service';
 import { AppUser } from 'shared/models/app-user';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ThemeService } from 'shared/services/theme.service';
 
 @Component({
   selector: 'user-undead',
@@ -40,6 +41,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
 
     constructor(
       private undeadService: UndeadService,
+      private themeService: ThemeService,
       private spellService: SpellService,
       private authService: AuthService,
       private router: Router
@@ -94,12 +96,9 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit() {
-
-
       this.spellSub = this.spellService.getUndeadSpells()
       .subscribe(spells => {
         this.spells = spells;
-        console.log(this.spells);
         for (let i = 0; i < this.spells.length; i++) {
 
           if (this.spells[i].points > 0) {
@@ -117,7 +116,10 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
         });
       });
 
-      this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
+      this.authService.appUser$.subscribe(appUser => {
+        this.appUser = appUser;
+        this.themeService.setCurrentTheme(this.appUser.theme);
+      });
     }
 
     ngOnDestroy() {

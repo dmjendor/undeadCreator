@@ -16,6 +16,7 @@ import { Weapon } from 'shared/models/weapon';
 import { WeaponService } from 'shared/services/weapons.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { ThemeService } from 'shared/services/theme.service';
 
 @Component({
   selector: 'edit-undead',
@@ -38,12 +39,13 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
 
   currentSize: string;
   previousSize: string;
-
+  appUser: AppUser;
   path = localStorage.getItem('returnUrl');
 
   constructor(
     private undeadService: UndeadService,
     private weaponService: WeaponService,
+    private themeService: ThemeService,
     private monsterService: MonsterService,
     private modifierService: ModifierService,
     private filtersService: FiltersService,
@@ -114,9 +116,7 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
   }
 
   updateSize(mod) {
-    console.log(this.previousSize);
-    const prevMod = this.modifiers.filter(i => i.name === this.previousSize)[0];
-    console.log(prevMod);
+    const prevMod = this.modifiers.filter(i => i.name.toLowerCase() === this.previousSize.toLowerCase())[0];
     const prevSize = this.sizes.filter(i => i.key === prevMod.name.toLowerCase())[0];
     const size = this.sizes.filter(i => i.key === mod.name.toLowerCase())[0];
     this.undead.cost -= prevMod.cost;
@@ -178,6 +178,11 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
     this.sizeSub = this.sizeService.getAll()
     .subscribe(sizes => {
       this.sizes = sizes;
+    });
+
+    this.authService.appUser$.subscribe(appUser => {
+      this.appUser = appUser;
+      this.themeService.setCurrentTheme(this.appUser.theme);
     });
   }
 

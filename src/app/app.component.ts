@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'shared/services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'shared/services/user.service';
+import { ThemeService } from 'shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent {
 
   constructor(
     private userService: UserService,
+    public themeService: ThemeService,
     private auth: AuthService,
     private router: Router) {
       auth.user$.subscribe(user => {
