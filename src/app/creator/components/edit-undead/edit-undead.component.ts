@@ -1,22 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MonsterService } from 'shared/services/monster.service';
-import { Undead } from 'shared/models/undead';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
-import { Modifier } from 'shared/models/modifier';
-import { ModifierService } from 'shared/services/modifier.service';
-import { FiltersService } from 'shared/services/filters.service';
-import { SizeService } from 'shared/services/size.service';
-import { Size } from 'shared/models/size';
-import { AuthService } from 'shared/services/auth.service';
-import { AppUser } from 'shared/models/app-user';
-import { UndeadService } from 'shared/services/undead.service';
-import { Monster } from 'shared/models/monster';
-import { Weapon } from 'shared/models/weapon';
-import { WeaponService } from 'shared/services/weapons.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { AppUser } from 'shared/models/app-user';
+import { Modifier } from 'shared/models/modifier';
+import { Monster } from 'shared/models/monster';
+import { Size } from 'shared/models/size';
+import { Undead } from 'shared/models/undead';
+import { Weapon } from 'shared/models/weapon';
+import { AuthService } from 'shared/services/auth.service';
+import { FiltersService } from 'shared/services/filters.service';
+import { ModifierService } from 'shared/services/modifier.service';
+import { MonsterService } from 'shared/services/monster.service';
+import { SizeService } from 'shared/services/size.service';
 import { ThemeService } from 'shared/services/theme.service';
+import { UndeadService } from 'shared/services/undead.service';
+import { WeaponService } from 'shared/services/weapons.service';
+
 
 @Component({
   selector: 'edit-undead',
@@ -75,7 +75,7 @@ export class EditUndeadComponent implements OnInit, OnDestroy {
   }
 
   saveUndead() {
-    this.undeadService.update(this.undead.key, this.undead);
+    this.undeadService.update(this.id, this.undead);
     this.router.navigate([this.path]);
   }
 
