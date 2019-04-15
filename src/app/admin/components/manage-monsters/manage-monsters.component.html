@@ -1,5 +1,5 @@
 <div class="row" *ngIf="monsters">
-  <div class="col-6">
+  <div class="col-12 col-md-6">
     <ngx-datatable
     class="bootstrap"
     [rows]="monsters"
@@ -28,7 +28,7 @@
         </div>
       </div>
   </div>
-  <div class="col-6">
+  <div class="col-12 col-md-6">
       <monster-card [monster]="selectedMonster"></monster-card>   
   </div>
 </div>

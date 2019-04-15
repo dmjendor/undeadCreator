@@ -1,5 +1,5 @@
 <div class="row" *ngIf="weapons">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <ngx-datatable
         class="bootstrap"
         [rows]="weapons"
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-12 col-md-6">
         <weapon-card [weapon]="selectedWeapon"></weapon-card>
     </div>
   </div>

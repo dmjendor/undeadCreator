@@ -32,7 +32,7 @@
                         <span>Size</span>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                      <div class="row top-margin" [class.hidden]="mod.type!=='size'" *ngFor="let mod of modifiers">
+                      <div class="row top-margin" *ngFor="let mod of filterModsOfType('size')">
                           <ng-container>
                               <div class="col-2 text-right">
                                 <input type="radio" class="form-check-input" [value]="mod.name"  name="size"  [(ngModel)]="currentSize" (change)="updateSize(mod)" >
