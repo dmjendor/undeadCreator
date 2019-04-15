@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <div class="row" *ngIf="undead && modifiers">
           <div class="col-12">
             <ngb-accordion  [closeOthers]="true" #acc="ngbAccordion">
@@ -257,7 +257,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <monster-card *ngIf="undead" [edit]="true" [monster]="undead"></monster-card>
       </div>
     </div>
