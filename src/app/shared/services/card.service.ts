@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AppUser } from 'shared/models/app-user';
+
 import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +32,12 @@ export class CardService implements OnInit {
 
   public calculated_attack = function(stat, creature) {
     const retVal = parseInt(this.modifier(stat), 10) + parseInt(creature.proficiency, 10);
-    return retVal > 0 ? '+' + retVal : retVal;
+    return retVal >= 0 ? '+' + retVal : retVal;
   };
 
   public modifier = function(stat: number) {
     const modifier = Math.floor((stat - 10) / 2);
-    const retVal = modifier > 0 ? '+' + modifier : modifier;
+    const retVal = modifier >= 0 ? '+' + modifier : modifier;
     return retVal;
   };
 

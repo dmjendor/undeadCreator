@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
-import { Monster } from 'shared/models/monster';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { AppUser } from 'shared/models/app-user';
+import { Monster } from 'shared/models/monster';
+import { Weapon } from 'shared/models/weapon';
 import { AuthService } from 'shared/services/auth.service';
 import { CardService } from 'shared/services/card.service';
 import { UtilityService } from 'shared/services/utility.service';
-import { utils } from 'protractor';
-import { Weapon } from 'shared/models/weapon';
 import { WeaponService } from 'shared/services/weapons.service';
-import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -99,8 +98,7 @@ export class MonsterCardComponent implements OnInit, OnChanges {
 
   weaponDamage(weapon) {
     let dmg = '';
-    console.log(this.monster.size);
-    switch (this.monster.size) {
+    switch (this.monster.size.toLowerCase()) {
       case 'tiny':
         dmg = weapon.tiny;
         break;
