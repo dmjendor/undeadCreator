@@ -154,7 +154,7 @@
         <div class="row" *ngIf="monster.senses">
             <div class="col-4 bold">Senses</div>
             <div class="col-8">
-                    Passive Perception {{ monster.skills.perception+modifier(monster.wisdom)+10 }},
+                    Passive Perception {{ passivePerception() }},
                     <span class="senses" *ngFor="let sense of monsterKeys(monster.senses); let isLast=last">
                         <span *ngIf="monster.senses[sense]>0">{{toTitleCase(sense)}} {{monster.senses[sense]}}ft{{isLast ? '' : ', '}}</span>
                     </span>

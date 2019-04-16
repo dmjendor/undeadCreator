@@ -36,6 +36,10 @@ export class MonsterCardComponent implements OnInit, OnChanges {
     return this.utilityService.toTitleCase(text);
   };
 
+  passivePerception = function() {
+    return parseInt(this.monster.skills.perception, 10) + parseInt(this.modifier(this.monster.wisdom), 10) + 10;
+  };
+
   calculated_hit_points = function() {
     return this.card.calculated_hit_points(this.monster);
   };
