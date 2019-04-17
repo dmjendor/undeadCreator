@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Undead } from 'shared/models/undead';
-import { UndeadService } from 'shared/services/undead.service';
-import { SpellService } from 'shared/services/spell.service';
+import { AppUser } from 'shared/models/app-user';
 import { SelectedSpell } from 'shared/models/selected-spell';
 import { Spell } from 'shared/models/spell';
+import { Undead } from 'shared/models/undead';
 import { AuthService } from 'shared/services/auth.service';
-import { AppUser } from 'shared/models/app-user';
-import { Router, ActivatedRoute } from '@angular/router';
+import { SpellService } from 'shared/services/spell.service';
 import { ThemeService } from 'shared/services/theme.service';
+import { UndeadService } from 'shared/services/undead.service';
 
 @Component({
   selector: 'user-undead',
@@ -27,6 +27,7 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
   selectedUndead: Undead;
 
   spells: Spell[];
+  necroSpells: Spell[] =  [];
   selectedSpells: SelectedSpell[] = [];
   spellSub: Subscription;
 
@@ -92,7 +93,10 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
     }
 
     levelCheck(spell) {
-      return ((spell.level * 2) - 1) >= this.appUser.level;
+      const spellReqLevel = ((spell.level * 2) - 1);
+      const casterLevel = this.appUser.level * 1;
+      console.log(casterLevel, spellReqLevel, spellReqLevel >= casterLevel);
+      return spellReqLevel >= casterLevel;
     }
 
     async ngOnInit() {
@@ -100,8 +104,10 @@ export class UserUndeadComponent implements OnInit, OnDestroy {
       .subscribe(spells => {
         this.spells = spells;
         for (let i = 0; i < this.spells.length; i++) {
-
           if (this.spells[i].points > 0) {
+            if (!this.levelCheck(this.spells[i])) {
+              this.necroSpells.push(this.spells[i]);
+            }
             this.selectedSpells.push({key: this.spells[i].key, points: this.spells[i].points, count: 0});
           }
         }

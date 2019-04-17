@@ -60,7 +60,7 @@
                     <span>Spells/Cost</span>
                   </ng-template>
                   <ng-template ngbPanelContent>
-                      <div class="row top-margin" [class.hidden]="levelCheck(spell)" *ngFor="let spell of spells">
+                      <div class="row top-margin" *ngFor="let spell of necroSpells">
                           <div class="col-5"><b>{{spell.name}}</b></div>
                           <div class="col-5">
                             <spell-quantity 
